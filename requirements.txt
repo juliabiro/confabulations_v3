@@ -1,5 +1,5 @@
 Django
-psycopg
+psycopg2
 enum34
 gunicorn-19.7.1
 dj-database-url
