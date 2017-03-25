@@ -1,6 +1,6 @@
 Django
 psycopg2
 enum34
-gunicorn-19.7.1
+gunicorn
 dj-database-url
 whitenoise
