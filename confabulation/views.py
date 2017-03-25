@@ -9,7 +9,7 @@ def index(request):
         return HttpResponse("Hello, World! This is Bozsis TOP SECRET confabulations site")
 
     else:
-        return defaultcontent()
+        return defaultcontent(request)
 
 def defaultcontent(request):
         return HttpResponse("Hello, World! This is Bozsis confabulation site")
