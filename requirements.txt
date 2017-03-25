@@ -1,3 +1,6 @@
- Django
- psycopg2
- enum34
+Django
+psycopg
+enum34
+gunicorn-19.7.1
+dj-database-url
+whitenoise
