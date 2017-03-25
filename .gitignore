@@ -1,2 +1,4 @@
 dbbackend/static/*
 *.pyc
+
+*/*.pyc
