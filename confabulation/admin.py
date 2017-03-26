@@ -14,9 +14,9 @@ class PhotoInline(admin.StackedInline):
 class TransscriptionInline(admin.StackedInline):
     model=Transscription
     extra = 1
-class AnalysisTypeInline(admin.StackedInline):
-    model=AnalysisType
-    extra = 1
+class AnalysisPointInline(admin.StackedInline):
+    model=AnalysisPoint
+    extra = 4
 
 class ThemeInline(admin.StackedInline):
     model = Theme
@@ -35,15 +35,18 @@ class RecordingAdmin(admin.ModelAdmin):
     inlines = [TransscriptionInline]
     list_display =['name', 'date']
 
+class AnalysisTypeAdmin(admin.ModelAdmin):
+    inlines = [AnalysisPointInline]
+    list_display = ['name']
+
 class AnalysisPointAdmin(admin.ModelAdmin):
-    inlines = [AnalysisTypeInline]
     list_display = ['name', 'color_code']
 
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Recording, RecordingAdmin)
 admin.site.register(Transscription)
 admin.site.register(Photo)
-admin.site.register(AnalysisPoint)
+admin.site.register(AnalysisPoint, AnalysisPointAdmin)
 admin.site.register(AnalysisType)
 admin.site.register(Story, StoryAdmin)
 admin.site.register(Theme)

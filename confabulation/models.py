@@ -50,7 +50,7 @@ class Story(models.Model):
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.FilePathField(null=True, blank=True)
-    analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
+    analysis = models.ManyToManyField('AnalysisPoint')
     #todo connections
 
 
@@ -59,15 +59,14 @@ class Story(models.Model):
 
 class AnalysisType(models.Model):
     name = models.CharField(max_length = 50)
-    description = models.CharField(max_length = 2000)
+    description = models.CharField(max_length = 2000, null=True, blank=True)
 
 
 class AnalysisPoint(models.Model):
+    name = models.CharField(max_length = 50)
     analysis_type = models.ForeignKey('AnalysisType')
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
-
-
 
 ## connection types
 class ConnectionRange(ChoiceEnum):
