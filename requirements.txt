@@ -5,3 +5,4 @@ gunicorn
 dj-database-url
 whitenoise
 django-colorful
+pillow
