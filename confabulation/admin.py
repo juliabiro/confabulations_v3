@@ -25,6 +25,14 @@ class ThemeInline(admin.StackedInline):
 class RecordingInline(admin.StackedInline):
     model = Recording
 
+class StoryInThemeInline(admin.StackedInline):
+    model=StoryInTheme
+    extra = 0
+
+class ThemeInChainInline(admin.StackedInline):
+    model = ThemeInChain
+    extra = 0
+
 class ParticipantAdmin(admin.ModelAdmin):
     list_display=['name']
 
@@ -42,6 +50,14 @@ class AnalysisTypeAdmin(admin.ModelAdmin):
 class AnalysisPointAdmin(admin.ModelAdmin):
     list_display = ['name', 'color_code']
 
+class ThemeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    inlines=[StoryInThemeInline]
+
+class ChainAdmin(admin.ModelAdmin):
+    list_display=['name']
+    inlines=[ThemeInChainInline]
+
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Recording, RecordingAdmin)
 admin.site.register(Transscription)
@@ -49,6 +65,6 @@ admin.site.register(Photo)
 admin.site.register(AnalysisPoint, AnalysisPointAdmin)
 admin.site.register(AnalysisType, AnalysisTypeAdmin)
 admin.site.register(Story, StoryAdmin)
-admin.site.register(Theme)
-admin.site.register(Chain)
+admin.site.register(Theme, ThemeAdmin)
+admin.site.register(Chain, ChainAdmin)
 

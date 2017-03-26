@@ -84,6 +84,8 @@ class StoryInTheme(models.Model):
     theme = models.ForeignKey('Theme')
 
 class Theme(models.Model):
+    name = models.CharField(max_length = 50)
+    description = models.CharField(max_length = 2000, null=True, blank=True)
     stories = models.ManyToManyField('Story', through=StoryInTheme)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
@@ -93,6 +95,8 @@ class ThemeInChain(models.Model):
     chain = models.ForeignKey('Chain')
 
 class Chain(models.Model):
+    name = models.CharField(max_length = 50)
+    description = models.CharField(max_length = 2000, null=True, blank=True)
     themes = models.ManyToManyField('Theme', through=ThemeInChain)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
