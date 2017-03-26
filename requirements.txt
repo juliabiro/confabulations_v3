@@ -4,3 +4,4 @@ enum34
 gunicorn
 dj-database-url
 whitenoise
+django-colorful

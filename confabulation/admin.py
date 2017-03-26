@@ -4,7 +4,5 @@ from models import *
 
 admin.site.register(Participant)
 admin.site.register(Recording)
-admin.site.register(Photo)
 admin.site.register(Story)
-admin.site.register(Theme)
-admin.site.register(Subject)
+admin.site.register(AnalysisPoint)

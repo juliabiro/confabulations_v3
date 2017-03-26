@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^confabulation/', include('confabulation.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', include('confabulation.urls')),
+    url(r'^', include('confabulation.urls')),
 ]
