@@ -25,6 +25,10 @@ class ThemeInline(admin.StackedInline):
 class RecordingInline(admin.StackedInline):
     model = Recording
 
+class StoryConnectionInline(admin.StackedInline):
+    model = StoryToStoryConnection
+    fk_name ='story1'
+    extra = 0
 class StoryInThemeInline(admin.StackedInline):
     model=StoryInTheme
     extra = 0
@@ -37,6 +41,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_display=['name']
 
 class StoryAdmin(admin.ModelAdmin):
+    inlines = [StoryConnectionInline]
     list_display =['name' ]
 
 class RecordingAdmin(admin.ModelAdmin):
