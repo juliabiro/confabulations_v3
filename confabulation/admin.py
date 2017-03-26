@@ -65,6 +65,8 @@ class ChainAdmin(admin.ModelAdmin):
     list_display=['name']
     inlines=[ThemeInChainInline]
 
+
+
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Recording, RecordingAdmin)
 admin.site.register(Transscription)
