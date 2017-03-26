@@ -60,7 +60,7 @@ class Story(models.Model):
     photos = models.ManyToManyField('Photo', null=True, blank=True)
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
     video_url = models.URLField(null=True, blank=True)
-    thumbnail = models.FilePathField(null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
     #todo connections

@@ -2,3 +2,4 @@ dbbackend/static/*
 *.pyc
 */migrations/*
 */*.pyc
+thumbnails/*
