@@ -50,71 +50,22 @@ class Story(models.Model):
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.FilePathField(null=True, blank=True)
-
+    analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
     #todo connections
 
 
 
 ## analysis
-class Analysis(models.Model):
-    story = models.OneToOneField('Story')
-    confabulations = models.ManyToManyField('Confabulation', null=True,  blank=True)
-    interactions = models.ManyToManyField('Interaction', null=True,  blank=True)
-    emotions = models.ManyToManyField('Emotion', null=True,  blank=True)
-    framing = models.ManyToManyField('Framing', null=True,  blank=True)
-    audience = models.ManyToManyField('Audience', null=True,  blank=True)
+
+class AnalysisType(models.Model):
+    name = models.CharField(max_length = 50)
+    description = models.CharField(max_length = 2000)
+
 
 class AnalysisPoint(models.Model):
-    class AnalysisPointTyes(ChoiceEnum):
-        confabulation = 'confabulation'
-        interaction = 'interaction'
-        emotion = 'emotion',
-        framing = 'framing'
-        audeience = 'audience'
-
-    label = models.CharField(max_length=50)
+    analysis_type = models.ForeignKey('AnalysisType')
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
-    analysis_type = models.CharField(max_length=50, choices = AnalysisPointTyes.choices())
-
-
-
-class Confabulation(AnalysisPoint):
-    class ConfabulationTypes(ChoiceEnum):
-        confabulation = "Confabulation"
-        partial_confabulation = "Partial Confabulation"
-
-    type = models.CharField(max_length = 20, choices = ConfabulationTypes.choices(), null=True, blank=True)
-
-class Interaction(AnalysisPoint):
-    class InteractionTypes(ChoiceEnum):
-        block = 'blocks'
-        analyze = 'analyze'
-        respond_to_trigger = 'Respond to trigger question'
-        not_respond_to_trigger = 'Not respond to trigger question'
-
-    type = models.CharField(max_length = 20, choices = InteractionTypes.choices(), null=True, blank=True)
-
-class Emotion(AnalysisPoint):
-    class EmotionTypes(ChoiceEnum):
-        conflicted = 'Conflicted'
-        traumatic = 'Traumatic'
-        emotional = 'Emotional'
-    type = models.CharField(max_length = 20, choices = EmotionTypes.choices(), null=True, blank=True)
-
-class Framing(AnalysisPoint):
-    class FramingTypes(ChoiceEnum):
-        gray_matter = 'Gray Matter'
-        identification = 'Identification'
-        not_sure_it_is_true = 'Not sure it is true'
-    type = models.CharField(max_length = 20, choices = FramingTypes.choices(), null=True, blank=True)
-
-class Audience(AnalysisPoint):
-    class AudienceTypes(ChoiceEnum):
-        positive = 'Positive'
-        negative = 'Negative'
-    type = models.CharField(max_length = 20, choices = AudienceTypes.choices(), null=True, blank=True)
-
 
 
 
