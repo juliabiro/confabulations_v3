@@ -29,6 +29,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_display=['name']
 
 class StoryAdmin(admin.ModelAdmin):
+    inlines =[AnalysisInline]
     list_display =['name']
 
 class RecordingAdmin(admin.ModelAdmin):

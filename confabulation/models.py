@@ -51,7 +51,6 @@ class Story(models.Model):
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.FilePathField(null=True, blank=True)
 
-
     #todo connections
 
 
@@ -59,16 +58,26 @@ class Story(models.Model):
 ## analysis
 class Analysis(models.Model):
     story = models.OneToOneField('Story')
-    confabulations = models.ForeignKey('Confabulation', null=True,  blank=True)
-    interactions = models.ForeignKey('Interaction', null=True,  blank=True)
-    emotions = models.ForeignKey('Emotion', null=True,  blank=True)
-    framing = models.ForeignKey('Framing', null=True,  blank=True)
-    audience = models.ForeignKey('Audience', null=True,  blank=True)
+    confabulations = models.ManyToManyField('Confabulation', null=True,  blank=True)
+    interactions = models.ManyToManyField('Interaction', null=True,  blank=True)
+    emotions = models.ManyToManyField('Emotion', null=True,  blank=True)
+    framing = models.ManyToManyField('Framing', null=True,  blank=True)
+    audience = models.ManyToManyField('Audience', null=True,  blank=True)
 
 class AnalysisPoint(models.Model):
-    name = models.CharField(max_length =100)
+    class AnalysisPointTyes(ChoiceEnum):
+        confabulation = 'confabulation'
+        interaction = 'interaction'
+        emotion = 'emotion',
+        framing = 'framing'
+        audeience = 'audience'
+
+    label = models.CharField(max_length=50)
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
+    analysis_type = models.CharField(max_length=50, choices = AnalysisPointTyes.choices())
+
+
 
 class Confabulation(AnalysisPoint):
     class ConfabulationTypes(ChoiceEnum):
