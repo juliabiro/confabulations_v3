@@ -17,6 +17,9 @@ class Gender(ChoiceEnum):
     other = 'other'
 
 class Participant(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
+
     name = models.CharField(max_length=200)
     profile = models.CharField(max_length=2000)
     participation_group = models.CharField(max_length=50, choices=ParticipantTypes.choices())
@@ -26,6 +29,9 @@ class Participant(models.Model):
 
 ## recorded databases
 class Recording(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
+
     name = models.CharField(max_length = 100)
     date = models.DateField()
     duration = models.DurationField(null=True, blank=True)
@@ -33,6 +39,8 @@ class Recording(models.Model):
     sound_recording_url = models.URLField(null=True, blank = True)
 
 class Photo(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
     name = models.CharField(max_length = 50)
     file_path = models.FilePathField(null=True, blank = True)
     file_url = models.URLField(null = True, blank = True)
@@ -44,6 +52,8 @@ class Transscription(models.Model):
     recording = models.OneToOneField('Recording', null=True, blank =True)
 
 class Story(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
     name = models.CharField(max_length = 100)
     recording = models.ForeignKey('Recording')
     photos = models.ManyToManyField('Photo')
@@ -58,11 +68,15 @@ class Story(models.Model):
 ## analysis
 
 class AnalysisType(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
     name = models.CharField(max_length = 50)
     description = models.CharField(max_length = 2000, null=True, blank=True)
 
 
 class AnalysisPoint(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
     name = models.CharField(max_length = 50)
     analysis_type = models.ForeignKey('AnalysisType')
     description = models.CharField(max_length=2000, null=True, blank=True)
@@ -84,6 +98,8 @@ class StoryInTheme(models.Model):
     theme = models.ForeignKey('Theme')
 
 class Theme(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
     name = models.CharField(max_length = 50)
     description = models.CharField(max_length = 2000, null=True, blank=True)
     stories = models.ManyToManyField('Story', through=StoryInTheme)
@@ -95,6 +111,9 @@ class ThemeInChain(models.Model):
     chain = models.ForeignKey('Chain')
 
 class Chain(models.Model):
+    def __str__(self):
+        return("%s" % self.name)
+
     name = models.CharField(max_length = 50)
     description = models.CharField(max_length = 2000, null=True, blank=True)
     themes = models.ManyToManyField('Theme', through=ThemeInChain)
