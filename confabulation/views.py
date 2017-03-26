@@ -9,7 +9,7 @@ def index(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    return HttpResponse("Hello, World! This is Bozsis TOP SECRET confabulations site")
+    return render(request, 'frontpage.html')
 
 
 
