@@ -41,24 +41,33 @@ class Transscription(models.Model):
     date = models.DateField()
     text_eng = models.CharField(max_length=10000, null=True, blank=True)
     text_hu = models.CharField(max_length=10000, null=True, blank=True)
+    recording = models.OneToOneField('Recording', null=True, blank =True)
 
 class Story(models.Model):
     name = models.CharField(max_length = 100)
     recording = models.ForeignKey('Recording')
-    photos = models.ForeignKey('Photo', null=True, blank=True)
+    photos = models.ManyToManyField('Photo')
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
-    transscription = models.ForeignKey('Transscription', null=True, blank=True)
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.FilePathField(null=True, blank=True)
-    analysis_points = models.ForeignKey('AnalysisPoint', null=True, blank=True)
+
+
     #todo connections
 
 
 
 ## analysis
+class Analysis(models.Model):
+    story = models.OneToOneField('Story')
+    confabulations = models.ForeignKey('Confabulation', null=True,  blank=True)
+    interactions = models.ForeignKey('Interaction', null=True,  blank=True)
+    emotions = models.ForeignKey('Emotion', null=True,  blank=True)
+    framing = models.ForeignKey('Framing', null=True,  blank=True)
+    audience = models.ForeignKey('Audience', null=True,  blank=True)
 
 class AnalysisPoint(models.Model):
     name = models.CharField(max_length =100)
+    description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
 
 class Confabulation(AnalysisPoint):
@@ -66,7 +75,7 @@ class Confabulation(AnalysisPoint):
         confabulation = "Confabulation"
         partial_confabulation = "Partial Confabulation"
 
-    type = models.CharField(max_length=50, choices = ConfabulationTypes.choices())
+    type = models.CharField(max_length = 20, choices = ConfabulationTypes.choices(), null=True, blank=True)
 
 class Interaction(AnalysisPoint):
     class InteractionTypes(ChoiceEnum):
@@ -75,31 +84,28 @@ class Interaction(AnalysisPoint):
         respond_to_trigger = 'Respond to trigger question'
         not_respond_to_trigger = 'Not respond to trigger question'
 
-    type = models.CharField(max_length=50, choices = InteractionTypes.choices())
+    type = models.CharField(max_length = 20, choices = InteractionTypes.choices(), null=True, blank=True)
 
-class Emotions(AnalysisPoint):
+class Emotion(AnalysisPoint):
     class EmotionTypes(ChoiceEnum):
         conflicted = 'Conflicted'
         traumatic = 'Traumatic'
         emotional = 'Emotional'
-
-    types = models.CharField(max_length=50, choices = EmotionTypes.choices())
-
+    type = models.CharField(max_length = 20, choices = EmotionTypes.choices(), null=True, blank=True)
 
 class Framing(AnalysisPoint):
     class FramingTypes(ChoiceEnum):
         gray_matter = 'Gray Matter'
         identification = 'Identification'
         not_sure_it_is_true = 'Not sure it is true'
-
-    types = models.CharField(max_length=50, choices = FramingTypes.choices())
+    type = models.CharField(max_length = 20, choices = FramingTypes.choices(), null=True, blank=True)
 
 class Audience(AnalysisPoint):
     class AudienceTypes(ChoiceEnum):
         positive = 'Positive'
         negative = 'Negative'
+    type = models.CharField(max_length = 20, choices = AudienceTypes.choices(), null=True, blank=True)
 
-    types = models.CharField(max_length=50, choices = AudienceTypes.choices())
 
 
 
