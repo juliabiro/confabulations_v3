@@ -21,10 +21,9 @@ class Participant(models.Model):
         return ("%s" % self.name)
 
     name = models.CharField(max_length=200)
-    profile = models.CharField(max_length=2000)
+    profile = models.TextField(null=True)
     participation_group = models.CharField(max_length=50, choices=ParticipantTypes.choices())
     gender = models.CharField(max_length=20, choices=Gender.choices())
-    recording = models.OneToOneField('Recording', null=True, blank=True, unique = True)
 
 
 ## recorded databases
@@ -37,6 +36,7 @@ class Recording(models.Model):
     duration = models.DurationField(null=True, blank=True)
     data_collection_circumstances = models.CharField(max_length = 2000, null=True, blank=True)
     sound_recording_url = models.URLField(null=True, blank = True)
+    participant = models.ForeignKey('Participant', null=True)
 
 class Photo(models.Model):
     def __str__(self):
@@ -49,18 +49,20 @@ class Transscription(models.Model):
     date = models.DateField()
     text_eng = models.CharField(max_length=10000, null=True, blank=True)
     text_hu = models.CharField(max_length=10000, null=True, blank=True)
-    recording = models.OneToOneField('Recording', null=True, blank =True)
+    recording = models.ForeignKey('Recording')
+    story = models.OneToOneField('Story', null=True, blank =True)
 
 class Story(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 100)
-    recording = models.ForeignKey('Recording')
-    photos = models.ManyToManyField('Photo')
+    participant = models.ForeignKey('Participant', null=True)
+    photos = models.ManyToManyField('Photo', null=True, blank=True)
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.FilePathField(null=True, blank=True)
-    analysis = models.ManyToManyField('AnalysisPoint')
+    analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
     #todo connections
 
 

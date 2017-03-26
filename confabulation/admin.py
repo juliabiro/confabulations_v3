@@ -14,6 +14,7 @@ class PhotoInline(admin.StackedInline):
 class TransscriptionInline(admin.StackedInline):
     model=Transscription
     extra = 1
+
 class AnalysisPointInline(admin.StackedInline):
     model=AnalysisPoint
     extra = 0
@@ -24,6 +25,7 @@ class ThemeInline(admin.StackedInline):
 
 class RecordingInline(admin.StackedInline):
     model = Recording
+    extra = 0
 
 class StoryConnectionInline(admin.StackedInline):
     model = StoryToStoryConnection
@@ -38,14 +40,14 @@ class ThemeInChainInline(admin.StackedInline):
     extra = 0
 
 class ParticipantAdmin(admin.ModelAdmin):
+    inlines = [RecordingInline]
     list_display=['name']
 
 class StoryAdmin(admin.ModelAdmin):
-    inlines = [StoryConnectionInline]
+    inlines = [TransscriptionInline, StoryConnectionInline]
     list_display =['name' ]
 
 class RecordingAdmin(admin.ModelAdmin):
-    inlines = [TransscriptionInline]
     list_display =['name', 'date']
 
 class AnalysisTypeAdmin(admin.ModelAdmin):
