@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{participant.name}}{% endblock %}
+{% block content %}
+{% if participant %}
+
+<h1> {{ participant.name }}</h1>
+<h4>participation group: {{ participant.participation_group }} </h4>
+
+<h5>profile</h5>
+<p>{{ participant.profile }} </p>
+{% endif %}
+
+{% if stories %}
+<h5>stories</h5>
+<ul>
+    {% for s in stories %}
+    <li>
+        <a href ="/story/{{ s.id }}">{{ s.name }} </a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

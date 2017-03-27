@@ -59,7 +59,7 @@ class AnalysisPointAdmin(admin.ModelAdmin):
 
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ['name']
-    inlines=[StoryInThemeInline]
+    inlines=[StoryInThemeInline] 
 
 class ChainAdmin(admin.ModelAdmin):
     list_display=['name']
@@ -76,4 +76,3 @@ admin.site.register(AnalysisType, AnalysisTypeAdmin)
 admin.site.register(Story, StoryAdmin)
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Chain, ChainAdmin)
-

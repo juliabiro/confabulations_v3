@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Story: {{story.name}}{% endblock %}
+{% block content %}
+{% if story %}
+<h1> {{ story.name }}</h1>
+<h5><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h5>
+
+<h3>Analysis</h3>
+<ul>
+    {% for a in analysis %}
+    <li>
+        <font color="{{a.color_code}}">{{a.name}}</font>
+    </li>
+    {% endfor %}
+</ul>
+<iframe  src="{{story.video_url}}" frameborder="0" allowfullscreen></iframe>
+
+<h5>notes:</h5>
+<p>{{story.notes}}</p>
+{% endif %}
+
+{% endblock %}

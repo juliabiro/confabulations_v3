@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Participants{% endblock %}
+
+{% block content %}
+<h1>Participants</h1>
+
+{% if participant_list %}
+<ul>
+    {% for participant in participant_list %}
+    <li><a href="/participant/{{ participant.id }}/">{{ participant.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

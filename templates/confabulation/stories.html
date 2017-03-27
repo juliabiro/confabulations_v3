@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Stories{% endblock %}
+
+{% block content %}
+<h1>Stories</h1>
+
+{% if story_list %}
+<ul>
+    {% for story in story_list %}
+    <li><a href="/story/{{ story.id }}/">{{ story.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
