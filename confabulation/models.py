@@ -53,6 +53,9 @@ class Transscription(models.Model):
     story = models.OneToOneField('Story', null=True, blank =True)
 
 class Story(models.Model):
+    class Meta:
+        verbose_name_plural = 'Stories'
+
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 100)
