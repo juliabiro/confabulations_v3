@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from common.utils import ChoiceEnum
 from colorful.fields import RGBColorField
-
+from datetime import timedelta
 
 
 ## participants
@@ -59,6 +59,7 @@ class Story(models.Model):
     participant = models.ForeignKey('Participant', null=True)
     photos = models.ManyToManyField('Photo', null=True, blank=True)
     order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
+    duration = models.DurationField(null=True, blank=True, default=timedelta)
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
