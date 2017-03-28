@@ -34,7 +34,7 @@ class Recording(models.Model):
     name = models.CharField(max_length = 100)
     date = models.DateField()
     duration = models.DurationField(null=True, blank=True)
-    data_collection_circumstances = models.CharField(max_length = 2000, null=True, blank=True)
+    data_collection_circumstances = models.TextField(default="", blank=True)
     sound_recording_url = models.URLField(null=True, blank = True)
     participant = models.ForeignKey('Participant', null=True)
 
@@ -47,8 +47,8 @@ class Photo(models.Model):
 
 class Transscription(models.Model):
     date = models.DateField()
-    text_eng = models.CharField(max_length=10000, null=True, blank=True)
-    text_hu = models.CharField(max_length=10000, null=True, blank=True)
+    text_eng = models.TextField(default="", blank=True)
+    text_hu = models.TextField(default="", blank=True)
     recording = models.ForeignKey('Recording')
     story = models.OneToOneField('Story', null=True, blank =True)
 
@@ -77,7 +77,7 @@ class AnalysisType(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 50)
-    description = models.CharField(max_length = 2000, null=True, blank=True)
+    description = models.TextField( default="", blank=True)
 
 
 class AnalysisPoint(models.Model):
@@ -107,7 +107,7 @@ class Theme(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 50)
-    description = models.CharField(max_length = 2000, null=True, blank=True)
+    description = models.TextField(default="", blank=True)
     stories = models.ManyToManyField('Story', through=StoryInTheme)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
@@ -121,7 +121,7 @@ class Chain(models.Model):
         return("%s" % self.name)
 
     name = models.CharField(max_length = 50)
-    description = models.CharField(max_length = 2000, null=True, blank=True)
+    description = models.TextField(default="", blank=True)
     themes = models.ManyToManyField('Theme', through=ThemeInChain)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
