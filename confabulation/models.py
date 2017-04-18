@@ -55,6 +55,7 @@ class Transscription(models.Model):
 class Story(models.Model):
     class Meta:
         verbose_name_plural = 'Stories'
+        ordering = ['-name']
 
     def __str__(self):
         return ("%s" % self.name)

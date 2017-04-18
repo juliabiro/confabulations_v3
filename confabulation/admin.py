@@ -31,10 +31,10 @@ class StoryConnectionInline(admin.StackedInline):
     model = StoryToStoryConnection
     fk_name ='story1'
     extra = 0
+
 class StoryInThemeInline(admin.StackedInline):
     model=StoryInTheme
     extra = 0
-    raw_id_fields = ("story",)
 
 class ThemeInChainInline(admin.StackedInline):
     model = ThemeInChain
@@ -46,7 +46,7 @@ class ParticipantAdmin(admin.ModelAdmin):
 
 class StoryAdmin(admin.ModelAdmin):
     inlines = [TransscriptionInline, StoryConnectionInline]
-    list_display =['name' ]
+    list_display =['participant','name' ]
 
 class RecordingAdmin(admin.ModelAdmin):
     list_display =['name', 'date']
@@ -60,7 +60,7 @@ class AnalysisPointAdmin(admin.ModelAdmin):
 
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ['name']
-    inlines=[StoryInThemeInline] 
+    inlines=[StoryInThemeInline]
 
 class ChainAdmin(admin.ModelAdmin):
     list_display=['name']
