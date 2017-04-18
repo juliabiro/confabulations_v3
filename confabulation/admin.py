@@ -34,6 +34,7 @@ class StoryConnectionInline(admin.StackedInline):
 class StoryInThemeInline(admin.StackedInline):
     model=StoryInTheme
     extra = 0
+    raw_id_fields = ("story",)
 
 class ThemeInChainInline(admin.StackedInline):
     model = ThemeInChain
