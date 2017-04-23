@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Videos{% endblock %}
+§
+{% block content %}
+<h1>Videos</h1>
+
+{% if videos_list %}
+<ul>
+    {% for video in videos_list %}
+    <li>
+            {{ video.name }}
+        <video width="530" height="440" controls >
+            <source src={{ video.url }} type="video/mp4"></source>
+        </video>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
