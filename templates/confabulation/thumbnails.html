@@ -6,10 +6,12 @@
 <h1>Thumbnails</h1>
 
 {% if thumbnail_list %}
-<ul>
-    {% for thumb in thumbnail_list %}
-    <li>{{ thumb.name }}<img src={{ thumb.url }}></li>
-    {% endfor %}
-</ul>
+{% for thumb in thumbnail_list %}
+<div>
+    <a href="/videos/{{thumb.name}}"
+        <h3>{{ thumb.name }}</h3>
+        <img src={{ thumb.url }} width="152" height="84"></a>
+</div>
+{% endfor %}
 {% endif %}
 {% endblock %}

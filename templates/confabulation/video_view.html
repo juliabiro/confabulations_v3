@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Video {{video.name}}{% endblock %}
+§
+{% block content %}
+<h1>Video {{video.name}}</h1>
+        <video width="530" height="440" controls >
+            <source src={{ video.url }} type="video/mp4"></source>
+        </video>
+{% endblock %}

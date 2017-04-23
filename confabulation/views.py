@@ -62,48 +62,83 @@ def gets3():
 
 def thumbnails(request):
     s3 = gets3()
-    # Generate the URL to get 'key-name' from 'bucket-name'
-    url = s3.generate_presigned_url(
-        ClientMethod='get_object',
-        Params={
-            'Bucket': 'confabulations',
-            'Key': 'SG/pilot/thumbs/SG01.png'
-        }
-    )
+    prefix= 'SG/pilot/thumbs'
+    response = s3.list_objects(Bucket='confabulations',Prefix=prefix)
 
-    # Use the URL to perform the GET operation. You can use any method you like
-    # to send the GET, but we will use requests here to keep things simple.
-    context = {
-        'thumbnail_list':[
-            {
-                "name":'SG01',
-                'url': url
+    # Generate the URL to get 'key-name' from 'bucket-name'
+
+    thumblist = []
+
+    for c in response['Contents'][1:]:
+        key = c['Key']
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': 'confabulations',
+                'Key': key
             }
-        ]
+        )
+
+        name = key.replace(prefix+'/', '').replace('\n','')
+        name = name[0:name.find('.')]
+        thumblist.append({
+            'name': name,
+            'url': url
+        })
+
+
+
+    context = {
+        'thumbnail_list':thumblist
     }
 
     return render(request, 'confabulation/thumbnails.html', context)
 
 def videos(request):
     s3 = gets3()
-    # Generate the URL to get 'key-name' from 'bucket-name'
+    prefix= 'SG/pilot/SG_360'
+    response = s3.list_objects(Bucket='confabulations',Prefix=prefix)
+
+    videolist=[]
+    for c in response['Contents'][1:]:
+        key = c['Key']
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': 'confabulations',
+                'Key': key
+            }
+        )
+
+        videolist.append({
+            'name': key.replace(prefix+'/', ""),
+            'url': url
+        })
+
+        context = {
+        'videos_list':videolist
+    }
+
+    return render(request, 'confabulation/videos.html', context)
+
+def videoView(request, video_name):
+    s3 = gets3()
+    prefix= 'SG/pilot/SG_360'
+    key = prefix+'/'+video_name
+
     url = s3.generate_presigned_url(
         ClientMethod='get_object',
         Params={
             'Bucket': 'confabulations',
-            'Key': 'SG/pilot/SG_360/SG01.mp4'
+            'Key': key+".mp4"
         }
     )
 
-    # Use the URL to perform the GET operation. You can use any method you like
-    # to send the GET, but we will use requests here to keep things simple.
     context = {
-        'videos_list':[
-            {
-                "name":'SG01',
-                'url': url
-            }
-        ]
+        'video':{
+            'name':video_name,
+            'url':url
+        }
     }
 
-    return render(request, 'confabulation/videos.html', context)
+    return render(request, 'confabulation/video_view.html', context)
