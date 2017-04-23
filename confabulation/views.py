@@ -52,13 +52,16 @@ def storyView(request, story_id):
     }
     return render(request, 'confabulation/storyView.html', context)
 
-def thumbnails(request):
+def gets3():
     import boto3
 
     # Get the service client.
 
     s3 = boto3.client('s3')#, config=Config(signature_version='s3v4'))
+    return s3
 
+def thumbnails(request):
+    s3 = gets3()
     # Generate the URL to get 'key-name' from 'bucket-name'
     url = s3.generate_presigned_url(
         ClientMethod='get_object',
@@ -81,5 +84,26 @@ def thumbnails(request):
 
     return render(request, 'confabulation/thumbnails.html', context)
 
+def videos(request):
+    s3 = gets3()
+    # Generate the URL to get 'key-name' from 'bucket-name'
+    url = s3.generate_presigned_url(
+        ClientMethod='get_object',
+        Params={
+            'Bucket': 'confabulations',
+            'Key': 'SG/pilot/SG360/SG01.mp4'
+        }
+    )
 
+    # Use the URL to perform the GET operation. You can use any method you like
+    # to send the GET, but we will use requests here to keep things simple.
+    context = {
+        'videos_list':[
+            {
+                "name":'SG01',
+                'url': url
+            }
+        ]
+    }
 
+    return render(request, 'confabulation/videos.html', context)
