@@ -8,9 +8,9 @@
 {% if thumbnail_list %}
 {% for thumb in thumbnail_list %}
 <div>
-    <a href="/videos/{{thumb.name}}"
-        <h3>{{ thumb.name }}</h3>
-        <img src={{ thumb.url }} width="152" height="84"></a>
+    <h3><a href="/videos/{{ thumb.name }}">
+           {{ thumb.name }}
+        <img src={{ thumb.url }} width="152" height="84"></a></h3>
 </div>
 {% endfor %}
 {% endif %}
