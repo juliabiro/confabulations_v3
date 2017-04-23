@@ -42,7 +42,7 @@ def storyView(request, story_id):
     story = Story.objects.get(pk=story_id)
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
-    
+
     context = {'story': story,
                'participant':{
                    'name': participant.name,
@@ -51,6 +51,35 @@ def storyView(request, story_id):
                'analysis':analysis 
     }
     return render(request, 'confabulation/storyView.html', context)
+
+def thumbnails(request):
+    import boto3
+
+    # Get the service client.
+
+    s3 = boto3.client('s3')#, config=Config(signature_version='s3v4'))
+
+    # Generate the URL to get 'key-name' from 'bucket-name'
+    url = s3.generate_presigned_url(
+        ClientMethod='get_object',
+        Params={
+            'Bucket': 'confabulations',
+            'Key': 'SG/pilot/thumbs/SG01.png'
+        }
+    )
+
+    # Use the URL to perform the GET operation. You can use any method you like
+    # to send the GET, but we will use requests here to keep things simple.
+    context = {
+        'thumbnail_list':[
+            {
+                "name":'SG01',
+                'url': url
+            }
+        ]
+    }
+
+    return render(request, 'confabulation/thumbnails.html', context)
 
 
 

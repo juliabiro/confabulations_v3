@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Stories{% endblock %}
+
+{% block content %}
+<h1>Thumbnails</h1>
+
+{% if thumbnail_list %}
+<ul>
+    {% for thumb in thumbnail_list %}
+    <li>{{thumb.name}} <img src={{ thumb.url }}></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
