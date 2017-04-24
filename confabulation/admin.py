@@ -27,9 +27,14 @@ class RecordingInline(admin.StackedInline):
     model = Recording
     extra = 0
 
-class StoryConnectionInline(admin.StackedInline):
+class StoryConnectionInline1(admin.StackedInline):
     model = StoryToStoryConnection
     fk_name ='story1'
+    extra = 0
+
+class StoryConnectionInline2(admin.StackedInline):
+    model = StoryToStoryConnection
+    fk_name ='story2'
     extra = 0
 
 class StoryInThemeInline(admin.StackedInline):
@@ -45,7 +50,7 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_display=['name']
 
 class StoryAdmin(admin.ModelAdmin):
-    inlines = [TransscriptionInline, StoryConnectionInline]
+    inlines = [TransscriptionInline, StoryConnectionInline1, StoryConnectionInline2]
     list_display =['participant','name' ]
 
 class RecordingAdmin(admin.ModelAdmin):
