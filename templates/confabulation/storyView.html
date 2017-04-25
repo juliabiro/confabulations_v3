@@ -14,8 +14,12 @@
     </li>
     {% endfor %}
 </ul>
-<iframe  src="{{story.video_url}}" frameborder="0" allowfullscreen></iframe>
 
+{% if video_url %}
+        <video width="530" height="440" controls >
+            <source src={{ video_url }} type="video/mp4"></source>
+        </video>
+{% endif %}
 <h5>notes:</h5>
 <p>{{story.notes}}</p>
 {% endif %}

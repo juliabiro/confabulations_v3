@@ -5,14 +5,20 @@ from django.conf import settings
 from django.shortcuts import redirect
 from models import Participant, Story, AnalysisPoint
 
+def gets3():
+    import boto3
+
+    # Get the service client.
+
+    s3 = boto3.client('s3')#, config=Config(signature_version='s3v4'))
+    return s3
+
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     return render(request, 'frontpage.html')
-
-
 
 def participants(request):
     participant_list = Participant.objects.all()
@@ -43,22 +49,33 @@ def storyView(request, story_id):
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
 
+    video_url = story.video_url
+    url = ""
+    if video_url:
+        key = video_url[video_url.find('confabulations'):]
+
+        s3 = gets3()
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': 'confabulations',
+                'Key': key
+            }
+        )
+
+
     context = {'story': story,
                'participant':{
                    'name': participant.name,
                    'id': participant.id
                },
-               'analysis':analysis 
+               'analysis':analysis,
     }
+
+    if url:
+        context['video_url'] = url
+    print context
     return render(request, 'confabulation/storyView.html', context)
-
-def gets3():
-    import boto3
-
-    # Get the service client.
-
-    s3 = boto3.client('s3')#, config=Config(signature_version='s3v4'))
-    return s3
 
 def thumbnails(request):
     s3 = gets3()
