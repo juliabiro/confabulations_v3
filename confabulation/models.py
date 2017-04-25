@@ -62,7 +62,7 @@ class Story(models.Model):
     name = models.CharField(max_length = 100)
     participant = models.ForeignKey('Participant', null=True)
     photos = models.ManyToManyField('Photo', null=True, blank=True)
-    order_in_recording = models.IntegerField(unique= True, null=True, blank=True) # marks the position of the photo in the recoding
+    order_in_recording = models.IntegerField( null=True, blank=True) # marks the position of the photo in the recoding
     duration = models.DurationField(null=True, blank=True, default=timedelta)
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
