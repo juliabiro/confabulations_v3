@@ -67,7 +67,9 @@ class Story(models.Model):
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
+    era = models.ManyToManyField('Era', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
+    keywords = models.TextField(null=True, blank=True)
     #todo connections
 
 
@@ -126,3 +128,12 @@ class Chain(models.Model):
     themes = models.ManyToManyField('Theme', through=ThemeInChain)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
+
+## Eras
+
+class Era(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
+    name = models.CharField(max_length = 50)
+    description = models.CharField(max_length=2000, null=True, blank=True)
+    color_code = RGBColorField()
