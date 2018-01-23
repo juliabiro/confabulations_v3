@@ -36,7 +36,7 @@ class Recording(models.Model):
     duration = models.DurationField(null=True, blank=True)
     data_collection_circumstances = models.TextField(default="", blank=True)
     sound_recording_url = models.URLField(null=True, blank = True)
-    participant = models.ForeignKey('Participant', null=True)
+    participant = models.ForeignKey('Participant', null=True, on_delete=models.DO_NOTHING)
 
 class Photo(models.Model):
     def __str__(self):
@@ -49,8 +49,8 @@ class Transscription(models.Model):
     date = models.DateField()
     text_eng = models.TextField(default="", blank=True)
     text_hu = models.TextField(default="", blank=True)
-    recording = models.ForeignKey('Recording')
-    story = models.OneToOneField('Story', null=True, blank =True)
+    recording = models.ForeignKey('Recording', on_delete=models.DO_NOTHING)
+    story = models.OneToOneField('Story', null=True, blank =True, on_delete=models.DO_NOTHING)
 
 class Story(models.Model):
     class Meta:
@@ -60,7 +60,7 @@ class Story(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 100)
-    participant = models.ForeignKey('Participant', null=True)
+    participant = models.ForeignKey('Participant', null=True, on_delete=models.DO_NOTHING)
     photos = models.ManyToManyField('Photo', null=True, blank=True)
     order_in_recording = models.IntegerField( null=True, blank=True) # marks the position of the photo in the recoding
     duration = models.DurationField(null=True, blank=True, default=timedelta)
@@ -85,7 +85,7 @@ class AnalysisPoint(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 50)
-    analysis_type = models.ForeignKey('AnalysisType')
+    analysis_type = models.ForeignKey('AnalysisType', on_delete=models.DO_NOTHING)
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
 
@@ -95,14 +95,14 @@ class ConnectionRange(ChoiceEnum):
     intraconnection = 'Intraconnection'
 
 class StoryToStoryConnection(models.Model):
-    story1 = models.ForeignKey('Story', related_name='story1')
-    story2 = models.ForeignKey('Story', related_name='story2')
+    story1 = models.ForeignKey('Story', related_name='story1', on_delete=models.DO_NOTHING)
+    story2 = models.ForeignKey('Story', related_name='story2', on_delete=models.DO_NOTHING)
     connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
 
 class StoryInTheme(models.Model):
     number = models.IntegerField()
-    story = models.ForeignKey('Story')
-    theme = models.ForeignKey('Theme')
+    story = models.ForeignKey('Story', on_delete=models.DO_NOTHING)
+    theme = models.ForeignKey('Theme', on_delete=models.DO_NOTHING)
 
 class Theme(models.Model):
     def __str__(self):
@@ -114,8 +114,8 @@ class Theme(models.Model):
 
 class ThemeInChain(models.Model):
     number = models.IntegerField()
-    theme = models.ForeignKey('Theme')
-    chain = models.ForeignKey('Chain')
+    theme = models.ForeignKey('Theme', on_delete=models.DO_NOTHING)
+    chain = models.ForeignKey('Chain', on_delete=models.DO_NOTHING)
 
 class Chain(models.Model):
     def __str__(self):

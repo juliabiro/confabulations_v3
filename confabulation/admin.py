@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import *
+from .models import *
 # Register your models here.
 
 # fields make the dispplay order
@@ -10,7 +10,7 @@ from models import *
 # inlines
 class PhotoInline(admin.StackedInline):
     model = Photo
-    extra = 1 
+    extra = 1
 class TransscriptionInline(admin.StackedInline):
     model=Transscription
     extra = 1

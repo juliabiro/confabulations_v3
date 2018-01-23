@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.shortcuts import redirect
-from models import Participant, Story, AnalysisPoint
+from .models import Participant, Story, AnalysisPoint
 
 def gets3():
     import boto3
@@ -74,7 +74,6 @@ def storyView(request, story_id):
 
     if url:
         context['video_url'] = url
-    print context
     return render(request, 'confabulation/storyView.html', context)
 
 def thumbnails(request):
