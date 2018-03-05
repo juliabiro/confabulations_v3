@@ -69,14 +69,8 @@ class Story(models.Model):
     analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
     era = models.ManyToManyField('Era', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    keywords = models.ForeignKey("Keyword", null=True, on_delete=models.DO_NOTHING)
+    keywords = models.ManyToManyField("Keyword", null=True, blank=True)
     #todo connections
-
-
-class Keyword(models.Model):
-    def __str__(self):
-        return ("%s" % self.name)
-    name = models.CharField(null=True, max_length=100)
 
 
 ## analysis
@@ -142,3 +136,10 @@ class Era(models.Model):
     name = models.CharField(max_length = 50)
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
+
+class Keyword(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
+    name = models.CharField(null=True, max_length=100)
+
+
