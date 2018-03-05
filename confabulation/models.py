@@ -74,7 +74,7 @@ class Story(models.Model):
     analysis = models.ManyToManyField('AnalysisPoint', blank=True)
     era = models.ManyToManyField('Era', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    keywords = models.ManyToManyField("Keyword", blank=True)
+    keyworrds = models.ManyToManyField("Keyword", blank=True)
     #todo connections
 
 
