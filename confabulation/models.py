@@ -52,6 +52,11 @@ class Transscription(models.Model):
     recording = models.ForeignKey('Recording', on_delete=models.DO_NOTHING)
     story = models.OneToOneField('Story', null=True, blank =True, on_delete=models.DO_NOTHING)
 
+class Keyword(models.Model):
+    def __str__(self):
+        return ("%s" % self.name)
+    name = models.CharField(null=True, max_length=100)
+
 class Story(models.Model):
     class Meta:
         verbose_name_plural = 'Stories'
@@ -61,15 +66,15 @@ class Story(models.Model):
         return ("%s" % self.name)
     name = models.CharField(max_length = 100)
     participant = models.ForeignKey('Participant', null=True, on_delete=models.DO_NOTHING)
-    photos = models.ManyToManyField('Photo', null=True, blank=True)
+    photos = models.ManyToManyField('Photo',  blank=True)
     order_in_recording = models.IntegerField( null=True, blank=True) # marks the position of the photo in the recoding
     duration = models.DurationField(null=True, blank=True, default=timedelta)
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
-    analysis = models.ManyToManyField('AnalysisPoint', null=True, blank=True)
+    analysis = models.ManyToManyField('AnalysisPoint', blank=True)
     era = models.ManyToManyField('Era', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    keywords = models.ManyToManyField("Keyword", null=True, blank=True)
+    keywords = models.ManyToManyField("Keyword", blank=True)
     #todo connections
 
 
@@ -137,9 +142,5 @@ class Era(models.Model):
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
 
-class Keyword(models.Model):
-    def __str__(self):
-        return ("%s" % self.name)
-    name = models.CharField(null=True, max_length=100)
 
 
