@@ -12,15 +12,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Era',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('description', models.CharField(blank=True, max_length=2000, null=True)),
-                ('color_code', colorful.fields.RGBColorField()),
-            ],
-        ),
+        #migrations.CreateModel(
+        #    name='Era',
+        #    fields=[
+        #        ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #        ('name', models.CharField(max_length=50)),
+        #        ('description', models.CharField(blank=True, max_length=2000, null=True)),
+        #        ('color_code', colorful.fields.RGBColorField()),
+        #    ],
+        #),
         migrations.AddField(
             model_name='story',
             name='keywords',
@@ -105,10 +105,5 @@ class Migration(migrations.Migration):
             model_name='transscription',
             name='story',
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='confabulation.Story'),
-        ),
-        migrations.AddField(
-            model_name='story',
-            name='era',
-            field=models.ManyToManyField(blank=True, null=True, to='confabulation.Era'),
         ),
     ]
