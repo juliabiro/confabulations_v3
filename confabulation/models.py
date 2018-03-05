@@ -52,10 +52,10 @@ class Transscription(models.Model):
     recording = models.ForeignKey('Recording', on_delete=models.DO_NOTHING)
     story = models.OneToOneField('Story', null=True, blank =True, on_delete=models.DO_NOTHING)
 
-class Keyword(models.Model):
-    def __str__(self):
-        return ("%s" % self.name)
-    name = models.CharField(null=True, max_length=100)
+#class Keyword(models.Model):
+#    def __str__(self):
+#        return ("%s" % self.name)
+#    name = models.CharField(null=True, blank=True, max_length=100)
 
 class Story(models.Model):
     class Meta:
@@ -74,7 +74,7 @@ class Story(models.Model):
     analysis = models.ManyToManyField('AnalysisPoint', blank=True)
     era = models.ManyToManyField('Era', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    keyworrds = models.ManyToManyField("Keyword", blank=True)
+#    keyworrds = models.ManyToManyField("Keyword", blank=True)
     #todo connections
 
 
