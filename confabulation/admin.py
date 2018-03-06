@@ -49,9 +49,9 @@ class ThemeInChainInline(admin.StackedInline):
     model = ThemeInChain
     extra = 0
 
-#class KeywordInline(admin.StackedInline):
-#    model = Keyword
-#    extra = 0
+class KeywordInline(admin.StackedInline):
+    model = Keyword
+    extra = 0
 
 class ParticipantAdmin(admin.ModelAdmin):
     inlines = [RecordingInline]
@@ -82,8 +82,8 @@ class ChainAdmin(admin.ModelAdmin):
     list_display=['name']
     inlines=[ThemeInChainInline]
 
-#class KeywordAdmin(admin.ModelAdmin):
-#    list_display=['name']
+class KeywordAdmin(admin.ModelAdmin):
+    list_display=['name']
 
 
 admin.site.register(Participant, ParticipantAdmin)
@@ -96,4 +96,4 @@ admin.site.register(Story, StoryAdmin)
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Chain, ChainAdmin)
 admin.site.register(Era, EraAdmin)
-#admin.site.register(Keyword, KeywordAdmin)
+admin.site.register(Keyword, KeywordAdmin)
