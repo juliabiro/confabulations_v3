@@ -42,7 +42,7 @@ class Photo(models.Model):
     def __str__(self):
         return ("%s" % self.name)
     name = models.CharField(max_length = 50)
-    file_path = models.FilePathField(null=True, blank = True)
+    #file_path = models.FilePathField(null=True, blank = True)
     file_url = models.URLField(null = True, blank = True)
 
 class Transscription(models.Model):

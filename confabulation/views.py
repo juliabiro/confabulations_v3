@@ -51,29 +51,38 @@ def storyView(request, story_id):
 
     video_url = story.video_url
     url = ""
+
     if video_url:
-        key = video_url[video_url.find('confabulations'):]
+        key = video_url.split("confabulations/")[-1]
 
-        s3 = gets3()
-        url = s3.generate_presigned_url(
-            ClientMethod='get_object',
-            Params={
-                'Bucket': 'confabulations',
-                'Key': key
-            }
-        )
+        context = {'story': story,
+                'participant':{
+                    'name': participant.name,
+                    'id': participant.id
+                },
+                'analysis':analysis,
+        }
 
+        try:
+            s3 = gets3()
 
-    context = {'story': story,
-               'participant':{
-                   'name': participant.name,
-                   'id': participant.id
-               },
-               'analysis':analysis,
-    }
+            # this will raise an error if the key doesnt exists
+            s3.head_object(Bucket='confabulations', Key=key)
 
-    if url:
-        context['video_url'] = url
+            url = s3.generate_presigned_url(
+                ClientMethod='get_object',
+                Params={
+                    'Bucket': 'confabulations',
+                    'Key': key
+                }
+            )
+
+            if url:
+                context['video_url'] = url
+
+        except Exception as e:
+            context["video_error_message"] = "The video at " + video_url + " doesnt exists"
+
     return render(request, 'confabulation/storyView.html', context)
 
 def thumbnails(request):

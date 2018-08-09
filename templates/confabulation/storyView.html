@@ -15,11 +15,17 @@
     {% endfor %}
 </ul>
 
+Video:
 {% if video_url %}
         <video width="530" height="440" controls >
             <source src={{ video_url }} type="video/mp4"></source>
         </video>
+        {% else %}
+        {% if video_error_message %}
+        {{ video_error_message }}
+        {% endif %}
 {% endif %}
+
 <h5>notes:</h5>
 <p>{{story.notes}}</p>
 {% endif %}
