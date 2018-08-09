@@ -1,5 +1,5 @@
-Django
-psycopg2
+Django==1.11
+psycopg2-binary
 enum34
 gunicorn
 dj-database-url
