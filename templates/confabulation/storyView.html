@@ -4,7 +4,17 @@
 {% block content %}
 {% if story %}
 <h1> {{ story.name }}</h1>
-<h5><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h5>
+<h4><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
+{% if eras %}
+{% for era in eras %}
+<font color="{{story.era.color_code}}">{{ story.era.name }}</font>
+{% endfor %}
+{% endif %}
+{% if keywords %}
+{% for keyword in keywords %}
+{{ keyword.name }}
+{% endfor %}
+{% endif %}
 
 <h3>Analysis</h3>
 <ul>
@@ -15,7 +25,7 @@
     {% endfor %}
 </ul>
 
-Video:
+<h3>Video</h3>
 {% if video_url %}
         <video width="530" height="440" controls >
             <source src={{ video_url }} type="video/mp4"></source>
@@ -26,8 +36,14 @@ Video:
         {% endif %}
 {% endif %}
 
-<h5>notes:</h5>
+<h3>Notes</h3>
 <p>{{story.notes}}</p>
 {% endif %}
+
+<h3>Photos</h3>
+{% for photo in photos %}
+{{ photo.name }}
+<img src={{ photo.file_url }} >
+{% endfor %}
 
 {% endblock %}

@@ -48,21 +48,22 @@ def storyView(request, story_id):
     story = Story.objects.get(pk=story_id)
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
-
     video_url = story.video_url
     url = ""
 
+#    photos = list(map(lambda p: {"name": p.name, "url": p.file_url}, story.photos.all()))
+    context = {'story': story,
+               'participant':{
+                   'name': participant.name,
+                   'id': participant.id
+               },
+               'analysis':analysis,
+               'photos':story.photos.all(),
+               'eras': story.era.all(),
+               'keywords': story.keywords.all()
+    }
     if video_url:
         key = video_url.split("confabulations/")[-1]
-
-        context = {'story': story,
-                'participant':{
-                    'name': participant.name,
-                    'id': participant.id
-                },
-                'analysis':analysis,
-        }
-
         try:
             s3 = gets3()
 
@@ -83,7 +84,7 @@ def storyView(request, story_id):
         except Exception as e:
             context["video_error_message"] = "The video at " + video_url + " doesnt exists"
 
-    return render(request, 'confabulation/storyView.html', context)
+        return render(request, 'confabulation/storyView.html', context)
 
 def thumbnails(request):
     s3 = gets3()
