@@ -6,13 +6,17 @@
 <h1> {{ story.name }}</h1>
 <h4><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
 {% if eras %}
+Era:
 {% for era in eras %}
 <a href="/eras/{{era.id}}">
-<font color="{{story.era.color_code}}">{{ story.era.name }}</font>
+<font color="{{era.color_code}}">{{ era.name }}</font>
 </a>
 {% endfor %}
 {% endif %}
+</br>
+
 {% if keywords %}
+Keywords:
 {% for keyword in keywords %}
 {{ keyword.name }}
 {% endfor %}
