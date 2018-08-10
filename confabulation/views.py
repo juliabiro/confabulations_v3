@@ -43,41 +43,53 @@ def participantView(request, participant_id):
     return render(request, 'confabulation/participantView.html', context)
 
 
+def _get_key_from_url(url):
+    return url.split("confabulations/")[-1]
+
+def _get_signed_url(key, raise_error = True):
+    try:
+        s3 = gets3()
+
+        # this will raise an error if the key doesnt exists
+        s3.head_object(Bucket='confabulations', Key=key)
+
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': 'confabulations',
+                'Key': key
+            }
+        )
+
+        return url
+    except Exception as e:
+        if raise_error:
+            raise e
+        else:
+            print (e)
+            return None
+
 ## there is no ssearch on the html, so all necessary data needs to be here
 def storyView(request, story_id):
     story = Story.objects.get(pk=story_id)
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
     video_url = story.video_url
-    url = ""
+    photos = list(map(lambda p: {"name": p.name, "url": _get_signed_url(_get_key_from_url(p.file_url), raise_error = False )}, story.photos.all()))
 
-#    photos = list(map(lambda p: {"name": p.name, "url": p.file_url}, story.photos.all()))
     context = {'story': story,
                'participant':{
                    'name': participant.name,
                    'id': participant.id
                },
                'analysis':analysis,
-               'photos':story.photos.all(),
+               'photos': photos,
                'eras': story.era.all(),
                'keywords': story.keywords.all()
     }
     if video_url:
-        key = video_url.split("confabulations/")[-1]
         try:
-            s3 = gets3()
-
-            # this will raise an error if the key doesnt exists
-            s3.head_object(Bucket='confabulations', Key=key)
-
-            url = s3.generate_presigned_url(
-                ClientMethod='get_object',
-                Params={
-                    'Bucket': 'confabulations',
-                    'Key': key
-                }
-            )
-
+            url = _get_signed_url(_get_key_from_url(video_url))
             if url:
                 context['video_url'] = url
 
