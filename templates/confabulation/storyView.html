@@ -7,7 +7,9 @@
 <h4><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
 {% if eras %}
 {% for era in eras %}
+<a href="/eras/{{era.id}}">
 <font color="{{story.era.color_code}}">{{ story.era.name }}</font>
+</a>
 {% endfor %}
 {% endif %}
 {% if keywords %}

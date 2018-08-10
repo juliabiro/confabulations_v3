@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.shortcuts import redirect
-from .models import Participant, Story, AnalysisPoint
+from .models import Participant, Story, AnalysisPoint, Era
 
 def gets3():
     import boto3
@@ -168,3 +168,10 @@ def videoView(request, video_name):
     }
 
     return render(request, 'confabulation/video_view.html', context)
+
+def eraView(request, era_id):
+    era = Era.objects.get(pk=era_id)
+    context = {
+        'era': era
+    }
+    return render(request, 'confabulation/eraView.html', context)
