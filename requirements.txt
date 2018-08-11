@@ -7,3 +7,4 @@ whitenoise
 django-colorful
 pillow
 boto3
+pylint

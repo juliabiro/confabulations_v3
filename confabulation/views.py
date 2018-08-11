@@ -3,15 +3,15 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.shortcuts import redirect
-from .models import Participant, Story, AnalysisPoint, Era
+from .models import Participant, Story, Era
 
 def gets3():
     import boto3
 
     # Get the service client.
 
-    s3 = boto3.client('s3')#, config=Config(signature_version='s3v4'))
-    return s3
+    s3_client = boto3.client('s3')
+    return s3_client
 
 # Create your views here.
 def index(request):
@@ -36,7 +36,7 @@ def analysisPoints(request):
     pass
 
 
-def participantView(request, participant_id):
+def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     stories = Story.objects.filter(participant__id=participant_id)
     context = {'participant':participant, 'stories': stories}
@@ -48,12 +48,12 @@ def _get_key_from_url(url):
 
 def _get_signed_url(key, raise_error = True):
     try:
-        s3 = gets3()
+        s3_client = gets3()
 
         # this will raise an error if the key doesnt exists
-        s3.head_object(Bucket='confabulations', Key=key)
+        s3_client.head_object(Bucket='confabulations', Key=key)
 
-        url = s3.generate_presigned_url(
+        url = s3_client.generate_presigned_url(
             ClientMethod='get_object',
             Params={
                 'Bucket': 'confabulations',
@@ -101,7 +101,7 @@ def storyView(request, story_id):
 def thumbnails(request):
     s3 = gets3()
     prefix= 'SG/pilot/thumbs'
-    response = s3.list_objects(Bucket='confabulations',Prefix=prefix)
+    response = s3_client.list_objects(Bucket='confabulations',Prefix=prefix)
 
     # Generate the URL to get 'key-name' from 'bucket-name'
 
@@ -109,7 +109,7 @@ def thumbnails(request):
 
     for c in response['Contents'][1:]:
         key = c['Key']
-        url = s3.generate_presigned_url(
+        url = s3_client.generate_presigned_url(
             ClientMethod='get_object',
             Params={
                 'Bucket': 'confabulations',
@@ -133,14 +133,14 @@ def thumbnails(request):
     return render(request, 'confabulation/thumbnails.html', context)
 
 def videos(request):
-    s3 = gets3()
+    s3_client = gets3()
     prefix= 'SG/pilot/SG_360'
-    response = s3.list_objects(Bucket='confabulations',Prefix=prefix)
+    response = s3_client.list_objects(Bucket='confabulations',Prefix=prefix)
 
     videolist=[]
-    for c in response['Contents'][1:]:
-        key = c['Key']
-        url = s3.generate_presigned_url(
+    for content in response['Contents'][1:]:
+        key = content['Key']
+        url = s3_client.generate_presigned_url(
             ClientMethod='get_object',
             Params={
                 'Bucket': 'confabulations',
@@ -154,17 +154,17 @@ def videos(request):
         })
 
         context = {
-        'videos_list':videolist
-    }
+            'videos_list':videolist
+        }
 
     return render(request, 'confabulation/videos.html', context)
 
-def videoView(request, video_name):
-    s3 = gets3()
+def video_view(request, video_name):
+    s3_client = gets3()
     prefix= 'SG/pilot/SG_360'
     key = prefix+'/'+video_name
 
-    url = s3.generate_presigned_url(
+    url = s3_client.generate_presigned_url(
         ClientMethod='get_object',
         Params={
             'Bucket': 'confabulations',
@@ -179,9 +179,9 @@ def videoView(request, video_name):
         }
     }
 
-    return render(request, 'confabulation/video_view.html', context)
+    return render(request, 'confabulation/videoView.html', context)
 
-def eraView(request, era_id):
+def era_view(request, era_id):
     era = Era.objects.get(pk=era_id)
     context = {
         'era': era
