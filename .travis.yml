@@ -1,0 +1,6 @@
+language: python
+#before_install:
+install: true
+#before_script:
+script:
+  - pylint confabulation
