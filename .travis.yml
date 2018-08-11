@@ -5,7 +5,7 @@ python:
 services: postgresql
 
 before_install:
-  - export DJANGO_SETTINGS_MODULE=your_project.settings
+  - export DJANGO_SETTINGS_MODULE=dbbackend.settings
   - export PYTHONPATH=$HOME/builds/juliabiro/confabulations_v3
   - export PIP_USE_MIRRORS=true
 
