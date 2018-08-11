@@ -1,8 +1,11 @@
-!#/bin/sh
+#!/bin/sh
 
-rc=`pylint confabulations`
+pylint $@
+
+pylint_exit_status=$?
+
 # Fail Travis build if Pylint returns fatal (1) | error (2)
-if [ $(($rc & 3)) -ne 0 ]; then
+if [ $pylint_exit_status -lt 3 ]; then
     echo "Pylint failed"
     exit 1
 else
