@@ -18,5 +18,5 @@ before_script:
   - psql -c "CREATE DATABASE mydb;" -U postgres
 
 script:
+  - smart_pylint 
   - python manage.py syncdb --noinput
-  - pylint confabulation
