@@ -9,7 +9,7 @@ before_install:
   - export PYTHONPATH=$HOME/builds/juliabiro/confabulations_v3
   - export PIP_USE_MIRRORS=true
 
-  install:
+install:
   - pip install -r requirements.txt
   - pip install django==$DJANGO --quiet
   - pip install psycopg2 --quiet
