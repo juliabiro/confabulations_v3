@@ -1,6 +1,9 @@
 language: python
+python:
+  - "3.6"
 #before_install:
-install: true
+install:
+  - pip install -r requirements.txt
 #before_script:
 script:
   - pylint confabulation
