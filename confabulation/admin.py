@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Photo, Transscription, AnalysisPoint, Era, Theme, Recording, Story, Chain, Keyword, Participant, AnalysisType, StoryInTheme, StoryToStoryConnection, ThemeInChain
 # Register your models here.
 
 # fields make the dispplay order
@@ -12,15 +12,15 @@ class PhotoInline(admin.StackedInline):
     model = Photo
     extra = 1
 class TransscriptionInline(admin.StackedInline):
-    model=Transscription
+    model = Transscription
     extra = 1
 
 class AnalysisPointInline(admin.StackedInline):
-    model=AnalysisPoint
+    model = AnalysisPoint
     extra = 0
 
 class EraInline(admin.StackedInline):
-    model=Era
+    model = Era
     extra = 0
 
 class ThemeInline(admin.StackedInline):
@@ -33,16 +33,16 @@ class RecordingInline(admin.StackedInline):
 
 class StoryConnectionInline1(admin.StackedInline):
     model = StoryToStoryConnection
-    fk_name ='story1'
+    fk_name = 'story1'
     extra = 0
 
 class StoryConnectionInline2(admin.StackedInline):
     model = StoryToStoryConnection
-    fk_name ='story2'
+    fk_name = 'story2'
     extra = 0
 
 class StoryInThemeInline(admin.StackedInline):
-    model=StoryInTheme
+    model = StoryInTheme
     extra = 0
 
 class ThemeInChainInline(admin.StackedInline):
@@ -55,14 +55,14 @@ class ThemeInChainInline(admin.StackedInline):
 
 class ParticipantAdmin(admin.ModelAdmin):
     inlines = [RecordingInline]
-    list_display=['name']
+    list_display = ['name']
 
 class StoryAdmin(admin.ModelAdmin):
     inlines = [TransscriptionInline, StoryConnectionInline1, StoryConnectionInline2]
-    list_display =['participant','name' ]
+    list_display = ['participant', 'name']
 
 class RecordingAdmin(admin.ModelAdmin):
-    list_display =['name', 'date']
+    list_display = ['name', 'date']
 
 class AnalysisTypeAdmin(admin.ModelAdmin):
     inlines = [AnalysisPointInline]
@@ -76,14 +76,14 @@ class EraAdmin(admin.ModelAdmin):
 
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ['name']
-    inlines=[StoryInThemeInline]
+    inlines = [StoryInThemeInline]
 
 class ChainAdmin(admin.ModelAdmin):
-    list_display=['name']
-    inlines=[ThemeInChainInline]
+    list_display = ['name']
+    inlines = [ThemeInChainInline]
 
 class KeywordAdmin(admin.ModelAdmin):
-    list_display=['name']
+    list_display = ['name']
 
 
 admin.site.register(Participant, ParticipantAdmin)
