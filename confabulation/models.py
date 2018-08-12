@@ -20,6 +20,9 @@ class Participant(models.Model):
     def __str__(self):
         return "%s" % self.name
 
+    def get_absolute_url(self):
+        return "/participant/%i/" % self.id
+
     name = models.CharField(max_length=200)
     profile = models.TextField(null=True)
     participation_group = models.CharField(max_length=50, choices=ParticipantTypes.choices())
