@@ -3,7 +3,6 @@ psycopg2-binary
 enum34
 gunicorn
 dj-database-url
-whitenoise
 django-colorful
 pillow
 boto3
