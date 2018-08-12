@@ -2,8 +2,6 @@ language: python
 python:
   - "3.6"
 
-services: postgresql
-
 before_install:
   - export DJANGO_SETTINGS_MODULE=dbbackend.settings
   - export PYTHONPATH=$HOME/builds/juliabiro/confabulations_v3
@@ -13,9 +11,6 @@ install:
   - pip install -r requirements.txt
   - pip install django==1.11 --quiet
   - pip install psycopg2 --quiet
-
-before_script:
-  - psql -c "CREATE DATABASE travisci;" -U postgres
 
 script:
   - ./smart_pylint confabulation/
