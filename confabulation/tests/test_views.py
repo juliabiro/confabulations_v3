@@ -7,10 +7,10 @@ from confabulation.views import *
 class ParticipantViewTestCase(TestCase):
     def setUp(self):
         self.participant = Participant(name="Test Bela",
-                                  profile="test profile",
-                                  participation_group=ParticipantTypes.photographer,
-                                  gender=Gender.female,
-                                  id=1)
+                                       profile="test profile",
+                                       participation_group=ParticipantTypes.photographer,
+                                       gender=Gender.female,
+                                       id=1)
         self.participant.save()
         self.client = Client()
 
@@ -20,4 +20,3 @@ class ParticipantViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/participantView.html')
         self.assertContains(response, 'Test Bela')
-
