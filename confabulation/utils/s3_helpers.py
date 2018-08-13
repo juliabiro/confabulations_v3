@@ -1,3 +1,4 @@
+import re
 from botocore.exceptions import ClientError
 import boto3
 
@@ -9,7 +10,16 @@ def _gets3():
     return s3_client
 
 def parse_key_from_url(url):
-    return url.split("confabulations/")[-1]
+    return url.split("/")[-1]
+
+def get_signed_video_url(file_name, raise_error=True):
+    key = "Video/720/"+file_name
+    return get_signed_asset_link(key, raise_error)
+
+def get_signed_photo_url(file_name, raise_error=True):
+    m = re.match('^[A-Z]+', file_name)
+    key = m.group(0)+"/i/"+file_name
+    return get_signed_asset_link(key, raise_error)
 
 def get_signed_asset_link(key, raise_error=True):
     try:
@@ -32,6 +42,7 @@ def get_signed_asset_link(key, raise_error=True):
             raise e
         else:
             print(e)
+            print(key)
             return None
 
 def get_keys_with_prefix(prefix):

@@ -48,8 +48,12 @@ Keywords:
 
 <h3>Photos</h3>
 {% for photo in photos %}
-<a href={{photo.url}}>{{ photo.name }} <br>
-<img width=100 src={{ photo.url }} ></a>
+{{ photo.name }} <br>
+    {% if photo.url %}
+ <a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
+    {% else %}
+    {{photo.photo_error_message}}
+    {% endif %}
 {% endfor %}
 
 {% endblock %}
