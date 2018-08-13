@@ -39,10 +39,21 @@ def storyView(request, story_id):
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
     video_url = story.video_url
-    photos = list(map(lambda p: {"name": p.name,
-                                 "url": get_signed_photo_url(
-                                     parse_key_from_url(p.file_url),
-                                     raise_error=False)}, story.photos.all()))
+
+    photos = []
+    for p in story.photos.all():
+        url = get_signed_photo_url(parse_key_from_url(p.file_url),
+                                   raise_error=False)
+        if url is not None:
+            photos.append(
+                {"name": p.name,
+                 "url": url
+                })
+        else:
+            photos.append(
+                {"name": p.name,
+                 "photo_error_message": "the photo "+p.file_url+ " doesn't exist."
+                })
 
     context = {'story': story,
                'participant':{
@@ -61,7 +72,7 @@ def storyView(request, story_id):
                 context['video_url'] = url
 
         except ClientError:
-            context["video_error_message"] = "The video at " + video_url + " doesnt exists"
+            context["video_error_message"] = "The video at " + video_url + " doesnt exist."
 
     return render(request, 'confabulation/storyView.html', context)
 
