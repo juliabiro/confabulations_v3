@@ -40,7 +40,7 @@ def storyView(request, story_id):
     analysis = story.analysis.all()
     video_url = story.video_url
     photos = list(map(lambda p: {"name": p.name,
-                                 "url": get_signed_asset_link(
+                                 "url": get_signed_photo_url(
                                      parse_key_from_url(p.file_url),
                                      raise_error=False)}, story.photos.all()))
 
@@ -56,7 +56,7 @@ def storyView(request, story_id):
               }
     if video_url:
         try:
-            url = get_signed_asset_link(parse_key_from_url(video_url))
+            url = get_signed_video_url(parse_key_from_url(video_url))
             if url:
                 context['video_url'] = url
 
