@@ -12,11 +12,17 @@ def index(request):
     return render(request, 'frontpage.html')
 
 def participants(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     participant_list = Participant.objects.all()
     context = {'participant_list':participant_list}
     return render(request, 'confabulation/participants.html', context)
 
 def stories(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     story_list = Story.objects.all()
     context = {'story_list':story_list}
     return render(request, 'confabulation/stories.html', context)
@@ -27,6 +33,9 @@ def stories(request):
 
 
 def participant_view(request, participant_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     participant = Participant.objects.get(pk=participant_id)
     participant_stories = Story.objects.filter(participant__id=participant_id)
     context = {'participant':participant, 'stories': participant_stories}
@@ -35,6 +44,9 @@ def participant_view(request, participant_id):
 
 ## there is no ssearch on the html, so all necessary data needs to be here
 def storyView(request, story_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     story = Story.objects.get(pk=story_id)
     participant = Participant.objects.get(pk=story.participant.id)
     analysis = story.analysis.all()
@@ -77,6 +89,9 @@ def storyView(request, story_id):
     return render(request, 'confabulation/storyView.html', context)
 
 def thumbnails(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     prefix = 'SG/pilot/thumbs'
 
     # Generate the URL to get 'key-name' from 'bucket-name'
@@ -102,6 +117,9 @@ def thumbnails(request):
     return render(request, 'confabulation/thumbnails.html', context)
 
 def videos(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     prefix = 'SG/pilot/SG_360'
 
     videolist = []
@@ -120,6 +138,9 @@ def videos(request):
     return render(request, 'confabulation/videos.html', context)
 
 def video_view(request, video_name):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     prefix = 'SG/pilot/SG_360'
     key = prefix+'/'+video_name
     url = get_signed_asset_link(key)
@@ -134,6 +155,9 @@ def video_view(request, video_name):
     return render(request, 'confabulation/videoView.html', context)
 
 def era_view(request, era_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     era = Era.objects.get(pk=era_id)
     context = {
         'era': era
