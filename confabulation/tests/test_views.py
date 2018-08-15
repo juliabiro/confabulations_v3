@@ -62,47 +62,48 @@ class ParticipantView(TestCase):
         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
 
         self.client = Client()
+        self.client.login(username='temporary', password='temporary')
 
     def test_participant_view(self):
         """partipant view can be rendered"""
-
-        self.client.login(username='temporary', password='temporary')
 
         response = self.client.get(self.participant.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/participantView.html')
         self.assertContains(response, 'Test Bela')
 
-# class StoryView(TestCase):
-#     def setUp(self):
-#         self.story = Story(id=1,
-#                            name="Test Bela",
-#                            participant=PARTICIPANT,
-#                            photos=PHOTOS,
-#                            order_in_recording=2,
-#                            video_url='video_url',
-#                            analysis=ANALYSIS_POINTS,
-#                            era=ERAS,
-#                            notes="sometext",
-#                            keywords=KEYWORDS
-#         )
-#         self.story.save()
+class StoryView(TestCase):
+    def setUp(self):
+        populate_db()
+        self.story = Story(id=1,
+                           name="Test Bela",
+                           participant=PARTICIPANT,
+                           photos=Photo.objects.all(),
+                           order_in_recording=2,
+                           video_url='video_url',
+                           analysis=AnalysisPoint.objects.all(),
+                           era=Era.objects.all(),
+                           notes="sometext",
+                           keywords=Keyword.objects.all()
+        )
+        self.story.save()
 
-#         User = get_user_model()
-#         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        User = get_user_model()
+        User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
 
-#         self.client = Client()
+        self.client = Client()
+        self.client.login(username='temporary', password='temporary')
 
-#     def test_story_view(self):
-#         response = self.client.get(self.story.get_absolute_url(id=1))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertTemplateUsed(response, 'confabulation/storyView.html')
-#         self.assertContains(response, 'Test Bela')
-#         self.assertContains(response, 'era1')
-#         self.assertContains(response, 'keyword1')
-#         self.assertContains(response, 'analysis_point1')
-#         self.assertContains(response, 'photo_url1')
-#         self.assertContains(response, 'video_url')
+    def test_story_view(self):
+        response = self.client.get(self.story.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'confabulation/storyView.html')
+        self.assertContains(response, 'Test Bela')
+        self.assertContains(response, 'era1')
+        self.assertContains(response, 'keyword1')
+        self.assertContains(response, 'analysis_point1')
+        self.assertContains(response, 'photo_url1')
+        self.assertContains(response, 'video_url')
 
 
 class FrontPage(TestCase):
