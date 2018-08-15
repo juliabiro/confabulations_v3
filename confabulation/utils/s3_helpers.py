@@ -18,8 +18,15 @@ def get_signed_video_url(file_name, raise_error=True):
 
 def get_signed_photo_url(file_name, raise_error=True):
     m = re.match('^[A-Z]+', file_name)
-    key = m.group(0)+"/i/"+file_name
-    return get_signed_asset_link(key, raise_error)
+    try:
+        key = m.group(0)+"/i/"+file_name
+        return get_signed_asset_link(key, raise_error)
+
+    except (AttributeError, ClientError) as e:
+        if raise_error:
+            raise e
+        else:
+            return None
 
 def get_signed_asset_link(key, raise_error=True):
     try:

@@ -44,8 +44,8 @@ class Recording(models.Model):
 class Photo(models.Model):
     def __str__(self):
         return "%s" % self.name
+
     name = models.CharField(max_length=50)
-    #file_path = models.FilePathField(null=True, blank = True)
     file_url = models.URLField(null=True, blank=True)
 
 class Transscription(models.Model):
@@ -67,6 +67,10 @@ class Story(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/story/%i/" % self.id
+
     name = models.CharField(max_length=100)
     participant = models.ForeignKey('Participant', null=True, on_delete=models.DO_NOTHING)
     photos = models.ManyToManyField('Photo', blank=True)
