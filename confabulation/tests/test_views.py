@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test import Client
 from django.contrib.auth import get_user_model
 from .db_data import populate_db
-from confabulation.models import Participant, Story
+from ..models import Participant, Story
 
 class ParticipantView(TestCase):
     def setUp(self):
@@ -36,7 +36,6 @@ class StoryView(TestCase):
 
     def test_story_view(self):
         story = Story.objects.get(pk=1)
-        print(story.analysis)
         response = self.client.get(story.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/storyView.html')
@@ -44,7 +43,7 @@ class StoryView(TestCase):
         self.assertContains(response, 'era1')
         self.assertContains(response, 'keyword1')
         self.assertContains(response, 'analysis_point1')
-        self.assertContains(response, 'photo_url1')
+        self.assertContains(response, 'TEST01.jpg1')
         self.assertContains(response, 'TEST01.mp4')
 
     def test_story_view_invalid_video(self):
