@@ -3,16 +3,21 @@
 {% block title %}Story: {{story.name}}{% endblock %}
 {% block content %}
 {% if story %}
-<h1> {{ story.name }}</h1>
-<h4><a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
-{% if eras %}
-Era:
-{% for era in eras %}
-<a href="/eras/{{era.id}}">
-<font color="{{era.color_code}}">{{ era.name }}</font>
-</a>
-{% endfor %}
-{% endif %}
+
+<div class="story">
+    <h1> {{ story.name }}</h1>
+    <h4>
+        <a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
+    {% if eras %}
+
+
+    Era:
+    {% for era in eras %}
+    <a href="/eras/{{era.id}}">
+        <font color="{{era.color_code}}">{{ era.name }}</font>
+    </a>
+    {% endfor %}
+    {% endif %}
 </br>
 
 {% if keywords %}
@@ -33,27 +38,29 @@ Keywords:
 
 <h3>Video</h3>
 {% if video_url %}
-        <video width="530" height="440" controls >
-            <source src={{ video_url }} type="video/mp4"></source>
-        </video>
-        {% else %}
-        {% if video_error_message %}
-        {{ video_error_message }}
-        {% endif %}
+<video width="530" height="440" controls >
+    <source src={{ video_url }} type="video/mp4"></source>
+</video>
+{% else %}
+{% if video_error_message %}
+{{ video_error_message }}
+{% endif %}
 {% endif %}
 
 <h3>Notes</h3>
 <p>{{story.notes}}</p>
-{% endif %}
-
 <h3>Photos</h3>
 {% for photo in photos %}
 {{ photo.name }} <br>
-    {% if photo.url %}
- <a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
-    {% else %}
-    {{photo.photo_error_message}}
-    {% endif %}
+{% if photo.url %}
+<a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
+{% else %}
+{{photo.photo_error_message}}
+{% endif %}
 {% endfor %}
+
+</div>
+{% endif %}
+
 
 {% endblock %}
