@@ -8,6 +8,7 @@ class UtilTestCase(TestCase):
         self.valid_image = "TEST01.jpg"
         self.invalid_video = "BROKEN.mp4"
         self.invald_image = "BROKEN.jpg"
+        self.malformed_image = "lowercase.jpg"
 
     def test_parse_key(self):
         ret = parse_key_from_url(self.valid_video)
@@ -39,4 +40,15 @@ class UtilTestCase(TestCase):
 
     def get_signed_photourl_invalid_noerror(self):
         ret = get_signed_photo_url(self.invalid_photo, raise_error=False)
+        self.assertNone(ret)
+
+    def get_signed_photo_url_malformed_error(self):
+        self.assertRaises(ClientError,
+                          get_signed_photo_url,
+                          file_name=self.malformed_photo,
+                          raise_error=True)
+
+    def get_signed_photo_url_malformed_noerror(self):
+        ret = get_signed_photo_url(self.malformed_photo,
+                                   raise_error=False)
         self.assertNone(ret)
