@@ -36,6 +36,7 @@ class StoryView(TestCase):
 
     def test_story_view(self):
         story = Story.objects.get(pk=VALID_STORY_ID)
+        self.client.login(username='temporary', password='temporary')
         response = self.client.get(story.get_absolute_url())
 
         self.assertEqual(response.status_code, 200)
@@ -50,6 +51,7 @@ class StoryView(TestCase):
 
     def test_story_view_invalid_media(self):
         story = Story.objects.get(pk=INVALID_STORY_ID)
+        self.client.login(username='temporary', password='temporary')
         response = self.client.get(story.get_absolute_url())
 
         self.assertEqual(response.status_code, 200)
