@@ -12,6 +12,11 @@ install:
   - pip install django==1.11 --quiet
   - pip install psycopg2 --quiet
 
+env:
+  global:
+    - AWS_ACCESS_KEY_ID=AKIAJHVLPF3SDDTOYKXQ
+    - AWS_SECRET_ACCESS_KEY=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
+
 script:
   - ./smart_pylint dbbackend/
   - ./smart_pylint confabulation/
