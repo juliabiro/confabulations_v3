@@ -131,6 +131,9 @@ ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'confabulation', 'static'),
+)
 
 
 LOGIN_URL = '/login/'
