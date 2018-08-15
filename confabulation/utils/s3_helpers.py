@@ -22,12 +22,11 @@ def get_signed_photo_url(file_name, raise_error=True):
         key = m.group(0)+"/i/"+file_name
         return get_signed_asset_link(key, raise_error)
 
-    except AttributeError as e:
+    except (AttributeError, ClientError) as e:
         if raise_error:
             raise e
         else:
-            return
-        None
+            return None
 
 def get_signed_asset_link(key, raise_error=True):
     try:

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth import get_user_model
-from .db_data import populate_db
+from .db_data import *
 from ..models import Participant, Story
 
 class ParticipantView(TestCase):
@@ -35,28 +35,30 @@ class StoryView(TestCase):
         self.client.login(username='temporary', password='temporary')
 
     def test_story_view(self):
-        story = Story.objects.get(pk=1)
+        story = Story.objects.get(pk=VALID_STORY_ID)
         response = self.client.get(story.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'confabulation/storyView.html')
-        self.assertContains(response, 'Test Bela')
-        self.assertContains(response, 'era1')
-        self.assertContains(response, 'keyword1')
-        self.assertContains(response, 'analysis_point1')
-        self.assertContains(response, 'TEST01.jpg1')
-        self.assertContains(response, 'TEST01.mp4')
 
-    def test_story_view_invalid_video(self):
-        story = Story.objects.get(pk=1)
-        response = self.client.get(story.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/storyView.html')
         self.assertContains(response, 'Test Bela')
         self.assertContains(response, 'era1')
         self.assertContains(response, 'keyword1')
         self.assertContains(response, 'analysis_point1')
-        self.assertContains(response, 'photo_url1')
-        self.assertContains(response, 'The video at invalid_video.mp4 doesn\'t exist')
+        self.assertContains(response, 'sometext')
+        self.assertContains(response, VALID_PHOTO_NAME)
+        self.assertContains(response, VALID_VIDEO_NAME)
+
+    def test_story_view_invalid_media(self):
+        story = Story.objects.get(pk=INVALID_STORY_ID)
+        response = self.client.get(story.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'confabulation/storyView.html')
+        self.assertContains(response, 'invalid notes')
+        self.assertContains(response, INVALID_PHOTO_NAME+" doesn&#39;t exist")
+        self.assertContains(response, MALFORMED_PHOTO_NAME+" doesn&#39;t exist")
+        self.assertContains(response, MISSING_PHOTO_NAME+" doesn&#39;t exist")
+        self.assertContains(response, INVALID_VIDEO_NAME+" doesn&#39;t exist")
 
 
 class FrontPage(TestCase):
@@ -83,4 +85,3 @@ class FrontPage(TestCase):
         """unauthenticated users get redirected"""
         response = self.client.get('/')
         self.assertRedirects(response, '/login/?next=/')
-

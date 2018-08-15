@@ -84,7 +84,7 @@ def storyView(request, story_id):
                 context['video_url'] = url
 
         except ClientError:
-            context["video_error_message"] = "The video at " + video_url + " doesnt exist."
+            context["video_error_message"] = "The video at " + video_url + " doesn't exist."
 
     return render(request, 'confabulation/storyView.html', context)
 
