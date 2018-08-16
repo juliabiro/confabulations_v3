@@ -2,7 +2,9 @@ from django.test import TestCase
 from django.test import Client
 from django.contrib.auth import get_user_model
 from .db_data import *
+from .utils_mock import mock_get_signed_asset_link
 from ..models import Participant, Story
+import mock
 
 class ParticipantView(TestCase):
     def setUp(self):
@@ -24,6 +26,8 @@ class ParticipantView(TestCase):
         self.assertTemplateUsed(response, 'confabulation/participantView.html')
         self.assertContains(response, 'Test Bela')
 
+@mock.patch('confabulation.views.get_signed_photo_url', mock_get_signed_asset_link)
+@mock.patch('confabulation.views.get_signed_video_url', mock_get_signed_asset_link)
 class StoryView(TestCase):
     def setUp(self):
         populate_db()
