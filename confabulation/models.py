@@ -79,7 +79,7 @@ class Story(models.Model):
     video_url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     analysis = models.ManyToManyField('AnalysisPoint', blank=True)
-    era = models.ManyToManyField('Era', null=True, blank=True)
+    era = models.ManyToManyField('Era', blank=True)
     notes = models.TextField(null=True, blank=True)
     keywords = models.ManyToManyField("Keyword", blank=True)
     #todo connections

@@ -8,3 +8,4 @@ django-colorful
 pillow
 boto3
 pylint==2.1.1
+mock

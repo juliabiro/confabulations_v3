@@ -83,7 +83,7 @@ def storyView(request, story_id):
             if url:
                 context['video_url'] = url
 
-        except ClientError:
+        except (ClientError, AttributeError):
             context["video_error_message"] = "The video at " + video_url + " doesn't exist."
 
     return render(request, 'confabulation/storyView.html', context)
