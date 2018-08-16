@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from .models import Participant, Story, Era
+from .models import Participant, Story, Era, AnalysisPoint, AnalysisType
 from .utils.s3_helpers import *
 
 # Create your views here.
@@ -43,7 +43,7 @@ def participant_view(request, participant_id):
 
 
 ## there is no ssearch on the html, so all necessary data needs to be here
-def storyView(request, story_id):
+def story_view(request, story_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
@@ -163,3 +163,30 @@ def era_view(request, era_id):
         'era': era
     }
     return render(request, 'confabulation/eraView.html', context)
+
+def analysis_view(request, ap_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    ap = AnalysisPoint.objects.get(pk=ap_id)
+
+    context = {
+        'analysis_point': ap
+    }
+
+    return render(request, 'confabulation/analysisView.html', context)
+
+def analysis_type_view(request, ap_type_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    ap_type = AnalysisType.objects.get(pk=ap_type_id)
+
+    aps = AnalysisPoint.objects.filter(analysis_type_id=ap_type_id)
+
+    context = {
+        'analysis_type': ap_type,
+        'analysis_points': aps
+    }
+
+    return render(request, 'confabulation/analysisTypeView.html', context)

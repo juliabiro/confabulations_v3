@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Analysis Type: {{analysis_type.name}}{% endblock %}
+
+{% block content %}
+
+<div class="AnalysisType">
+    {% if analysis_type %}
+
+    <h1> {{analysis_type.name}} </h1>
+
+
+    {{analysis_type.description}}
+
+    Analysis Points:
+    <div>
+        <ul>
+    {% for ap in analysis_points %}
+            <li><a href="/analysis/{{ap.id}}">{{ap.name}}</a></li>
+{% endfor %}
+        </ul>
+</div>
+
+{% endif %}
+{% endblock%}

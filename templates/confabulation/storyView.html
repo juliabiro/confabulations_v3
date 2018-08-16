@@ -31,7 +31,7 @@ Keywords:
 <ul>
     {% for a in analysis %}
     <li>
-        <font color="{{a.color_code}}">{{a.name}}</font>
+        <a href="/analysis/{{a.id}}/">       <font color="{{a.color_code}}">{{a.name}}</font></a>
     </li>
     {% endfor %}
 </ul>
