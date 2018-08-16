@@ -51,12 +51,18 @@ Keywords:
 <p>{{story.notes}}</p>
 <h3>Photos</h3>
 {% for photo in photos %}
-{{ photo.name }} <br>
-{% if photo.url %}
+<div class="story_photo_boc">
+    <div class="story_photo_name">
+        {{ photo.name }} 
+    </div>
+    {% if photo.url %}
+    <div id="story_photo">
 <a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
+    </div>
 {% else %}
 {{photo.photo_error_message}}
 {% endif %}
+</div>
 {% endfor %}
 
 </div>
