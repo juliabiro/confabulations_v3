@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from .models import Participant, Story, Era, AnalysisPoint, AnalysisType
 from .utils.s3_helpers import *
+from .utils. media_helpers import get_story_thumb
 
 # Create your views here.
 def index(request):
@@ -24,7 +25,10 @@ def stories(request):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     story_list = Story.objects.all().order_by('name')
-    context = {'story_list':story_list}
+    story_data = [{'name': s.name,
+                   'id': s.id,
+                   'image_link': get_story_thumb(s)} for s in story_list]
+    context = {'story_list': story_data}
     return render(request, 'confabulation/stories.html', context)
 
 #todo

@@ -8,7 +8,12 @@
 {% if story_list %}
 <ul>
     {% for story in story_list %}
-    <li><a href="/story/{{ story.id }}/">{{ story.name }}</a></li>
+    <li><a href="/story/{{ story.id }}/">{{ story.name }}
+        {% if story.image_link %}
+<img src="{{story.image_link}}" width=100>
+{% endif %}
+</a>
+    </li>
     {% endfor %}
 </ul>
 {% endif %}
