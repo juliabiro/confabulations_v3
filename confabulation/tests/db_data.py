@@ -9,7 +9,7 @@ VALID_PHOTO_NAME = 'TEST01.jpg'
 MISSING_PHOTO_NAME = 'TEST100.jpg'
 INVALID_PHOTO_NAME = 'PHOTO_2'
 MALFORMED_PHOTO_NAME = 'photo_3'
-
+ANALYSIS_POINT_ID = 1
 
 def populate_db():
     eras = [Era(name="era1", id=1),
@@ -35,7 +35,7 @@ def populate_db():
 
     analysis_points = [AnalysisPoint(name='analysis_point1',
                                      analysis_type=analysis_types[0],
-                                     id=1),
+                                     id=ANALYSIS_POINT_ID),
                        AnalysisPoint(name='analysis_point2',
                                      analysis_type=analysis_types[1],
                                      id=2)]
