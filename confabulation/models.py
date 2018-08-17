@@ -90,6 +90,10 @@ class Story(models.Model):
 class AnalysisType(models.Model):
     def __str__(self):
         return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/analysis_type/%i/" % self.id
+
     name = models.CharField(max_length=50)
     description = models.TextField(default="", blank=True)
 
@@ -97,6 +101,10 @@ class AnalysisType(models.Model):
 class AnalysisPoint(models.Model):
     def __str__(self):
         return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/analysis/%i/" % self.id
+
     name = models.CharField(max_length=50)
     analysis_type = models.ForeignKey('AnalysisType', on_delete=models.DO_NOTHING)
     description = models.CharField(max_length=2000, null=True, blank=True)

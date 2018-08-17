@@ -10,6 +10,7 @@ MISSING_PHOTO_NAME = 'TEST100.jpg'
 INVALID_PHOTO_NAME = 'PHOTO_2'
 MALFORMED_PHOTO_NAME = 'photo_3'
 ANALYSIS_POINT_ID = 1
+ANALYSIS_TYPE_ID = 1
 
 def populate_db():
     eras = [Era(name="era1", id=1),
@@ -29,7 +30,7 @@ def populate_db():
                     id=4)]
 
     analysis_types = [AnalysisType(name='analysis_type1',
-                                   id=1),
+                                   id=ANALYSIS_TYPE_ID),
                       AnalysisType(name='analysis_type2',
                                    id=2)]
 
@@ -56,9 +57,9 @@ def populate_db():
         value.analysis_type = analysis_types[counter]
         value.save()
 
-
     for k in keywords:
         k.save()
+
     participant = Participant(name="Test Bela",
                               id=PARTICIPANT_ID)
     participant.profile = "test profile"
@@ -77,7 +78,7 @@ def populate_db():
     valid_story.era.add(eras[0])
     valid_story.era.add(eras[1])
     valid_story.notes = "sometext"
-    valid_story.keywords.add(keywords[0])
+    valid_story.keywords.add(Keyword.objects.get(pk=1))
     valid_story.save()
 
     invalid_story = Story.objects.create(name='invalid lajos', id=INVALID_STORY_ID)

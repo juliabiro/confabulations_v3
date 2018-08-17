@@ -26,10 +26,11 @@ class StoryView(TestCase):
         self.assertTemplateUsed(response, 'confabulation/storyView.html')
         self.assertContains(response, 'Test Bela')
         self.assertContains(response, 'era1')
-        self.assertContains(response, 'keyword1')
-        self.assertContains(response, 'analysis_point1')
-        analysis_link = '<a href="/analysis/{0}/">'.format(ANALYSIS_POINT_ID)
-        self.assertContains(response, analysis_link)
+        for k in story.keywords.all():
+            self.assertContains(response, k.name)
+        for ap in story.analysis.all():
+            self.assertContains(response, ap.name)
+            self.assertContains(response, ap.get_absolute_url())
         self.assertContains(response, 'sometext')
         self.assertContains(response, VALID_PHOTO_NAME)
         self.assertContains(response, VALID_VIDEO_NAME)
