@@ -35,11 +35,11 @@ def populate_db():
                                    id=2)]
 
     analysis_points = [AnalysisPoint(name='analysis_point1',
-                                     analysis_type=analysis_types[0],
                                      id=ANALYSIS_POINT_ID),
                        AnalysisPoint(name='analysis_point2',
-                                     analysis_type=analysis_types[1],
-                                     id=2)]
+                                     id=2),
+                       AnalysisPoint(name="alma_point",
+                                     id=3)]
 
     keywords = [Keyword(name='keyword1', id=1),
                 Keyword(name='keyword2', id=2),
@@ -52,10 +52,12 @@ def populate_db():
     for at in analysis_types:
         at.save()
 
+    analysis_points[0].analysis_type = analysis_types[0]
+    analysis_points[1].analysis_type = analysis_types[1]
+    analysis_points[2].analysis_type = analysis_types[0]
 
-    for counter, value in enumerate(analysis_points):
-        value.analysis_type = analysis_types[counter]
-        value.save()
+    for ap in analysis_points:
+        ap.save()
 
     for k in keywords:
         k.save()
@@ -69,7 +71,7 @@ def populate_db():
 
 
     # creating the stories
-    valid_story = Story.objects.create(name='Test Bela', id=VALID_STORY_ID)
+    valid_story = Story.objects.create(name='elso story', id=VALID_STORY_ID)
     valid_story.participant = participant
     valid_story.photos.add(photos[0])
     valid_story.order_in_recording = 2
@@ -81,7 +83,7 @@ def populate_db():
     valid_story.keywords.add(Keyword.objects.get(pk=1))
     valid_story.save()
 
-    invalid_story = Story.objects.create(name='invalid lajos', id=INVALID_STORY_ID)
+    invalid_story = Story.objects.create(name='masodik story', id=INVALID_STORY_ID)
     invalid_story.participant = participant
     invalid_story.photos.add(photos[1])
     invalid_story.photos.add(photos[2])
@@ -93,3 +95,7 @@ def populate_db():
     invalid_story.keywords.add(keywords[1])
     invalid_story.keywords.add(keywords[2])
     invalid_story.save()
+
+    harmadik_story = Story.objects.create(name='harmadik story', id=15)
+    harmadik_story.participant = participant
+    harmadik_story.save()
