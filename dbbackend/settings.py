@@ -25,7 +25,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'qg)ot43=^vhysc$^7x&wrtok11(r17_oyhi*7lrbnjdux+%q9('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'LOCAL' in os.environ:
+    DEBUG= True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -125,7 +128,7 @@ USE_TZ = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['confabulations-v3.herokuapp.com', 'localhost']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 

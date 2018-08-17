@@ -1,5 +1,6 @@
-dbbackend/static/*
+dbbackend/staticfiles/*
 *.pyc
 */*.pyc
 thumbnails/*
 web-variables.env
+
