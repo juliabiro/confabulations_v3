@@ -69,7 +69,7 @@ def populate_db():
 
 
     # creating the stories
-    valid_story = Story.objects.create(name='Test Bela', id=VALID_STORY_ID)
+    valid_story = Story.objects.create(name='elso story', id=VALID_STORY_ID)
     valid_story.participant = participant
     valid_story.photos.add(photos[0])
     valid_story.order_in_recording = 2
@@ -81,7 +81,7 @@ def populate_db():
     valid_story.keywords.add(Keyword.objects.get(pk=1))
     valid_story.save()
 
-    invalid_story = Story.objects.create(name='invalid lajos', id=INVALID_STORY_ID)
+    invalid_story = Story.objects.create(name='masodik story', id=INVALID_STORY_ID)
     invalid_story.participant = participant
     invalid_story.photos.add(photos[1])
     invalid_story.photos.add(photos[2])
@@ -93,3 +93,7 @@ def populate_db():
     invalid_story.keywords.add(keywords[1])
     invalid_story.keywords.add(keywords[2])
     invalid_story.save()
+
+    harmadik_story = Story.objects.create(name='harmadik story', id=15)
+    harmadik_story.participant = participant
+    harmadik_story.save()
