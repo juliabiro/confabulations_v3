@@ -23,7 +23,7 @@ def stories(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    story_list = Story.objects.all()
+    story_list = Story.objects.all().order_by('name')
     context = {'story_list':story_list}
     return render(request, 'confabulation/stories.html', context)
 
