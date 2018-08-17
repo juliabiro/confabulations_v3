@@ -25,10 +25,7 @@ def stories(request):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     story_list = Story.objects.all().order_by('name')
-    story_data = [{'name': s.name,
-                   'id': s.id,
-                   'image_link': get_story_thumb(s)} for s in story_list]
-    context = {'story_list': story_data}
+    context = {'story_list': story_list}
     return render(request, 'confabulation/stories.html', context)
 
 #todo
