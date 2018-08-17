@@ -35,11 +35,11 @@ def populate_db():
                                    id=2)]
 
     analysis_points = [AnalysisPoint(name='analysis_point1',
-                                     analysis_type=analysis_types[0],
                                      id=ANALYSIS_POINT_ID),
                        AnalysisPoint(name='analysis_point2',
-                                     analysis_type=analysis_types[1],
-                                     id=2)]
+                                     id=2),
+                       AnalysisPoint(name="alma_point",
+                                     id=3)]
 
     keywords = [Keyword(name='keyword1', id=1),
                 Keyword(name='keyword2', id=2),
@@ -52,10 +52,12 @@ def populate_db():
     for at in analysis_types:
         at.save()
 
+    analysis_points[0].analysis_type = analysis_types[0]
+    analysis_points[1].analysis_type = analysis_types[1]
+    analysis_points[2].analysis_type = analysis_types[0]
 
-    for counter, value in enumerate(analysis_points):
-        value.analysis_type = analysis_types[counter]
-        value.save()
+    for ap in analysis_points:
+        ap.save()
 
     for k in keywords:
         k.save()

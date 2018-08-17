@@ -37,6 +37,10 @@ class AnalysisViews(TestCase):
         # instead just lets look for something that I know should be there
         ap = AnalysisPoint.objects.get(pk=ANALYSIS_POINT_ID)
         self.assertContains(response, ap.name)
+        self.assertContains(response, "alma")
         self.assertContains(response, ap.get_absolute_url())
+
+        content = str(response.content)
+        self.assertTrue(content.find("alma")<content.find("analysis_point1"))
 
 

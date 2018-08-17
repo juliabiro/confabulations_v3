@@ -182,7 +182,7 @@ def analysis_type_view(request, ap_type_id):
 
     ap_type = AnalysisType.objects.get(pk=ap_type_id)
 
-    aps = AnalysisPoint.objects.filter(analysis_type_id=ap_type_id)
+    aps = AnalysisPoint.objects.filter(analysis_type_id=ap_type_id).order_by('name')
 
     context = {
         'analysis_type': ap_type,
