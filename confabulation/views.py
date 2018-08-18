@@ -15,12 +15,23 @@ def about(request):
 def author(request):
     return render(request, 'author.html')
 
+# todo move this out from here
+def sidebar_context():
+    participants = Participant.objects.all()
+    participant_list = [{"name": p.name,
+                         "link": p.get_absolute_url()
+    } for p in participants]
+
+    return {"participants": participant_list}
+
+
 def participants(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     participant_list = Participant.objects.all()
     context = {'participant_list':participant_list}
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/participants.html', context)
 
 def stories(request):
@@ -29,6 +40,7 @@ def stories(request):
 
     story_list = Story.objects.all().order_by('name')
     context = {'story_list': story_list}
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/stories.html', context)
 
 #todo
@@ -43,6 +55,7 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     participant_stories = Story.objects.filter(participant__id=participant_id).order_by('name')
     context = {'participant':participant, 'stories': participant_stories}
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/participantView.html', context)
 
 
@@ -89,7 +102,7 @@ def story_view(request, story_id):
 
         except (ClientError, AttributeError):
             context["video_error_message"] = "The video at " + video_url + " doesn't exist."
-
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/storyView.html', context)
 
 def thumbnails(request):
@@ -139,6 +152,7 @@ def videos(request):
             'videos_list':videolist
         }
 
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/videos.html', context)
 
 def video_view(request, video_name):
@@ -156,6 +170,7 @@ def video_view(request, video_name):
         }
     }
 
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/videoView.html', context)
 
 def era_view(request, era_id):
@@ -166,6 +181,7 @@ def era_view(request, era_id):
     context = {
         'era': era
     }
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/eraView.html', context)
 
 def analysis_view(request, ap_id):
@@ -178,6 +194,7 @@ def analysis_view(request, ap_id):
         'analysis_point': ap
     }
 
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/analysisView.html', context)
 
 def analysis_type_view(request, ap_type_id):
@@ -193,4 +210,5 @@ def analysis_type_view(request, ap_type_id):
         'analysis_points': aps
     }
 
+    context['sidebar'] = sidebar_context()
     return render(request, 'confabulation/analysisTypeView.html', context)

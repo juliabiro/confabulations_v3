@@ -10,18 +10,19 @@
                 <a href="/Author">Author</a>
             </li>
             <li>
+
+                {% if sidebar %}
+                {% if sidebar.participants %}
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Participants</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
+                    {% for p in sidebar.participants %}
                     <li>
-                        <a href="#">Page 1</a>
+                        <a href="{{p.link}}">{{p.name}}</a>
                     </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
+                    {% endfor%}
                 </ul>
+                {% endif %}
+                {% endif %}
             </li>
         </ul>
 {% endblock %}
