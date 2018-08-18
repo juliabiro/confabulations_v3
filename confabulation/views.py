@@ -7,10 +7,13 @@ from .utils. media_helpers import get_story_thumb
 
 # Create your views here.
 def index(request):
-    if not request.user.is_authenticated:
-        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-
     return render(request, 'frontpage.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def author(request):
+    return render(request, 'author.html')
 
 def participants(request):
     if not request.user.is_authenticated:
