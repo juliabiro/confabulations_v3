@@ -1,0 +1,28 @@
+{% block sidebar %}
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="/" aria-expanded="false">Home</a>
+            </li>
+            <li>
+                <a href="/about">About</a>
+            </li>
+            <li>
+                <a href="/author">Author</a>
+            </li>
+            <li>
+
+                {% if sidebar %}
+                {% if sidebar.participants %}
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Participants</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    {% for p in sidebar.participants %}
+                    <li>
+                        <a href="{{p.link}}">{{p.name}}</a>
+                    </li>
+                    {% endfor%}
+                </ul>
+                {% endif %}
+                {% endif %}
+            </li>
+        </ul>
+{% endblock %}

@@ -135,6 +135,11 @@ ALLOWED_HOSTS = ['confabulations-v3.herokuapp.com', 'localhost']
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'confabulation/staticfiles/')
+]
+
+
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/confabulation/'
 

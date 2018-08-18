@@ -14,7 +14,7 @@
     Era:
     {% for era in eras %}
     <a href="/eras/{{era.id}}">
-        <font color="{{era.color_code}}" data-toggle="tooltip" data-placement="right" title={{era.description}} >{{ era.name }}</font>
+        <font color="{{era.color_code}}" data-toggle="tooltip" data-placement="right" title="{{era.description}}" >{{ era.name }}</font>
     </a>
     {% endfor %}
     {% endif %}
@@ -31,7 +31,7 @@ Keywords:
 <ul>
     {% for a in analysis %}
     <li>
-        <a href="/analysis/{{a.id}}/" data-toggle="tooltip" data-placement="right" title={{a.description}}>       <font color="{{a.color_code}}">{{a.name}}</font></a>
+        <a href="/analysis/{{a.id}}/" data-toggle="tooltip" data-placement="right" title="{{a.description}}">       <font color="{{a.color_code}}">{{a.name}}</font></a>
     </li>
     {% endfor %}
 </ul>
