@@ -46,3 +46,15 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
 }
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
