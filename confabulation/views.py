@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
 from .models import Participant, Story, Era, AnalysisPoint, AnalysisType
+from .models import ParticipantTypes
 from .utils.s3_helpers import *
 from .utils. media_helpers import get_story_thumb
 
@@ -24,6 +25,29 @@ def sidebar_context():
 
     return {"participants": participant_list}
 
+def navigation_context():
+    context = {'participants':{},
+               'taxonomy':{}}
+    participant_types = ParticipantTypes.choices()
+    for pt in participant_types:
+        plist = Participant.objects.filter(participation_group=pt)
+        p_by_type = [{"name": p.name, "link": p.get_absolute_url()} for p in plist]
+        context['participants'][pt[0]] = p_by_type
+
+    taxonomy_types = AnalysisType.objects.all()
+    for t in taxonomy_types:
+        ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id)
+
+        ap_list_by_type = [{"name": ap.name,
+                           "link": ap.get_absolute_url()} for ap in ap_list]
+        context['taxonomy'][t.name] = ap_list_by_type
+
+        return context
+
+def extend_context(context):
+    context['sidebar'] = sidebar_context()
+    context['navigation'] = navigation_context()
+    return context
 
 def participants(request):
     if not request.user.is_authenticated:
@@ -31,7 +55,7 @@ def participants(request):
 
     participant_list = Participant.objects.all()
     context = {'participant_list':participant_list}
-    context['sidebar'] = sidebar_context()
+    extend_context(context)
     return render(request, 'confabulation/participants.html', context)
 
 def stories(request):
