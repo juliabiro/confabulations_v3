@@ -1,41 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Story Telling Database</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="#">Story Telling Database</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Participants
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for pt in navigation.participants %}
-          <a class="dropdown-item" href="#">{{pt}}</a>
-          {% endfor %}
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Taxonomy
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for t in navigation.taxonomy %}
-          <a class="dropdown-item" href="#">{{t}}</a>
-          {% endfor %}
-        </div>
-         <li class="nav-item">
-        <a class="nav-link" href="#">Confabulations</a>
-         </li>
-          <li class="nav-item">
-        <a class="nav-link" href="#">Connections</a>
-      </li>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto multi-level">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Participants
+                </a>
+                </li>
+            <li class="nav-item dropdown">
+                    Taxonomy
+                </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Confabulations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Connections</a>
+                </li>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
 </nav>

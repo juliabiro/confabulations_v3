@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Participants</h3>
+<ul>
+    {% for key,value in navigation.participants.items %}
+    <li>{{key}}
+        <ul>
+            {% for p in value %}
+            <li><a href="{{p.link}}">{{p.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+
+<h3>Taxonomy</h3>
+<ul>
+    {% for key,value in navigation.taxonomy.items %}
+    <li>{{key}}
+        <ul>
+            {% for t in value %}
+            <li><a href="{{t.link}}">{{t.name}}</a></li>
+            {%endfor%}
+            </ul>
+    </li>
+    {% endfor %}
+</ul>
+
+<h3>Confabulation</h3>
+<ul>
+    {% for c in navigation.confabulation %}
+    <li><a href="{{c.link}}">{{c.name}}</a></li>
+    {% endfor %}
+    </ul>
+
+    <h3>Connections</h3>
+    <ul>
+    <li>Inter Networks</li>
+    <li>Intra Networks</li>
+        </ul>
+<h3>Material ouput</h3>
+<h3>About the archive</h3>
+{% endblock %}

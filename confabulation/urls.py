@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^analysis_type/(?P<ap_type_id>[0-9]+)/?$', views.analysis_type_view),
     url(r'^about/?$', views.about),
     url(r'^author/?$', views.author),
+    url(r'^menumap/$', views.menumap),
     url(r'^', views.index),
 ]
