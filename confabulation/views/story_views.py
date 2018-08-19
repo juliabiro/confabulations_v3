@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import  Story, Era, AnalysisPoint
+from ..models import  Story, Era, AnalysisPoint, Participant, Keyword
 from ..utils.s3_helpers import *
 from ..utils.media_helpers import get_story_thumb
+from .context_helpers import setup_page_context
 
 def stories(request):
     if not request.user.is_authenticated:
@@ -11,7 +12,7 @@ def stories(request):
 
     story_list = Story.objects.all().order_by('name')
     context = {'story_list': story_list}
-    context['sidebar'] = sidebar_context()
+    setup_page_context(context)
     return render(request, 'confabulation/stories.html', context)
 
 ## there is no ssearch on the html, so all necessary data needs to be here
@@ -57,5 +58,5 @@ def story_view(request, story_id):
 
         except (ClientError, AttributeError):
             context["video_error_message"] = "The video at " + video_url + " doesn't exist."
-    context['sidebar'] = sidebar_context()
+    setup_page_context(context)
     return render(request, 'confabulation/storyView.html', context)

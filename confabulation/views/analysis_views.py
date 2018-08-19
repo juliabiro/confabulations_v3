@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from ..models import Story, AnalysisPoint, AnalysisType
 from ..utils.s3_helpers import *
 from ..utils.media_helpers import get_story_thumb
+from .context_helpers import setup_page_context
 
 def analysis_view(request, ap_id):
     if not request.user.is_authenticated:
@@ -15,7 +16,7 @@ def analysis_view(request, ap_id):
         'analysis_point': ap
     }
 
-    context['sidebar'] = sidebar_context()
+    setup_page_context(context)
     return render(request, 'confabulation/analysisView.html', context)
 
 def analysis_type_view(request, ap_type_id):
@@ -31,6 +32,6 @@ def analysis_type_view(request, ap_type_id):
         'analysis_points': aps
     }
 
-    context['sidebar'] = sidebar_context()
+    setup_page_context(context)
     return render(request, 'confabulation/analysisTypeView.html', context)
 
