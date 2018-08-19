@@ -6,8 +6,8 @@ from .db_data import *
 from .utils_mock import mock_get_signed_asset_link
 from ..models import Story
 
-@mock.patch('confabulation.views.get_signed_photo_url', mock_get_signed_asset_link)
-@mock.patch('confabulation.views.get_signed_video_url', mock_get_signed_asset_link)
+@mock.patch('confabulation.views.story_views.get_signed_photo_url', mock_get_signed_asset_link)
+@mock.patch('confabulation.views.story_views.get_signed_video_url', mock_get_signed_asset_link)
 class StoryView(TestCase):
     def setUp(self):
         populate_db()
