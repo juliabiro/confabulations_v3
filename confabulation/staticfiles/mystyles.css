@@ -1,60 +1,112 @@
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
+/* .wrapper { */
+/*     display: flex; */
+/*     align-items: stretch; */
+/* } */
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-}
+/* #sidebar { */
+/*     min-width: 250px; */
+/*     max-width: 250px; */
+/* } */
 
-#sidebar.active {
-    margin-left: -250px;
-}
+/* #sidebar.active { */
+/*     margin-left: -250px; */
+/* } */
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
+/* #sidebar { */
+/*     min-width: 250px; */
+/*     max-width: 250px; */
+/*     min-height: 100vh; */
+/* } */
 
-#sidebar .sidebar-header {
-    padding: 20px;
-}
+/* #sidebar .sidebar-header { */
+/*     padding: 20px; */
+/* } */
 
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid ;
-}
+/* #sidebar ul.components { */
+/*     padding: 20px 0; */
+/*     border-bottom: 1px solid ; */
+/* } */
 
-#sidebar ul p {
-    padding: 10px;
-}
+/* #sidebar ul p { */
+/*     padding: 10px; */
+/* } */
 
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-#sidebar ul li a:hover {
-    background: #fff;
-}
+/* #sidebar ul li a { */
+/*     padding: 10px; */
+/*     font-size: 1.1em; */
+/*     display: block; */
+/* } */
+/* #sidebar ul li a:hover { */
+/*     background: #fff; */
+/* } */
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-}
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-}
+/* #sidebar ul li.active > a, a[aria-expanded="true"] { */
+/* } */
+/* ul ul a { */
+/*     font-size: 0.9em !important; */
+/*     padding-left: 30px !important; */
+/* } */
 
-a[data-toggle="collapse"] {
+/* a[data-toggle="collapse"] { */
+/*     position: relative; */
+/* } */
+
+/* .dropdown-toggle::after { */
+/*     display: block; */
+/*     position: absolute; */
+/*     top: 50%; */
+/*     right: 20px; */
+/*     transform: translateY(-50%); */
+/* } */
+
+
+/*
+Code taken from here: https://codepen.io/svnt/pen/beEgre
+*/
+.dropdown-submenu {
     position: relative;
 }
 
-.dropdown-toggle::after {
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
     display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
 }

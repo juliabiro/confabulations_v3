@@ -5,22 +5,61 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto multi-level">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Participants
                 </a>
-                </li>
+
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype, list in navigation.participants.items %}
+                    <li class="dropdown-submenu">
+                        <a  class="nav-item dropdown-item" tabindex="-1" href="#">{{ ptype}}</a>
+                        <ul class="dropdown-menu">
+                            {% for p in list %}
+                            <li>
+                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
+{% endfor%}
+                            </li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
             <li class="nav-item dropdown">
-                    Taxonomy
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Taxonomy
                 </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Confabulations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connections</a>
-                </li>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype, list in navigation.taxonomy.items %}
+                    <li class="dropdown-submenu">
+                        <a  class="nav-item dropdown-item" tabindex="-1" href="#">{{ ptype}}</a>
+                        <ul class="dropdown-menu">
+                            {% for p in list %}
+                            <li>
+                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
+{% endfor%}
+                            </li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Confabulation
+                </a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype in navigation.confabulation %}
+                    <li>
+                        <a  class="nav-link" tabindex="-1" href="{{ptype.link}}">{{ ptype.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Connections</a>
+            </li>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
