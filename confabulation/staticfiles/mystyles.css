@@ -63,6 +63,7 @@ a[data-toggle="collapse"] {
 /*
 Code taken from here: https://codepen.io/svnt/pen/beEgre
 */
+
 .dropdown-submenu {
     position: relative;
 }
@@ -78,6 +79,9 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 }
 
 .dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+.nav-item:hover>.dropdown-menu {
     display: block;
 }
 
