@@ -16,8 +16,7 @@ def navigation_context():
     taxonomy_types = AnalysisType.objects.all()
     for t in taxonomy_types:
         context['taxonomy'][t.name] = []
-        ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id)
-
+        ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id).order_by('name')
         ap_list_by_type = [{"name": ap.name,
                            "link": ap.get_absolute_url()} for ap in ap_list]
         context['taxonomy'][t.name] = ap_list_by_type

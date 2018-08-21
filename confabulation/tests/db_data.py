@@ -43,7 +43,9 @@ def populate_db():
                        AnalysisPoint(name="alma_point",
                                      id=3),
                        AnalysisPoint(name="Short Confabulation",
-                                     id=4)]
+                                     id=4),
+                       AnalysisPoint(name="korte_point",
+                                     id=5)]
 
     keywords = [Keyword(name='keyword1', id=1),
                 Keyword(name='keyword2', id=2),
@@ -60,6 +62,7 @@ def populate_db():
     analysis_points[1].analysis_type = analysis_types[1]
     analysis_points[2].analysis_type = analysis_types[0]
     analysis_points[3].analysis_type = analysis_types[2]
+    analysis_points[4].analysis_type = analysis_types[0]
 
     for ap in analysis_points:
         ap.save()
