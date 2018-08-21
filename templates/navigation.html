@@ -1,31 +1,72 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Story Telling Database</a>
+    <a class="navbar-brand" href="/">Story Telling Database</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto multi-level">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Participants
                 </a>
-                </li>
+
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype, list in navigation.participants.items %}
+                    <li class="dropdown-submenu">
+                        <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
+                        <ul class="dropdown-menu">
+                            {% for p in list %}
+                            <li>
+                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
+{% endfor%}
+                            </li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
             <li class="nav-item dropdown">
-                    Taxonomy
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Taxonomy
                 </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Confabulations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connections</a>
-                </li>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype, list in navigation.taxonomy.items %}
+                    <li class="dropdown-submenu">
+                        <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
+                        <ul class="dropdown-menu">
+                            {% for p in list %}
+                            <li>
+                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
+{% endfor%}
+                            </li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Confabulation
+                </a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype in navigation.confabulation %}
+                    <li>
+                        <a  class="nav-link" tabindex="-1" href="{{ptype.link}}">{{ ptype.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Connections</a>
+            </li>
+            <li class="nav-item">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info btn-sm">
+                        <i class="fas fa-align-left"></i>
+                        <span>Hide sidebar</span>
+                    </button>
+
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>

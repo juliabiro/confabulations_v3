@@ -41,6 +41,7 @@ class AnalysisViews(TestCase):
         self.assertContains(response, ap.get_absolute_url())
 
         content = str(response.content)
+        print(content)
         self.assertTrue(content.find("alma")<content.find("analysis_point1"))
 
 
