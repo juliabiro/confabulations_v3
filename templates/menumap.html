@@ -35,10 +35,11 @@
     </ul>
 
     <h3>Connections</h3>
-    <ul>
-    <li>Inter Networks</li>
-    <li>Intra Networks</li>
-        </ul>
+<ul>
+    {% for c in navigation.connects %}
+    <li><a href="{{c.link}}">{{c.name}}</a></li>
+    {% endfor %}
+    </ul>
 <h3>Material ouput</h3>
 <h3>About the archive</h3>
 {% endblock %}
