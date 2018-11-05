@@ -20,7 +20,7 @@ def navigation_context():
 
     for t in taxonomy_types:
         context['taxonomy'][t.name] = []
-        ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id).order_by('name')
+        ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id).order_by('order_in_menu')
 
         # populate submenu items
         ap_list_by_type = [{"name": ap.name,
@@ -31,7 +31,7 @@ def navigation_context():
 
         special_types = AnalysisType.objects.filter(name=special)
         if special_types.count()>0:
-            special_points = AnalysisPoint.objects.filter(analysis_type_id=special_types[0].id)
+            special_points = AnalysisPoint.objects.filter(analysis_type_id=special_types[0].id).order_by('order_in_menu')
             special_points_links = [{"name": ap.name, 'link': ap.get_absolute_url()} for ap in special_points]
             context[special.lower()] = special_points_links
 
