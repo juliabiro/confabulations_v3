@@ -34,8 +34,12 @@ def navigation_context():
             special_points = AnalysisPoint.objects.filter(analysis_type_id=special_types[0].id).order_by('order_in_menu')
             special_points_links = [{"name": ap.name, 'link': ap.get_absolute_url()} for ap in special_points]
             context_name = special.lower()
+
+            # an even more special menu item
             if special =="Going Beyond":
                 context_name = 'confabulation'
+                special_points_links =special_points_links[:2]
+
             context[context_name] = special_points_links
 
     return context
