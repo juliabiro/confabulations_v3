@@ -109,6 +109,7 @@ class AnalysisPoint(models.Model):
     analysis_type = models.ForeignKey('AnalysisType', on_delete=models.DO_NOTHING)
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
+    order_in_menu = models.IntegerField(null=True)
 
 ## connection types
 class ConnectionRange(ChoiceEnum):

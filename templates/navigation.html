@@ -58,7 +58,14 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Connections</a>
+                <a class="nav-link" href="#">Connects</a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    {% for ptype in navigation.connects %}
+                    <li>
+                        <a  class="nav-link" tabindex="-1" href="{{ptype.link}}">{{ ptype.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </li>
             <li class="nav-item">
                     <button type="button" id="sidebarCollapse" class="btn btn-info btn-sm">
