@@ -33,7 +33,7 @@ def populate_db():
                                    id=ANALYSIS_TYPE_ID),
                       AnalysisType(name='analysis_type2',
                                    id=2),
-                      AnalysisType(name='Confabulation',
+                      AnalysisType(name='Going Beyond',
                                    id=3),
                       AnalysisType(name='Connects',
                                    id=4),
