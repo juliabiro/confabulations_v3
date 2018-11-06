@@ -15,15 +15,22 @@ def participants(request):
     setup_page_context(context)
     return render(request, 'confabulation/participants.html', context)
 
-def get_themes_for_stories(participant_stories):
-     for story in participant_stories:
-         themes = Theme.objects.filter(stories=story)
-         return themes
+def get_themes_for_stories(participant_stories, participant_id):
+    theme_stories = {}
+    for story in participant_stories:
+        themes = Theme.objects.filter(stories=story)
+        for t in themes:
+            s = t.stories.filter(participant__id=participant_id)
+            theme_stories[t.name] = s
+    return theme_stories
 
-def get_chains_for_themes(themes):
-    for theme in themes:
-        chains = Chain.objects.filter(themes=theme)
-        return chains
+def get_chains_for_themes(themes, participant_id):
+    chain_themes = {}
+    chains = Chain.objects.filter(themes__name__in=themes).distinct()
+    for c in chains:
+        t = c.themes.filter(stories__participant__id=participant_id).distinct()
+        chain_themes[c.name] = t
+    return chain_themes
 
 def participant_view(request, participant_id):
     if not request.user.is_authenticated:
@@ -32,8 +39,8 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     participant_stories = Story.objects.filter(participant__id=participant_id).order_by('name')
 
-    themes = get_themes_for_stories(participant_stories)
-    chains = get_chains_for_themes(themes)
+    themes = get_themes_for_stories(participant_stories, participant_id)
+    chains = get_chains_for_themes(themes, participant_id)
 
 
     context = {'participant':participant, 'stories': participant_stories, 'themes': themes, 'chains': chains}

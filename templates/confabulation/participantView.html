@@ -20,18 +20,32 @@
 
 <h5>Themes</h5>
 <ul>
-{% for t in themes %}
+{% for key, value in themes.items %}
     <li>
-{{t.name}}
-
+        {{ key }}:
+        <ul>
+            {% for v in value %}
+            <li>
+                <a href="/story/{{v.id}}/">{{v.name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </li>
     {% endfor %}
 </ul>
 <h5>Chains</h5>
 <ul>
-{% for c in chains %}
+{% for key, value in chains.items %}
     <li>
-{{c.name}}
+        {{key}}:
+        <ul>
+            {% for v in value %}
+            <li>
+                {{v.name}}
+            </li>
+            {% endfor %}
+        </ul>
+
 
     </li>
     {% endfor %}
