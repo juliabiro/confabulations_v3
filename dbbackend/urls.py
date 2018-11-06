@@ -19,8 +19,8 @@ from django.conf.urls import include
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^login/$', auth_views.LoginView, name='login'),
+    url(r'^logout/$', auth_views.LogoutView, name='logout'),
     url(r'^confabulation/', include('confabulation.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('confabulation.urls')),
