@@ -13,7 +13,27 @@
 <ul>
     {% for s in stories %}
     <li>
-        <a href ="/story/{{ s.id }}/">{{ s.name }} </a></li>
+        <a href ="/story/{{ s.id }}/">{{ s.name }} </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<h5>Themes</h5>
+<ul>
+{% for t in themes %}
+    <li>
+{{t.name}}
+
+    </li>
+    {% endfor %}
+</ul>
+<h5>Chains</h5>
+<ul>
+{% for c in chains %}
+    <li>
+{{c.name}}
+
+    </li>
     {% endfor %}
 </ul>
 {% endif %}
