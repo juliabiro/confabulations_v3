@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import Participant, Story, Chain, Theme
+from ..models import Participant, Story, Chain, Theme, ConnectionRange
 from ..utils.s3_helpers import *
 from ..utils. media_helpers import get_story_thumb
 from ..utils. connection_helpers import get_themes_for_stories, get_chains_for_themes
@@ -23,10 +23,10 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     participant_stories = Story.objects.filter(participant__id=participant_id).order_by('name')
 
-    themes = get_themes_for_stories(participant_stories, participant_id)
-    chains = get_chains_for_themes(themes, participant_id)
+    themes_with_stories_intra = get_themes_for_stories(participant_id, connection_type="Intraconnection")
 
+    themes_with_stories_inter = get_themes_for_stories(participant_id, connection_type="Interconnection")
 
-    context = {'participant':participant, 'stories': participant_stories, 'themes': themes, 'chains': chains}
+    context = {'participant':participant, 'stories': participant_stories, 'themes_with_stories_intra': themes_with_stories_intra, 'themes_with_stories_inter': themes_with_stories_inter}
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)

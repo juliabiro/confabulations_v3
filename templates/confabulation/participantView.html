@@ -18,35 +18,34 @@
     {% endfor %}
 </ul>
 
-<h5>Themes</h5>
+<h5>Themes (Intraconnections)</h5>
 <ul>
-{% for key, value in themes.items %}
+{% for tws in themes_with_stories_intra %}
     <li>
-        {{ key }}:
+        <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a>
         <ul>
-            {% for v in value %}
+            {% for story in tws.stories %}
             <li>
-                <a href="/story/{{v.id}}/">{{v.name}}</a>
+                <a href="/story/{{story.id}}/">{{story.name}}</a>
             </li>
             {% endfor %}
         </ul>
     </li>
     {% endfor %}
 </ul>
-<h5>Chains</h5>
+
+<h5>Themes (Interconnections)</h5>
 <ul>
-{% for key, value in chains.items %}
+{% for tws in themes_with_stories_inter %}
     <li>
-        {{key}}:
+        <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a>
         <ul>
-            {% for v in value %}
+            {% for story in tws.stories %}
             <li>
-                {{v.name}}
+                <a href="/story/{{story.id}}/">{{story.name}}</a>
             </li>
             {% endfor %}
         </ul>
-
-
     </li>
     {% endfor %}
 </ul>
