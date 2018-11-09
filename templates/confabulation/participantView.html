@@ -8,22 +8,32 @@
 
 {% endif %}
 
+<div class="container">
+    <div class="row">
+        <div class="col m2">
 {% if intraconnections %}
 <h1>Intraconnections</h1>
 <h2>Chains </h2>
 {% for ic in intraconnections %}
 <h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
 <h4>Themes</h4>
-{% for t in ic.themes %}
+<div class="row">
+    {% for t in ic.themes %}
+    <div class="col m1">
 <h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
 <h6>Stories</h6>
 {% for s in t.stories %}
 <a href="/stories/{{si.id}}/">{{s.name}}</a>
 {% endfor %}
+    </div>
 {% endfor %}
+
+</div>
 {% endfor %}
 
 {% endif %}
+        </div>
+        <div class="col m2">
 {% if intraconnections %}
 <h1>Interconnections</h1>
 
@@ -31,14 +41,21 @@
 {% for ic in interconnections %}
 <h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
 <h4>Themes</h4>
+<div class="row">
 {% for t in ic.themes %}
+    <div class="col m1">
 <h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
 <h6>Stories</h6>
 {% for s in t.stories %}
 <a href="/stories/{{si.id}}/">{{s.name}}</a>
 {% endfor %}
+    </div>
 {% endfor %}
+    </div>
 {% endfor %}
 
 {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
