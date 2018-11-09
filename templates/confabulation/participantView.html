@@ -9,53 +9,59 @@
 {% endif %}
 
 <div class="container">
-    <div class="row">
-        <div class="col m2">
-{% if intraconnections %}
-<h1>Intraconnections</h1>
-<h2>Chains </h2>
-{% for ic in intraconnections %}
-<h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
-<h4>Themes</h4>
-<div class="row">
+    <h1>Intraconnections</h1>
+    {% if intraconnections %}
+    {% for ic in intraconnections %}
+    <h3>Intraconnection Chain <a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}:</a></h3>
     {% for t in ic.themes %}
-    <div class="col m1">
-<h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
-<h6>Stories</h6>
-{% for s in t.stories %}
-<a href="/stories/{{si.id}}/">{{s.name}}</a>
-{% endfor %}
-    </div>
-{% endfor %}
+    <h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
+    {% endfor%}
+
+    <h3>Intraconnection Themes</h3>
+    {% for t in ic.themes %}
+    <h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
+    {% for s in t.stories %}
+    <a href="/stories/{{si.id}}/">{{s.name}}</a>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
 
 </div>
-{% endfor %}
 
-{% endif %}
-        </div>
-        <div class="col m2">
-{% if intraconnections %}
-<h1>Interconnections</h1>
+{% elif chainless_themes %}
+<div class="container">
+    <h3>Intraconnection Themes</h3>
+    {% for t in chainless_themes %}
+    <h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
+    {% for s in t.stories %}
+    <a href="/stories/{{si.id}}/">{{s.name}}</a>
+    {% endfor %}
+    {% endfor %}
 
-<h2>Chains </h2>
-{% for ic in interconnections %}
-<h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
-<h4>Themes</h4>
-<div class="row">
-{% for t in ic.themes %}
-    <div class="col m1">
-<h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
-<h6>Stories</h6>
-{% for s in t.stories %}
-<a href="/stories/{{si.id}}/">{{s.name}}</a>
-{% endfor %}
     </div>
-{% endfor %}
-    </div>
-{% endfor %}
 
-{% endif %}
-        </div>
+    {% endif %}
+    <div class="container">
+        {% if intraconnections %}
+        <h1>Interconnections</h1>
+
+        <h2>Chains </h2>
+        <h3>Interconnection Chains:
+            {% for ic in interconnections %}
+            <a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a>
+            {% endfor %}</h3>
+
+        <h3>Interconnection Themes</h3>
+        {% for ic in interconnections %}
+
+        <h5>
+            <a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}:</a></h5>
+
+            {% for t in ic.themes %}
+            <a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a>
+            {% endfor%}
+        {% endfor %}
+
+        {% endif %}
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

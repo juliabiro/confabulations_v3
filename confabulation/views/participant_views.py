@@ -21,10 +21,19 @@ def participant_view(request, participant_id):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     participant = Participant.objects.get(pk=participant_id)
+    context = {'participant':participant}
 
-    intrachains = ChainsThemesStories().build(participant_id, 'Intraconnection')
-    interchains = ChainsThemesStories().build(participant_id, 'Interconnection')
+    intrachains = ChainsThemesStories().buildchains(participant_id, 'Intraconnection')
+    interchains = ChainsThemesStories().buildchains(participant_id, 'Interconnection')
 
-    context = {'participant':participant, 'intraconnections': intrachains, 'interconnections': interchains}
+    chainless_themes = ChainsThemesStories().buildthemes(participant_id, 'Intraconnection')
+
+    if interchains:
+        context['interconnections'] = interchains
+    if intrachains:
+        context['intraconnections'] = intrachains
+    if chainless_themes:
+        context['chainless_themes'] = chainless_themes
+
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)
