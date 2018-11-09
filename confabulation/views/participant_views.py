@@ -22,9 +22,9 @@ def participant_view(request, participant_id):
 
     participant = Participant.objects.get(pk=participant_id)
 
-    intrachains = ChainsThemesStories(participant_id, 'Intraconnection')
-    interchains = ChainsThemesStories(participant_id, 'Interconnection')
+    intrachains = ChainsThemesStories().build(participant_id, 'Intraconnection')
+    interchains = ChainsThemesStories().build(participant_id, 'Interconnection')
 
-    context = {'participant':participant, 'intrachains': intrachains, 'interchains': interchains}
+    context = {'participant':participant, 'intraconnections': intrachains, 'interconnections': interchains}
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)

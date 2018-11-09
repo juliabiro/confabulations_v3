@@ -8,48 +8,37 @@
 
 {% endif %}
 
-{% if stories %}
-<h5>stories</h5>
-<ul>
-    {% for s in stories %}
-    <li>
-        <a href ="/story/{{ s.id }}/">{{ s.name }} </a>
-    </li>
-    {% endfor %}
-</ul>
+{% if intraconnections %}
+<h1>Intraconnections</h1>
+<h2>Chains </h2>
+{% for ic in intraconnections %}
+<h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
+<h4>Themes</h4>
+{% for t in ic.themes %}
+<h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
+<h6>Stories</h6>
+{% for s in t.stories %}
+<a href="/stories/{{si.id}}/">{{s.name}}</a>
+{% endfor %}
+{% endfor %}
+{% endfor %}
 
-<h5>Intraconnections</h5>
-<h5>Interconnections</h5>
-<!-- <h5>Themes (Intraconnections)</h5> -->
-<!-- <ul> -->
-<!-- {% for tws in themes_with_stories_intra %} -->
-<!-- <li> -->
-<!-- <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a> -->
-<!-- <ul> -->
-<!-- {% for story in tws.stories %} -->
-<!-- <li> -->
-<!-- <a href="/story/{{story.id}}/">{{story.name}}</a> -->
-<!-- </li> -->
-<!-- {% endfor %} -->
-<!-- </ul> -->
-<!-- </li> -->
-<!-- {% endfor %} -->
-<!-- </ul><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --> -->
+{% endif %}
+{% if intraconnections %}
+<h1>Interconnections</h1>
 
-<!-- <h5>Themes (Interconnections)</h5> -->
-<!-- <ul> -->
-<!-- {% for tws in themes_with_stories_inter %} -->
-<!-- <li> -->
-<!-- <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a> -->
-<!-- <ul> -->
-<!-- {% for story in tws.stories %} -->
-<!-- <li> -->
-<!-- <a href="/story/{{story.id}}/">{{story.name}}</a> -->
-<!-- </li> -->
-<!-- {% endfor %} -->
-<!-- </ul> -->
-<!-- </li> -->
-<!-- {% endfor %} -->
-<!-- </ul> -->
+<h2>Chains </h2>
+{% for ic in interconnections %}
+<h3><a href="/chains/{{ic.chain.id}}/">{{ic.chain.name}}</a></h3>
+<h4>Themes</h4>
+{% for t in ic.themes %}
+<h5><a href="/themes/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
+<h6>Stories</h6>
+{% for s in t.stories %}
+<a href="/stories/{{si.id}}/">{{s.name}}</a>
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
 {% endif %}
 {% endblock %}
