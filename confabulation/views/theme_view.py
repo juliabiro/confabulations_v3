@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
 from ..models import Story, Chain, Theme
-from ..utils.connection_helpers import get_themes_for_stories, get_chains_for_themes
 from .context_helpers import setup_page_context
 
 def themes(request):

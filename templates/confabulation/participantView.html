@@ -18,36 +18,38 @@
     {% endfor %}
 </ul>
 
-<h5>Themes (Intraconnections)</h5>
-<ul>
-{% for tws in themes_with_stories_intra %}
-    <li>
-        <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a>
-        <ul>
-            {% for story in tws.stories %}
-            <li>
-                <a href="/story/{{story.id}}/">{{story.name}}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endfor %}
-</ul>
+<h5>Intraconnections</h5>
+<h5>Interconnections</h5>
+<!-- <h5>Themes (Intraconnections)</h5> -->
+<!-- <ul> -->
+<!-- {% for tws in themes_with_stories_intra %} -->
+<!-- <li> -->
+<!-- <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a> -->
+<!-- <ul> -->
+<!-- {% for story in tws.stories %} -->
+<!-- <li> -->
+<!-- <a href="/story/{{story.id}}/">{{story.name}}</a> -->
+<!-- </li> -->
+<!-- {% endfor %} -->
+<!-- </ul> -->
+<!-- </li> -->
+<!-- {% endfor %} -->
+<!-- </ul><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --><!--  --> -->
 
-<h5>Themes (Interconnections)</h5>
-<ul>
-{% for tws in themes_with_stories_inter %}
-    <li>
-        <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a>
-        <ul>
-            {% for story in tws.stories %}
-            <li>
-                <a href="/story/{{story.id}}/">{{story.name}}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endfor %}
-</ul>
+<!-- <h5>Themes (Interconnections)</h5> -->
+<!-- <ul> -->
+<!-- {% for tws in themes_with_stories_inter %} -->
+<!-- <li> -->
+<!-- <a href="/theme/{{tws.theme.id}}/">{{ tws.theme.name }}</a> -->
+<!-- <ul> -->
+<!-- {% for story in tws.stories %} -->
+<!-- <li> -->
+<!-- <a href="/story/{{story.id}}/">{{story.name}}</a> -->
+<!-- </li> -->
+<!-- {% endfor %} -->
+<!-- </ul> -->
+<!-- </li> -->
+<!-- {% endfor %} -->
+<!-- </ul> -->
 {% endif %}
 {% endblock %}
