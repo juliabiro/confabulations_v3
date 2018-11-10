@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import Participant, Story, Chain, Theme, ConnectionRange
+from ..models import Participant, Story
 from ..utils.s3_helpers import *
 from ..utils. media_helpers import get_story_thumb
-from ..utils. connection_helpers import buildchains, buildthemes, buildstoryconnections, buildsinglestories
 from .context_helpers import setup_page_context
 
 def participants(request):
@@ -21,31 +20,7 @@ def participant_view(request, participant_id):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     participant = Participant.objects.get(pk=participant_id)
-    context = {'participant':participant}
-
-    intrachains = buildchains(participant_id, 'Intraconnection')
-    interchains = buildchains(participant_id, 'Interconnection')
-
-    chainless_themes = buildthemes(participant_id, 'Intraconnection')
-    story_connections_intra = buildstoryconnections(participant_id, "Intraconnection")
-    story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
-
-    single_stories = buildsinglestories(participant_id)
-
-    if interchains:
-        context['interconnections'] = interchains
-    if intrachains:
-        context['intraconnections'] = intrachains
-    if chainless_themes:
-        context['chainless_themes'] = chainless_themes
-
-    if story_connections_intra:
-        context['story_connections_intra'] = story_connections_intra
-    if story_connections_inter:
-        context['story_connections_inter'] = story_connections_inter
-
-    if single_stories:
-        context['single_stories'] = single_stories
-
+    participant_stories = Story.objects.filter(participant__id=participant_id).order_by('name')
+    context = {'participant':participant, 'stories': participant_stories}
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)
