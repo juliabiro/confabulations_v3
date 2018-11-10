@@ -44,13 +44,14 @@ def buildstoryconnections(participant_id, connection_range):
 def buildsinglestories(participant_id):
     all_stories = Story.objects.filter(participant_id=participant_id).distinct()
     themes = Theme.objects.filter(stories__participant_id=participant_id)
-    conns = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id)
+    conns1 = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id)
+    conns2 = StoryToStoryConnection.objects.filter(story2__participant_id=participant_id)
 
     connected_stories = []
     for theme in themes:
         for s in theme.stories.distinct():
             connected_stories.append(s.id)
-        for c in conns:
+        for c in conns1.append(conns2):
             print(c)
             connected_stories.append(c.story1.id)
 
