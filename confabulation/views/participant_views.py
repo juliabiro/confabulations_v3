@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from ..models import Participant, Story, Chain, Theme, ConnectionRange
 from ..utils.s3_helpers import *
 from ..utils. media_helpers import get_story_thumb
-from ..utils. connection_helpers import ChainsThemesStories
+from ..utils. connection_helpers import buildchains, buildthemes, buildstoryconnections, buildsinglestories
 from .context_helpers import setup_page_context
 
 def participants(request):
@@ -23,12 +23,14 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     context = {'participant':participant}
 
-    intrachains = ChainsThemesStories().buildchains(participant_id, 'Intraconnection')
-    interchains = ChainsThemesStories().buildchains(participant_id, 'Interconnection')
+    intrachains = buildchains(participant_id, 'Intraconnection')
+    interchains = buildchains(participant_id, 'Interconnection')
 
-    chainless_themes = ChainsThemesStories().buildthemes(participant_id, 'Intraconnection')
-    story_connections_intra = ChainsThemesStories().buildstoryconnections(participant_id, "Intraconnection")
-    story_connections_inter = ChainsThemesStories().buildstoryconnections(participant_id, "Interconnection")
+    chainless_themes = buildthemes(participant_id, 'Intraconnection')
+    story_connections_intra = buildstoryconnections(participant_id, "Intraconnection")
+    story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
+
+    single_stories = buildsinglestories(participant_id)
 
     if interchains:
         context['interconnections'] = interchains
@@ -41,6 +43,9 @@ def participant_view(request, participant_id):
         context['story_connections_intra'] = story_connections_intra
     if story_connections_inter:
         context['story_connections_inter'] = story_connections_inter
+
+    if single_stories:
+        context['single_stories'] = single_stories
 
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)

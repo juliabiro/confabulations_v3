@@ -73,11 +73,19 @@
         {% if story_connections_inter %}
         <h3>Story to Story connections</h3>
         {% for s in story_connections_inter %}
-        <a href="/stories/{{si.id}}/">{{s.name}}</a>
+        <a href="/stories/{{s.id}}/">{{s.name}}</a>
         {% endfor %}
         {% endif%}
         </div>
 
+        {% if single_stories %}
+        <div class="col p2">
+            <h3>Single Stories</h3>
+        {% for s in single_stories %}
+        <a href="/stories/{{s.id}}/">{{s.name}}</a>
+        {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
