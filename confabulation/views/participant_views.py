@@ -27,6 +27,8 @@ def participant_view(request, participant_id):
     interchains = ChainsThemesStories().buildchains(participant_id, 'Interconnection')
 
     chainless_themes = ChainsThemesStories().buildthemes(participant_id, 'Intraconnection')
+    story_connections_intra = ChainsThemesStories().buildstoryconnections(participant_id, "Intraconnection")
+    story_connections_inter = ChainsThemesStories().buildstoryconnections(participant_id, "Interconnection")
 
     if interchains:
         context['interconnections'] = interchains
@@ -34,6 +36,11 @@ def participant_view(request, participant_id):
         context['intraconnections'] = intrachains
     if chainless_themes:
         context['chainless_themes'] = chainless_themes
+
+    if story_connections_intra:
+        context['story_connections_intra'] = story_connections_intra
+    if story_connections_inter:
+        context['story_connections_inter'] = story_connections_inter
 
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)

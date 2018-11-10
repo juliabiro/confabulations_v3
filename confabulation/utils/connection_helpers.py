@@ -1,4 +1,4 @@
-from ..models import Theme, Chain, Story
+from ..models import Theme, Chain, Story, StoryToStoryConnection
 
 class ChainsThemesStories():
     class ThemeWithStories():
@@ -32,3 +32,12 @@ class ChainsThemesStories():
             participant_themes.append(self.ThemeWithStories(theme, theme.stories.all()))
 
         return participant_themes
+
+    def buildstoryconnections(self, participant_id, connection_range):
+        participant_stories = []
+        story_pairs = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id, connection_range=connection_range).distinct()
+        for sp in story_pairs:
+            participant_stories.append(sp.story1)
+            participant_stories.append(sp.story2)
+
+        return participant_stories
