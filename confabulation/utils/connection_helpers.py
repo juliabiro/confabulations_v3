@@ -34,31 +34,41 @@ def buildthemes(participant_id, connection_range):
 
 def buildstoryconnections(participant_id, connection_range):
     participant_stories = []
-    story_pairs = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id, connection_range=connection_range).distinct()
-    for sp in story_pairs:
-        participant_stories.append(sp.story1)
-        participant_stories.append(sp.story2)
+    story_pairs1 = [[sp.story1, sp.story2] for sp in StoryToStoryConnection.objects.filter(story1__participant_id=participant_id, connection_range=connection_range).distinct()]
+    story_pairs2 = [[sp.story1, sp.story2] for sp in StoryToStoryConnection.objects.filter(story2__participant_id=participant_id, connection_range=connection_range).distinct()]
 
-    return participant_stories
+    for pair in story_pairs1+story_pairs2:
+        participant_stories = participant_stories + pair
+    return sorted(set(participant_stories), key=lambda story: story.id)
 
 def buildsinglestories(participant_id):
     all_stories = Story.objects.filter(participant_id=participant_id).distinct()
-    themes = Theme.objects.filter(stories__participant_id=participant_id)
-    conns1 = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id)
-    conns2 = StoryToStoryConnection.objects.filter(story2__participant_id=participant_id)
 
-    connected_stories = []
-    for theme in themes:
-        for s in theme.stories.distinct():
-            connected_stories.append(s.id)
-        for c in conns1.append(conns2):
-            print(c)
-            connected_stories.append(c.story1.id)
+    # connected stories
+    connected_stories = buildstoryconnections(participant_id, 'Interconnection') + buildstoryconnections(participant_id, 'Intraconnection')
 
-    print (connected_stories)
+    print (len(connected_stories))
+    # stories in themes
+    themes_intra = buildthemes(participant_id, 'Intraconnection')
+    themes_inter = buildthemes(participant_id, 'Interconnection')
+
+    for tcoll in themes_inter, themes_intra:
+        for theme in tcoll:
+            for story in theme.stories.filter(participant_id = participant_id):
+                connected_stories.append(story)
+
+    connected_stories = sorted(set([s.id for s in connected_stories]))
+
+    print("conncted")
+    print (len(connected_stories))
+    print("all")
+    print (len(all_stories))
+    print(connected_stories)
     single_stories = []
     for s in all_stories:
         if s.id not in connected_stories:
+            print(s)
             single_stories.append(s)
+    print (len(single_stories))
 
     return single_stories

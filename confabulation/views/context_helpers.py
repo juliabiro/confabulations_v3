@@ -1,5 +1,6 @@
 from .sidebar import sidebar_context
 from .navbar import navigation_context
+import os
 
 def setup_page_context(context=None, sidebar=True, navbar=True):
     if not context:
@@ -8,5 +9,7 @@ def setup_page_context(context=None, sidebar=True, navbar=True):
         context['sidebar'] = sidebar_context()
     if navbar:
         context['navigation'] = navigation_context()
+    if 'LOCAL' in os.environ:
+        context['debug'] = True
     return context
 
