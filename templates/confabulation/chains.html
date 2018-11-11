@@ -1,0 +1,15 @@
+{% extends 'confabulation/base.html' %}
+
+{% block title %}Chains{% endblock %}
+
+{% block content %}
+<h1>Chains</h1>
+
+{% if chain_list %}
+<ul>
+    {% for chain in chain_list %}
+    <li><a href="/chain/{{ chain.id }}/">{{ chain.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

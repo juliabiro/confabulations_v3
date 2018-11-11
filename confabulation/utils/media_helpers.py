@@ -6,17 +6,14 @@ from .s3_helpers import *
 from ..models import Story
 
 
-def get_cloudinary_image(key):
+def get_cloudinary_image_thumb(key):
     cloudinary.config(
     cloud_name = "dpn5pmgin",
     api_key = "314756966717226",
     api_secret = "n4ezvHLdz5p5X3FJ30TN2xS6Fhc"
     )
 
-    # ret=cloudinary.uploader.upload('s3://confabulations'+key, upload_preset='wm9ze7cu', type="private", public_id='confabulations'+key)
-    # print(ret)
-    url=cloudinary.CloudinaryImage('confabulations'+key).build_url( width=100, sign_url=True)
-    print (url)
+    url=cloudinary.CloudinaryImage('confabulations/thumbnails/'+key+'.jpg').build_url( width=100, sign_url=True)
     return url
 
 def get_story_thumb(story):
