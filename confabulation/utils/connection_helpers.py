@@ -47,7 +47,6 @@ def buildsinglestories(participant_id):
     # connected stories
     connected_stories = buildstoryconnections(participant_id, 'Interconnection') + buildstoryconnections(participant_id, 'Intraconnection')
 
-    print (len(connected_stories))
     # stories in themes
     themes_intra = buildthemes(participant_id, 'Intraconnection')
     themes_inter = buildthemes(participant_id, 'Interconnection')
@@ -59,16 +58,10 @@ def buildsinglestories(participant_id):
 
     connected_stories = sorted(set([s.id for s in connected_stories]))
 
-    print("conncted")
-    print (len(connected_stories))
-    print("all")
-    print (len(all_stories))
-    print(connected_stories)
     single_stories = []
     for s in all_stories:
         if s.id not in connected_stories:
             print(s)
             single_stories.append(s)
-    print (len(single_stories))
 
     return single_stories

@@ -9,6 +9,13 @@
 {% endif %}
 <img src="{{cl}}">
 
+<div class="container">
+    {% if thumbnails %}
+    {% for story in thumbnails %}
+    <a href="{{story.url}}">{{story.name}}: <img src="{{story.thumbname}}"></a>
+    {% endfor %}
+    {% endif %}
+</div>
 
 <div class="container">
     <div class=" row">

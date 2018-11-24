@@ -28,6 +28,11 @@ def get_signed_photo_url(file_name, raise_error=True):
         else:
             return None
 
+def get_signed_thumbnail_link(story_name, raise_error):
+    key = "thumbnails/"+story_name+".jpg"
+    return get_signed_asset_link(key, raise_error)
+
+
 def get_signed_asset_link(key, raise_error=True):
     try:
         s3_client = _gets3()

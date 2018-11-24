@@ -16,6 +16,18 @@ def participants(request):
     setup_page_context(context)
     return render(request, 'confabulation/participants.html', context)
 
+def _story_thumbnails(participant_id):
+    stories = Story.objects.filter(participant_id=participant_id).distinct()
+    story_list=[]
+    for story in stories:
+        thumb_url = get_signed_thumbnail_link(story.name, True)
+        story_list.append({
+            'name': story.name,
+            'url': '/story/'+str(story.id),
+            'thumbname': thumb_url})
+    return story_list
+
+
 def participant_view(request, participant_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
@@ -39,8 +51,10 @@ def participant_view(request, participant_id):
     chainless_themes = buildthemes(participant_id, 'Intraconnection')
     story_connections_intra = buildstoryconnections(participant_id, "Intraconnection")
     story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
-
     single_stories = buildsinglestories(participant_id)
+
+    thumbnails = _story_thumbnails(participant_id)
+    context["thumbnails"] = thumbnails
 
     if interchains:
         context['interconnections'] = interchains
@@ -59,3 +73,4 @@ def participant_view(request, participant_id):
 
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)
+ 
