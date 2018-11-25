@@ -7,14 +7,97 @@
 <h4>participation group: {{ participant.participation_group }} </h4>
 
 {% endif %}
+<img src="{{cl}}">
 
-{% if stories %}
-<h5>stories</h5>
-<ul>
-    {% for s in stories %}
-    <li>
-        <a href ="/story/{{ s.id }}/">{{ s.name }} </a></li>
+<div class="container">
+    {% if thumbnails %}
+    {% for story in thumbnails %}
+    <a href="/story/{{story.id}}">{{story.name}}: <img src="{{story.thumb}}"></a>
     {% endfor %}
-</ul>
-{% endif %}
+    {% endif %}
+</div>
+
+<div class="container">
+    <div class=" row">
+            {% if intraconnections %}
+        <div class="col p2">
+            <h1>Intraconnections</h1>
+            <h3>Chain:</h3>
+            {% for ic in intraconnections %}
+            <h5><a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a></h5>
+            {% for t in ic.themes %}
+            <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
+            {% endfor %}
+            {% endfor%}
+            <h3>Themes</h3>
+            {% for ic in intraconnections %}
+            {% for t in ic.themes %}
+            <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
+            {% for s in t.stories %}
+            <a href="/story/{{s.id}}/">{{s.name}}</a>
+            {% endfor %}
+            {% endfor %}
+            {% endfor %}
+
+        </div>
+        {% elif chainless_themes %}
+        <div class="col p2">
+            <h1>Intraconnections</h1>
+            <h3>Themes</h3>
+            {% for t in chainless_themes %}
+            <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
+            {% for s in t.stories %}
+            <a href="/story/{{s.id}}/">{{s.name}}</a>
+            {% endfor %}
+            {% endfor %}
+
+            {% if story_connections_intra %}
+            <h3>Story to Story connections</h3>
+            {% for s in story_connections_intra %}
+            <a href="/story/{{s.id}}/">{{s.name}}</a>
+            {% endfor %}
+            {% endif%}
+
+        </div>
+            {% endif %}
+            {% if interconnections %}
+        <div class="col p2">
+            <h1>Interconnections</h1>
+
+            <h3>Chains</h3>
+                {% for ic in interconnections %}
+            <h5>
+                <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a>
+            </h5>
+                {% endfor %}
+
+            <h3>Themes</h3>
+            {% for ic in interconnections %}
+
+            <h5>
+                <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}:</a></h5>
+
+            {% for t in ic.themes %}
+            <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
+            {% endfor%}
+            {% endfor %}
+        {% if story_connections_inter %}
+        <h3>Story to Story connections</h3>
+        {% for s in story_connections_inter %}
+        <a href="/story/{{s.id}}/">{{s.name}}</a>
+        {% endfor %}
+        {% endif %}
+        </div>
+        {% endif%}
+
+        {% if single_stories %}
+        <div class="col p2">
+            <h3>Unconnected Stories</h3>
+        {% for s in single_stories %}
+        <a href="/story/{{s.id}}/">{{s.name}}</a>
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
