@@ -12,7 +12,7 @@
 <div class="container">
     {% if thumbnails %}
     {% for story in thumbnails %}
-    <a href="{{story.url}}">{{story.name}}: <img src="{{story.thumbname}}"></a>
+    <a href="/story/{{story.id}}">{{story.name}}: <img src="{{story.thumb}}"></a>
     {% endfor %}
     {% endif %}
 </div>

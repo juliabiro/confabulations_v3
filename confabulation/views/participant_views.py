@@ -16,18 +16,6 @@ def participants(request):
     setup_page_context(context)
     return render(request, 'confabulation/participants.html', context)
 
-def _story_thumbnails(participant_id):
-    stories = Story.objects.filter(participant_id=participant_id).distinct()
-    story_list=[]
-    for story in stories:
-        thumb_url = get_signed_thumbnail_link(story.name, True)
-        story_list.append({
-            'name': story.name,
-            'url': '/story/'+str(story.id),
-            'thumbname': thumb_url})
-    return story_list
-
-
 def participant_view(request, participant_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
@@ -35,16 +23,16 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     context = {'participant':participant}
 
-    p_stories = Story.objects.get(participant_id=participant_id)
-    # story_thumbs=[]
-    # for s in p_stories:
-    #     story_thumb=get_cloudinary_image_thumb(s.name)
-    #     story_thumb.append({
-    #         'name' : s.name,
-    #         'id': 'story/'+s.id,
-    #         'thumb': story_thumb
-    #     })
-    # context['thumbs'] = story_thumbs
+    p_stories = Story.objects.filter(participant_id=participant_id)
+    thumbnails=[]
+    for s in p_stories:
+        story_thumb=get_cloudinary_image_thumb(s.name)
+        thumbnails.append({
+            'name' : s.name,
+            'id': s.id,
+            'thumb': story_thumb
+        })
+    context["thumbnails"] = thumbnails
     intrachains = buildchains(participant_id, 'Intraconnection')
     interchains = buildchains(participant_id, 'Interconnection')
 
@@ -53,8 +41,6 @@ def participant_view(request, participant_id):
     story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
     single_stories = buildsinglestories(participant_id)
 
-    thumbnails = _story_thumbnails(participant_id)
-    context["thumbnails"] = thumbnails
 
     if interchains:
         context['interconnections'] = interchains
