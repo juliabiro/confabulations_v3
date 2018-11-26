@@ -30,6 +30,13 @@ if 'LOCAL' in os.environ:
 else:
     DEBUG = False
 
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
+if 'CLOUDINARY_API_KEY' in os.environ:
+    CLOUDINARY_API_KEY=os.environ['CLOUDINARY_API_KEY']
+if 'CLOUDINARY_API_SECRET' in os.environ:
+    CLOUDINARY_API_SECRET=os.environ['CLOUDINARY_API_SECRET']
+
 ALLOWED_HOSTS = []
 
 
