@@ -61,7 +61,6 @@ def buildsinglestories(participant_id):
     single_stories = []
     for s in all_stories:
         if s.id not in connected_stories:
-            print(s)
             single_stories.append(s)
 
     return single_stories
