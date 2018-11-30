@@ -26,3 +26,7 @@ class ParticipantView(TestCase):
         self.assertContains(response, 'elso story')
         self.assertContains(response, 'masodik story')
         self.assertContains(response, 'harmadik story')
+        self.assertContains(response, 'http://res.cloudinary.com')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/elso')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/masodik')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/harmadik')
