@@ -23,7 +23,7 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     context = {'participant':participant}
 
-    p_stories = Story.objects.filter(participant_id=participant_id).sort_by(name)
+    p_stories = Story.objects.filter(participant_id=participant_id).order_by('name')
     thumbnails=[]
     for s in p_stories:
         story_thumb=get_cloudinary_image_thumb(s.name)
