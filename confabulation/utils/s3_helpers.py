@@ -1,7 +1,7 @@
 import re
 from botocore.exceptions import ClientError
 import boto3
-from .data import S3_BUCKET
+from .data import S3_BUCKET, VIDEOS_DIR
 
 def _gets3():
 
