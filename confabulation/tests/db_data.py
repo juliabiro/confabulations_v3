@@ -157,3 +157,55 @@ def populate_db():
     ThemeInChain(theme=intra_theme, chain=intra_chain, number=1).save()
     ThemeInChain(theme=Theme.objects.get(id=3), chain=intra_chain, number=2).save()
 
+
+def create_connections_data():
+    p1 = Participant.objects.create(name="Test Bela",
+                              id=PARTICIPANT_ID)
+    p2 = Participant.objects.create(name="Test Bela 2",
+                                id=PARTICIPANT_ID+1)
+
+    ## data structure
+    ## p1: s1, s2, s5
+    ## p2: s3, s4, s6
+
+    ## t1 intra s1, s2,
+    ## t4 intra s5,
+    ## t2 intra s3, s4
+    ## t3 inter s2, s3
+
+    ## c1 intra t1, t2
+    ## c2 inter t1, t3
+
+    ## s2s: s1, s5
+
+    ## single story: s6
+
+    s1=Story.objects.create(name='story1', id=1, participant=p1)
+    s2=Story.objects.create(name='story2', id=2, participant=p1)
+    s3=Story.objects.create(name='story3', id=3, participant=p2)
+    s4=Story.objects.create(name='story4', id=4, participant=p2)
+    s5=Story.objects.create(name='story5', id=5, participant=p1)
+    s6=Story.objects.create(name='story6', id=6, participant=p2)
+
+    t1=Theme.objects.create(name='Theme1', id=1, connection_range='Intraconnection')
+    t2=Theme.objects.create(name='Theme2', id=2, connection_range='Intraconnection')
+    t3=Theme.objects.create(name='Theme3', id=3, connection_range='Interconnection')
+    t4=Theme.objects.create(name='Theme4', id=4, connection_range='Intraconnection')
+
+    c1=Chain.objects.create(name='Chain1', id=1, connection_range='Intraconnection')
+    c2=Chain.objects.create(name='Chain2', id=2, connection_range='Interconnection')
+
+    StoryInTheme.objects.create(theme=t1, story=s1, number=1)
+    StoryInTheme.objects.create(theme=t1, story=s2, number=2)
+    StoryInTheme.objects.create(theme=t4, story=s5, number=1)
+    StoryInTheme.objects.create(theme=t2, story=s3, number=1)
+    StoryInTheme.objects.create(theme=t2, story=s4, number=2)
+    StoryInTheme.objects.create(theme=t3, story=s2, number=1)
+    StoryInTheme.objects.create(theme=t3, story=s3, number=2)
+
+    ThemeInChain.objects.create(chain=c1, theme=t1, number=1)
+    ThemeInChain.objects.create(chain=c1, theme=t2, number=2)
+    ThemeInChain.objects.create(chain=c2, theme=t3, number=1)
+    ThemeInChain.objects.create(chain=c2, theme=t4, number=2)
+
+    StoryToStoryConnection.objects.create(story1=s1, story2=s5)

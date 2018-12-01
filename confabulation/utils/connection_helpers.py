@@ -12,7 +12,7 @@ class ChainWithThemes():
 
 def buildchains(participant_id, connection_range):
     participant_chains = []
-    chains = Chain.objects.filter(themes__stories__participant_id=participant_id, connection_range=connection_range).distinct()
+    chains = Chain.objects.filter(themes__stories__participant_id=participant_id, connection_range=connection_range).order_by('name').distinct()
 
     for chain in chains:
         themes = chain.themes.all()
@@ -26,7 +26,7 @@ def buildchains(participant_id, connection_range):
 
 def buildthemes(participant_id, connection_range):
     participant_themes = []
-    themes = Theme.objects.filter(stories__participant_id=participant_id, connection_range=connection_range).distinct()
+    themes = Theme.objects.filter(stories__participant_id=participant_id, connection_range=connection_range).distinct().order_by('name')
     for theme in themes:
         participant_themes.append(ThemeWithStories(theme, theme.stories.all()))
 
