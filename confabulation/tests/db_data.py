@@ -1,4 +1,4 @@
-from confabulation.models import Participant, ParticipantTypes, Gender, Story, Photo, AnalysisPoint, AnalysisType, Keyword, Era
+from confabulation.models import Participant, ParticipantTypes, Gender, Story, Photo, AnalysisPoint, AnalysisType, Keyword, Era, Theme, Chain, StoryToStoryConnection, StoryInTheme, ThemeInChain
 
 VALID_STORY_ID = 1
 INVALID_STORY_ID = 2
@@ -11,6 +11,10 @@ INVALID_PHOTO_NAME = 'PHOTO_2'
 MALFORMED_PHOTO_NAME = 'photo_3'
 ANALYSIS_POINT_ID = 1
 ANALYSIS_TYPE_ID = 1
+THEME_INTER_ID = 1
+THEME_INTRA_ID = 2
+CHAIN_INTER_ID = 1
+CHAIN_INTRA_ID = 2
 
 def populate_db():
     eras = [Era(name="era1", id=1),
@@ -60,6 +64,13 @@ def populate_db():
                 Keyword(name='keyword2', id=2),
                 Keyword(name='keyword3', id=3)]
 
+    themes = [Theme(name='Theme 1', connection_range='Interconnection', id=THEME_INTER_ID),
+            Theme(name='Theme 2', connection_range='Intraconnection', id=THEME_INTRA_ID),
+              Theme(name='Theme 3', connection_range='Intraconnection', id=3)]
+
+    chains = [Chain(name='Chain 1',connection_range='Interconnection', id=CHAIN_INTER_ID),
+              Chain(name='Chain 2', connection_range='Intraconnection', id=CHAIN_INTRA_ID)]
+
     for e in eras:
         e.save()
     for p in photos:
@@ -80,6 +91,12 @@ def populate_db():
 
     for k in keywords:
         k.save()
+
+    for theme in themes:
+        theme.save()
+
+    for chain in chains:
+        chain.save()
 
     participant = Participant(name="Test Bela",
                               id=PARTICIPANT_ID)
@@ -118,3 +135,77 @@ def populate_db():
     harmadik_story = Story.objects.create(name='harmadik story', id=15)
     harmadik_story.participant = participant
     harmadik_story.save()
+
+    masik_participant=Participant(name="Masik Participant", id=PARTICIPANT_ID+1)
+    masik_participant.save()
+
+    external_story=Story(name='external story', participant=masik_participant, id=16)
+    external_story.save()
+    # creating the themes
+    inter_theme=Theme.objects.get(id=THEME_INTER_ID)
+    s1=StoryInTheme(story=valid_story, theme=inter_theme, number=1).save()
+    s2=StoryInTheme(story=external_story, theme=inter_theme, number=2).save()
+
+    intra_theme=Theme.objects.get(id=THEME_INTRA_ID)
+    StoryInTheme(story=valid_story, theme=intra_theme, number=3).save()
+    StoryInTheme(story=harmadik_story, theme=intra_theme, number=4).save()
+    intra_theme.save()
+
+    inter_chain=Chain.objects.get(id=CHAIN_INTER_ID)
+    ThemeInChain(theme=inter_theme, chain=inter_chain, number=1).save()
+    intra_chain=Chain.objects.get(id=CHAIN_INTRA_ID)
+    ThemeInChain(theme=intra_theme, chain=intra_chain, number=1).save()
+    ThemeInChain(theme=Theme.objects.get(id=3), chain=intra_chain, number=2).save()
+
+
+def create_connections_data():
+    p1 = Participant.objects.create(name="Test Bela",
+                              id=PARTICIPANT_ID)
+    p2 = Participant.objects.create(name="Test Bela 2",
+                                id=PARTICIPANT_ID+1)
+
+    ## data structure
+    ## p1: s1, s2, s5
+    ## p2: s3, s4, s6
+
+    ## t1 intra s1, s2,
+    ## t4 intra s5,
+    ## t2 intra s3, s4
+    ## t3 inter s2, s3
+
+    ## c1 intra t1, t2
+    ## c2 inter t1, t3
+
+    ## s2s: s1, s5
+
+    ## single story: s6
+
+    s1=Story.objects.create(name='story1', id=1, participant=p1)
+    s2=Story.objects.create(name='story2', id=2, participant=p1)
+    s3=Story.objects.create(name='story3', id=3, participant=p2)
+    s4=Story.objects.create(name='story4', id=4, participant=p2)
+    s5=Story.objects.create(name='story5', id=5, participant=p1)
+    s6=Story.objects.create(name='story6', id=6, participant=p2)
+
+    t1=Theme.objects.create(name='Theme1', id=1, connection_range='Intraconnection')
+    t2=Theme.objects.create(name='Theme2', id=2, connection_range='Intraconnection')
+    t3=Theme.objects.create(name='Theme3', id=3, connection_range='Interconnection')
+    t4=Theme.objects.create(name='Theme4', id=4, connection_range='Intraconnection')
+
+    c1=Chain.objects.create(name='Chain1', id=1, connection_range='Intraconnection')
+    c2=Chain.objects.create(name='Chain2', id=2, connection_range='Interconnection')
+
+    StoryInTheme.objects.create(theme=t1, story=s1, number=1)
+    StoryInTheme.objects.create(theme=t1, story=s2, number=2)
+    StoryInTheme.objects.create(theme=t4, story=s5, number=1)
+    StoryInTheme.objects.create(theme=t2, story=s3, number=1)
+    StoryInTheme.objects.create(theme=t2, story=s4, number=2)
+    StoryInTheme.objects.create(theme=t3, story=s2, number=1)
+    StoryInTheme.objects.create(theme=t3, story=s3, number=2)
+
+    ThemeInChain.objects.create(chain=c1, theme=t1, number=1)
+    ThemeInChain.objects.create(chain=c1, theme=t2, number=2)
+    ThemeInChain.objects.create(chain=c2, theme=t1, number=1)
+    ThemeInChain.objects.create(chain=c2, theme=t3, number=2)
+
+    StoryToStoryConnection.objects.create(story1=s1, story2=s5, connection_range="Intraconnection")

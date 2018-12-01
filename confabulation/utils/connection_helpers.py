@@ -12,23 +12,23 @@ class ChainWithThemes():
 
 def buildchains(participant_id, connection_range):
     participant_chains = []
-    chains = Chain.objects.filter(themes__stories__participant_id=participant_id, connection_range=connection_range).distinct()
+    chains = Chain.objects.filter(themes__stories__participant_id=participant_id, connection_range=connection_range).distinct().order_by('name')
 
     for chain in chains:
-        themes = chain.themes.all()
+        themes = chain.themes.distinct().order_by('name')
 
         story_list = []
         for theme in themes:
-            story_list.append(ThemeWithStories(theme, theme.stories.all()))
+            story_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
 
         participant_chains.append(ChainWithThemes(chain, story_list))
     return participant_chains
 
 def buildthemes(participant_id, connection_range):
     participant_themes = []
-    themes = Theme.objects.filter(stories__participant_id=participant_id, connection_range=connection_range).distinct()
+    themes = Theme.objects.filter(stories__participant_id=participant_id, connection_range=connection_range).distinct().order_by('name')
     for theme in themes:
-        participant_themes.append(ThemeWithStories(theme, theme.stories.all()))
+        participant_themes.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
 
     return participant_themes
 
@@ -38,14 +38,21 @@ def buildstoryconnections(participant_id, connection_range):
     story_pairs2 = [[sp.story1, sp.story2] for sp in StoryToStoryConnection.objects.filter(story2__participant_id=participant_id, connection_range=connection_range).distinct()]
 
     for pair in story_pairs1+story_pairs2:
-        participant_stories = participant_stories + pair
-    return sorted(set(participant_stories), key=lambda story: story.id)
+        participant_stories.append(tuple(sorted(pair, key=lambda s:s.id)))
+
+    return list(set (participant_stories))
 
 def buildsinglestories(participant_id):
     all_stories = Story.objects.filter(participant_id=participant_id).distinct()
 
     # connected stories
-    connected_stories = buildstoryconnections(participant_id, 'Interconnection') + buildstoryconnections(participant_id, 'Intraconnection')
+    connected_story_pairs = buildstoryconnections(participant_id, 'Interconnection') + buildstoryconnections(participant_id, 'Intraconnection')
+
+    connected_stories=[]
+    for p in connected_story_pairs:
+        connected_stories.append(p[0])
+        connected_stories.append(p[1])
+
 
     # stories in themes
     themes_intra = buildthemes(participant_id, 'Intraconnection')

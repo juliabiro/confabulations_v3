@@ -3,7 +3,6 @@ from django.conf import settings
 from django.shortcuts import redirect
 from ..models import Story, AnalysisPoint, AnalysisType
 from ..utils.s3_helpers import *
-from ..utils.media_helpers import get_story_thumb
 from .context_helpers import setup_page_context
 
 def analysis_view(request, ap_id):

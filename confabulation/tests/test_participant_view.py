@@ -8,7 +8,6 @@ class ParticipantView(TestCase):
     def setUp(self):
         populate_db()
         self.participant = Participant.objects.get(pk=1)
-        self.participant.save()
 
         User = get_user_model()
         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
@@ -26,3 +25,7 @@ class ParticipantView(TestCase):
         self.assertContains(response, 'elso story')
         self.assertContains(response, 'masodik story')
         self.assertContains(response, 'harmadik story')
+        self.assertContains(response, 'http://res.cloudinary.com')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/elso')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/masodik')
+        self.assertContains(response, 'w_100/v1/confabulations/thumbnails/harmadik')

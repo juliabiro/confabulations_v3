@@ -129,6 +129,10 @@ class StoryInTheme(models.Model):
 class Theme(models.Model):
     def __str__(self):
         return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/theme/%i/" % self.id
+
     name = models.CharField(max_length=50)
     description = models.TextField(default="", blank=True)
     stories = models.ManyToManyField('Story', through=StoryInTheme)
@@ -142,6 +146,9 @@ class ThemeInChain(models.Model):
 class Chain(models.Model):
     def __str__(self):
         return"%s" % self.name
+
+    def get_absolute_url(self):
+        return "/chain/%i/" % self.id
 
     name = models.CharField(max_length=50)
     description = models.TextField(default="", blank=True)
