@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Photo, Transscription, AnalysisPoint, Era, Theme, Recording, Story, Chain, Keyword, Participant, AnalysisType, StoryInTheme, StoryToStoryConnection, ThemeInChain
+from .models import Photo, Transscription, AnalysisPoint, Era, Theme, Recording, Story, Chain, Keyword, Participant, AnalysisType, StoryInTheme, StoryToStoryConnection, ThemeInChain, Connection
 # Register your models here.
 
 # fields make the dispplay order
@@ -85,6 +85,8 @@ class ChainAdmin(admin.ModelAdmin):
 class KeywordAdmin(admin.ModelAdmin):
     list_display = ['name']
 
+class ConnectionAdmin(admin.ModelAdmin):
+    list_display = ['name']
 
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Recording, RecordingAdmin)
@@ -97,3 +99,4 @@ admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Chain, ChainAdmin)
 admin.site.register(Era, EraAdmin)
 admin.site.register(Keyword, KeywordAdmin)
+admin.site.register(Connection, ConnectionAdmin)

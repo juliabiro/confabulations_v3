@@ -1,0 +1,16 @@
+{% extends 'confabulation/base.html' %}
+
+{% block title %} Connection: {{connections.name}}{% endblock %}
+{% block content %}
+
+<div class="Connection">
+    {% if connection %}
+
+    <h1> <font color="{{connection.color_code}}">{{connection.name}}</font> </h1>
+
+<div class="description">
+    {{connection.description}}
+</div>
+
+{% endif %}
+{% endblock%}
