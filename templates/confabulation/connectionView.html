@@ -8,9 +8,27 @@
 
     <h1> <font color="{{connection.color_code}}">{{connection.name}}</font> </h1>
 
-<div class="description">
-    {{connection.description}}
-</div>
+    <div class="description">
+        {{connection.description}}
+    </div>
+    {% if chains %}
+    <h3>Chains</h3>
+    {% for ic in chains %}
+    <h5>
+        <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a>
+    </h5>
+    {% endfor %}
+    {% endif %}
+    {% if themes %}
+    <h3>Themes</h3>
+    {% for ic in themes %}
 
-{% endif %}
-{% endblock%}
+    <h5>
+        <a href="/theme/{{ic.theme.id}}/">{{ic.theme.name}}:</a></h5>
+
+    {% endfor %}
+    {% endif %}
+
+    {% endif %}
+    {% endblock%}
+</div>
