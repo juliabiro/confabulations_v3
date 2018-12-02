@@ -26,7 +26,7 @@ class ConnectionBuilder():
         return Theme.objects.filter(connection_range=self.connection_range).distinct().order_by('name')
 
     def getStoryToStoryConnections(self):
-        return StoryToStoryConnection.objects.filter(connection_range=self.connection_range).distinct().order_by('story1.name')
+        return list(StoryToStoryConnection.objects.filter(connection_range=self.connection_range).distinct())
 
     def buildchains(self):
         participant_chains = []
@@ -58,13 +58,11 @@ class ConnectionBuilder():
         # story_pairs1 = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id, connection_range=connection_range).distinct()
         # story_pairs2 = StoryToStoryConnection.objects.filter(story2__participant_id=participant_id, connection_range=connection_range).distinct()
 
-        # for qset in [story_pairs2, story_pairs1]:
-        for qset in self.getStoryToStoryConnections():
-            for q in qset:
-                if q.story1.id<q.story2.id:
-                    participant_stories.add((q.story1, q.story2))
-                else:
-                    participant_stories.add((q.story2, q.story1))
+        for q in self.getStoryToStoryConnections():
+            if q.story1.id<q.story2.id:
+                participant_stories.add((q.story1, q.story2))
+            else:
+                participant_stories.add((q.story2, q.story1))
 
         return [StoryPair(q[0], q[1]) for q in (sorted(participant_stories, key=lambda x: x[0].id))]
 
@@ -123,7 +121,6 @@ class UnconnectedStoryFinder():
                     connected_stories.append(story)
 
         connected_stories = sorted(set([s.id for s in connected_stories]))
-
         single_stories = []
         for s in all_stories:
             if s.id not in connected_stories:
