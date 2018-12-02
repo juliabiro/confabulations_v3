@@ -71,8 +71,8 @@ class buildStoryToStoryConnections(TestCase):
 
         pairs = buildstoryconnections(participant_id=PARTICIPANT_ID, connection_range='Intraconnection')
         self.assertEquals(len(pairs),1)
-        self.assertEquals(pairs[0][0].name,'story1')
-        self.assertEquals(pairs[0][1].name,'story5')
+        self.assertEquals(pairs[0].story1.name,'story1')
+        self.assertEquals(pairs[0].story2.name,'story5')
 
         pairs = buildstoryconnections(participant_id=PARTICIPANT_ID, connection_range='Interconnection')
         self.assertEquals(len(pairs),0)
