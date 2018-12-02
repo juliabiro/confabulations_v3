@@ -41,7 +41,6 @@ def participant_view(request, participant_id):
     story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
     single_stories = buildsinglestories(participant_id)
 
-
     if interchains:
         context['interconnections'] = interchains
     if intrachains:

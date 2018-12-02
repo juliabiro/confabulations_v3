@@ -51,13 +51,6 @@
             {% endfor %}
             {% endfor %}
 
-            {% if story_connections_intra %}
-            <h3>Story to Story connections</h3>
-            {% for s in story_connections_intra %}
-            <a href="/story/{{s.id}}/">{{s.name}}</a>
-            {% endfor %}
-            {% endif%}
-
         </div>
             {% endif %}
             {% if interconnections %}
@@ -81,12 +74,6 @@
             <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
             {% endfor%}
             {% endfor %}
-        {% if story_connections_inter %}
-        <h3>Story to Story connections</h3>
-        {% for s in story_connections_inter %}
-        <a href="/story/{{s.id}}/">{{s.name}}</a>
-        {% endfor %}
-        {% endif %}
         </div>
         {% endif%}
 
@@ -98,6 +85,33 @@
         {% endfor %}
         </div>
         {% endif %}
+    </div>
+    <div class="row">
+        <div class="col p2">
+            {% if story_connections_intra %}
+        <h3>Story to Story connections</h3>
+        <ul>
+        {% for s in story_connections_intra %}
+        <li>
+<a href="/story/{{s.story1.id}}/">{{s.story1.name}}</a> -
+<a href="/story/{{s.story2.id}}/">{{s.story2.name}}</a></li>
+        {% endfor %}
+    </ul>
+            {% endif%}
+        </div>
+        <div class="col p2">
+        {% if story_connections_inter %}
+            <h3>Story to Story connections</h3>
+            <ul>
+                {% for s in story_connections_inter %}
+                <li>
+        <a href="/story/{{s.story1.id}}/">{{s.story1.name}}</a> -
+        <a href="/story/{{s.story2.id}}/">{{s.story2.name}}</a>
+                </li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
