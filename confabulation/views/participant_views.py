@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from ..models import Participant, Story, Chain, Theme, ConnectionRange
 from ..utils.s3_helpers import *
 from ..utils. media_helpers import *
-from ..utils. connection_helpers import buildchains, buildthemes, buildstoryconnections, buildsinglestories
+from ..utils. connection_helpers import ParticipantConnectionBuilder, UnconnectedStoryFinder
 from .context_helpers import setup_page_context
 
 def participants(request):
@@ -23,6 +23,10 @@ def participant_view(request, participant_id):
     participant = Participant.objects.get(pk=participant_id)
     context = {'participant':participant}
 
+    intraBuilder = ParticipantConnectionBuilder(participant_id, 'Intraconnection')
+    interBuilder = ParticipantConnectionBuilder(participant_id, 'Interconnection')
+    unconnectedStoryFinder = UnconnectedStoryFinder(participant_id)
+
     p_stories = Story.objects.filter(participant_id=participant_id).order_by('name')
     thumbnails=[]
     for s in p_stories:
@@ -33,13 +37,17 @@ def participant_view(request, participant_id):
             'thumb': story_thumb
         })
     context["thumbnails"] = thumbnails
-    intrachains = buildchains(participant_id, 'Intraconnection')
-    interchains = buildchains(participant_id, 'Interconnection')
+    intrachains = intraBuilder.buildchains()
+    interchains = interBuilder.buildchains()
+    # intrachains = buildchains(participant_id, 'Intraconnection')
+    # interchains = buildchains(participant_id, 'Interconnection')
 
-    chainless_themes = buildthemes(participant_id, 'Intraconnection')
-    story_connections_intra = buildstoryconnections(participant_id, "Intraconnection")
-    story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
-    single_stories = buildsinglestories(participant_id)
+    chainless_themes = intraBuilder.buildthemes()
+
+    story_connections_intra = intraBuilder.buildstoryconnections()
+    story_connections_inter = interBuilder.buildstoryconnections()
+    # story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
+    single_stories = unconnectedStoryFinder.buildsinglestories()
 
     if interchains:
         context['interconnections'] = interchains
@@ -58,4 +66,3 @@ def participant_view(request, participant_id):
 
     setup_page_context(context)
     return render(request, 'confabulation/participantView.html', context)
- 

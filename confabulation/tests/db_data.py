@@ -3,6 +3,7 @@ from confabulation.models import Participant, ParticipantTypes, Gender, Story, P
 VALID_STORY_ID = 1
 INVALID_STORY_ID = 2
 PARTICIPANT_ID = 1
+OTHER_PARTICIPANT_ID = 2
 VALID_VIDEO_NAME = 'TEST01.mp4'
 INVALID_VIDEO_NAME = 'JULI.mp4'
 VALID_PHOTO_NAME = 'TEST01.jpg'
@@ -162,7 +163,7 @@ def create_connections_data():
     p1 = Participant.objects.create(name="Test Bela",
                               id=PARTICIPANT_ID)
     p2 = Participant.objects.create(name="Test Bela 2",
-                                id=PARTICIPANT_ID+1)
+                                id=OTHER_PARTICIPANT_ID)
 
     ## data structure
     ## p1: s1, s2, s5
