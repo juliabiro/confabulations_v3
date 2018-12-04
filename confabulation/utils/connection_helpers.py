@@ -36,11 +36,11 @@ class ConnectionBuilder():
         for chain in chains:
             themes = chain.themes.distinct().order_by('name')
 
-            story_list = []
+            theme_list = []
             for theme in themes:
-                story_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
+                theme_list.append(ThemeWithStories(theme, list(theme.stories.distinct().order_by('name'))))
 
-            participant_chains.append(ChainWithThemes(chain, story_list))
+            participant_chains.append(ChainWithThemes(chain, theme_list))
         return participant_chains
 
     def buildthemes(self):

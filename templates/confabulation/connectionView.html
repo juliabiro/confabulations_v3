@@ -1,6 +1,6 @@
 {% extends 'confabulation/base.html' %}
 
-{% block title %} Connection: {{connections.name}}{% endblock %}
+{% block title %} Connection: {{connection.name}}{% endblock %}
 {% block content %}
 
 <div class="Connection">
@@ -11,23 +11,33 @@
     <div class="description">
         {{connection.description}}
     </div>
-    {% if chains %}
-    <h3>Chains</h3>
-    {% for ic in chains %}
-    <h5>
-        <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a>
-    </h5>
-    {% endfor %}
-    {% endif %}
-    {% if themes %}
-    <h3>Themes</h3>
-    {% for ic in themes %}
 
-    <h5>
-        <a href="/theme/{{ic.theme.id}}/">{{ic.theme.name}}:</a></h5>
+    <div class="contianer">
+        {% for p in participants %}
+        <div class="row">
+            <div class="col p2">
+                <h2><a href="/participant/{{p.p_id}}/">{{p.name}}</a></h2>
+            </div>
+            <div class="col p2">
+                <h3>Chains</h3>
+                {% for c in p.chains %}
+                <h5><a href="/chain/{{c.chain.id}}/">{{c.chain.name}}:</a></h5>
 
-    {% endfor %}
-    {% endif %}
+                {% for t in c.themes %}
+                <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
+                {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col p2">
+                <h3>Themes</h3>
+                {% for t in p.themes %}
+                <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
+
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
     {% endif %}
     {% endblock%}
