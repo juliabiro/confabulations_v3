@@ -41,13 +41,7 @@ def connection_view(request, connection_id):
              'storyconnections': s2s
             })
         )
-    print(context['participants'][1].chains[0].themes[2].theme.name)
 
-    # connectionBuilder = ConnectionBuilder(connection.connection_range)
-    # themes = connectionBuilder.buildthemes()
-    # chains = connectionBuilder.buildchains()
-    # context['themes'] = themes
-    # context['chains'] = chains
     setup_page_context(context)
     return render(request, 'confabulation/connectionView.html', context)
 
