@@ -31,22 +31,20 @@ class ConnectionBuilder():
     def buildchains(self):
         participant_chains = []
         chains = self.getChains()
-        # chains = Chain.objects.filter(themes__stories__participant_id=participant_id, connection_range=connection_range).distinct().order_by('name')
 
         for chain in chains:
             themes = chain.themes.distinct().order_by('name')
 
-            story_list = []
+            theme_list = []
             for theme in themes:
-                story_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
+                theme_list.append(ThemeWithStories(theme, list(theme.stories.distinct().order_by('name'))))
 
-            participant_chains.append(ChainWithThemes(chain, story_list))
+            participant_chains.append(ChainWithThemes(chain, theme_list))
         return participant_chains
 
     def buildthemes(self):
         participant_themes = []
         themes = self.getThemes()
-        # themes = Theme.objects.filter(stories__participant_id=participant_id, connection_range=connection_range).distinct().order_by('name')
         for theme in themes:
             participant_themes.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
 
@@ -54,9 +52,6 @@ class ConnectionBuilder():
 
     def buildstoryconnections(self):
         participant_stories = set()
-
-        # story_pairs1 = StoryToStoryConnection.objects.filter(story1__participant_id=participant_id, connection_range=connection_range).distinct()
-        # story_pairs2 = StoryToStoryConnection.objects.filter(story2__participant_id=participant_id, connection_range=connection_range).distinct()
 
         for q in self.getStoryToStoryConnections():
             if q.story1.id<q.story2.id:
@@ -97,11 +92,9 @@ class UnconnectedStoryFinder():
 
     def buildsinglestories(self):
         all_stories = self.getStories()
-        # all_stories = Story.objects.filter(participant_id=participant_id).distinct()
 
         # connected stories
         connected_story_pairs = self.intraBuilder.getStoryToStoryConnections() + self.interBuilder.getStoryToStoryConnections()
-        # connected_story_pairs = self.buildstoryconnections(participant_id, 'Interconnection') + buildstoryconnections(participant_id, 'Intraconnection')
 
         connected_stories=[]
         for p in connected_story_pairs:
@@ -112,8 +105,6 @@ class UnconnectedStoryFinder():
         # stories in themes
         themes_inter = self.interBuilder.buildthemes()
         themes_intra= self.intraBuilder.buildthemes()
-        # themes_intra = buildthemes(participant_id, 'Intraconnection')
-        # themes_inter = buildthemes(participant_id, 'Interconnection')
 
         for tcoll in themes_inter, themes_intra:
             for theme in tcoll:
