@@ -116,6 +116,18 @@ class ConnectionRange(ChoiceEnum):
     interconnection = 'Interconnection'
     intraconnection = 'Intraconnection'
 
+class Connection(models.Model):
+    def __str__(self):
+        return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/connects/%i/" % self.id
+
+    name =  models.CharField(max_length=50)
+    color_code = RGBColorField()
+    description = models.CharField(max_length=2000, null=True, blank=True)
+    connection_range = models.CharField(max_length=30, choices=ConnectionRange.choices())
+
 class StoryToStoryConnection(models.Model):
     story1 = models.ForeignKey('Story', related_name='story1', on_delete=models.DO_NOTHING)
     story2 = models.ForeignKey('Story', related_name='story2', on_delete=models.DO_NOTHING)

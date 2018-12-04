@@ -1,6 +1,6 @@
-from ..models import ParticipantTypes, Participant, AnalysisType, AnalysisPoint
+from ..models import ParticipantTypes, Participant, AnalysisType, AnalysisPoint, Connection
 
-SPECIAL_ANALYSIS_TYPES=['Going Beyond', 'Connects']
+SPECIAL_ANALYSIS_TYPES=['Going Beyond']
 
 def navigation_context():
     context = {'participants':{},
@@ -26,6 +26,11 @@ def navigation_context():
         ap_list_by_type = [{"name": ap.name,
                            "link": ap.get_absolute_url()} for ap in ap_list]
         context['taxonomy'][t.name] = ap_list_by_type
+
+    connection_types = Connection.objects.distinct()
+    for ct in connection_types:
+        context['connects'].append({'name': ct.name,
+                                    'link': ct.get_absolute_url()})
 
     for special in SPECIAL_ANALYSIS_TYPES:
 

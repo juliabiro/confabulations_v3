@@ -1,4 +1,4 @@
-from confabulation.models import Participant, ParticipantTypes, Gender, Story, Photo, AnalysisPoint, AnalysisType, Keyword, Era, Theme, Chain, StoryToStoryConnection, StoryInTheme, ThemeInChain
+from confabulation.models import Participant, ParticipantTypes, Gender, Story, Photo, AnalysisPoint, AnalysisType, Keyword, Era, Theme, Chain, StoryToStoryConnection, StoryInTheme, ThemeInChain, Connection
 
 VALID_STORY_ID = 1
 INVALID_STORY_ID = 2
@@ -61,6 +61,9 @@ def populate_db():
                                      order_in_menu=1,
                                      id=7)]
 
+    connections = [Connection(name='Connects Inter', id=1, connection_range='Interconnection'),
+                   Connection(name='Conencts Intra', id=2, connection_range='Intraconnection')]
+
     keywords = [Keyword(name='keyword1', id=1),
                 Keyword(name='keyword2', id=2),
                 Keyword(name='keyword3', id=3)]
@@ -78,6 +81,8 @@ def populate_db():
         p.save()
     for at in analysis_types:
         at.save()
+    for c in connections:
+        c.save()
 
     analysis_points[0].analysis_type = analysis_types[0]
     analysis_points[1].analysis_type = analysis_types[1]
