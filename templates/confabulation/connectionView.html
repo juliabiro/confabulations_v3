@@ -13,21 +13,29 @@
     </div>
 
     <div class="contianer">
+    <div >
+        {% if inter_chain %}
+        <h5>The one connecting Chain accross participants </h5>
+        <h3><a href="/chain/{{inter_chain.id}}/">{{inter_chain.name}}</a></h3>
+        {% endif%}
+    </div>
         {% for p in participants %}
         <div class="row">
             <div class="col p2">
                 <h2><a href="/participant/{{p.p_id}}/">{{p.name}}</a></h2>
             </div>
+            {% if not inter_chain %}
             <div class="col p2">
                 <h3>Chains</h3>
                 {% for c in p.chains %}
                 <h5><a href="/chain/{{c.chain.id}}/">{{c.chain.name}}:</a></h5>
-
                 {% for t in c.themes %}
                 <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
                 {% endfor %}
                 {% endfor %}
             </div>
+            {% endif %}
+
             <div class="col p2">
                 <h3>Themes</h3>
                 {% for t in p.themes %}
