@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import Connection, Participant
+from ..models import Connection, Participant, Chain
 from ..utils.s3_helpers import *
 from ..utils.connection_helpers import ConnectionBuilder, ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
@@ -27,6 +27,12 @@ def connection_view(request, connection_id):
         'connection': connection,
         'participants': []
     }
+
+    inter_chain = None
+    if connection.connection_range == "Interconnection":
+        inter_chain=Chain.objects.filter(connection_range='Interconnection').distinct()
+        if len(inter_chain) is 1:
+            context['inter_chain'] = inter_chain[0]
 
     for p in participants:
         builder = ParticipantConnectionBuilder(p.id, connection.connection_range)
