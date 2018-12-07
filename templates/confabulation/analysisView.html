@@ -13,6 +13,15 @@
 <div class="description">
     {{analysis_point.description}}
 </div>
-
 {% endif %}
+<div>
+    {% if stories %}
+    <h3>Stories</h3>
+    {% for s in stories %}
+    <a href="{{s.url}}">{{s.name}}<img src="{{s.thumbnail}}"></a>
+    {% endfor %}
+    {% endif %}
+</div>
+
+</div>
 {% endblock%}
