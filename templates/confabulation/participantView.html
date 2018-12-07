@@ -1,5 +1,6 @@
 {% extends 'confabulation/base.html' %}
 {% block title %}{{participant.name}}{% endblock %}
+{% load story_list %}
 {% block content %}
 {% if participant %}
 
@@ -10,10 +11,8 @@
 <img src="{{cl}}">
 
 <div class="container">
-    {% if thumbnails %}
-    {% for story in thumbnails %}
-    <a href="/story/{{story.id}}">{{story.name}}: <img src="{{story.thumb}}"></a>
-    {% endfor %}
+    {% if participant_stories %}
+    {% story_list participant_stories 150 %}
     {% endif %}
 </div>
 

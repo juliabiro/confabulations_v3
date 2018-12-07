@@ -28,15 +28,7 @@ def participant_view(request, participant_id):
     unconnectedStoryFinder = UnconnectedStoryFinder(participant_id)
 
     p_stories = Story.objects.filter(participant_id=participant_id).order_by('name')
-    thumbnails=[]
-    for s in p_stories:
-        story_thumb=get_cloudinary_image_thumb(s.name)
-        thumbnails.append({
-            'name' : s.name,
-            'id': s.id,
-            'thumb': story_thumb
-        })
-    context["thumbnails"] = thumbnails
+    context["participant_stories"] = p_stories
     intrachains = intraBuilder.buildchains()
     interchains = interBuilder.buildchains()
     # intrachains = buildchains(participant_id, 'Intraconnection')

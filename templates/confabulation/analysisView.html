@@ -1,5 +1,5 @@
 {% extends 'confabulation/base.html' %}
-{% load story_tag %}
+{% load story_list %}
 {% block title %} Analysis: {{analysis_point.name}}{% endblock %}
 {% block content %}
 
@@ -17,9 +17,7 @@
 <div>
     {% if stories %}
     <h3>Stories</h3>
-    {% for s in stories %}
-    {% story_tag s.id 150 %}
-    {% endfor %}
+    {% story_list stories 150%}
     {% endif %}
 </div>
 
