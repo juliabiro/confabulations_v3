@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from ..models import Story, AnalysisPoint, AnalysisType
 from ..utils.s3_helpers import *
 from .context_helpers import setup_page_context
+from ..utils.media_helpers import StoryWithThumbnail
 
 def analysis_view(request, ap_id):
     if not request.user.is_authenticated:
@@ -14,6 +15,9 @@ def analysis_view(request, ap_id):
     context = {
         'analysis_point': ap
     }
+    stories_raw = Story.objects.filter(analysis__id=ap.id).distinct().order_by('name')
+    stories = [ StoryWithThumbnail(s) for s in stories_raw]
+    context['stories'] = stories
 
     setup_page_context(context)
     return render(request, 'confabulation/analysisView.html', context)

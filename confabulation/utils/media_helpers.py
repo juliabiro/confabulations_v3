@@ -16,3 +16,11 @@ def get_cloudinary_image_thumb(key):
     url=cloudinary.CloudinaryImage(THUMBNAILS_PATH +key+'.jpg').build_url( width=100, sign_url=True)
     return url
 
+def get_story_thumb(story):
+    return get_cloudinary_image_thumb(story.name)
+
+class StoryWithThumbnail():
+    def __init__(self, story):
+        self.name = story.name
+        self.url = story.get_absolute_url()
+        self.thumbnail = get_story_thumb(story)
