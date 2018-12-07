@@ -1,5 +1,5 @@
 {% extends 'confabulation/base.html' %}
-
+{% load story_list %}
 {% block title %} Analysis: {{analysis_point.name}}{% endblock %}
 {% block content %}
 
@@ -17,9 +17,7 @@
 <div>
     {% if stories %}
     <h3>Stories</h3>
-    {% for s in stories %}
-    <a href="{{s.url}}">{{s.name}}<img src="{{s.thumbnail}}"></a>
-    {% endfor %}
+    {% story_list stories 150%}
     {% endif %}
 </div>
 

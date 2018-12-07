@@ -114,3 +114,10 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+.thumbnail {
+    text-align:center;
+    padding-bottom: 0.5em;
+    margin: 0.4em;
+    display: inline-block;
+}
