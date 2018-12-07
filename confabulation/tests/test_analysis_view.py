@@ -23,6 +23,7 @@ class AnalysisViews(TestCase):
         self.assertContains(response, analysis_point.color_code)
         self.assertContains(response, analysis_point.analysis_type.name)
         self.assertContains(response, analysis_point.analysis_type.get_absolute_url())
+        self.assertContains(response, 'elso story')
 
     def test_analysis_type_view(self):
         ap_type = AnalysisType.objects.get(pk=ANALYSIS_TYPE_ID)
