@@ -1,6 +1,12 @@
 {% extends 'confabulation/base.html' %}
 {% block title %}{{participant.name}}{% endblock %}
 {% load story_list %}
+{% load chain_list %}
+{% load theme_list %}
+{% load story_list_thumb %}
+{% load theme_with_story_list %}
+{% load chain_with_theme_list %}
+{% load story_to_story_connection_list %}
 {% block content %}
 {% if participant %}
 
@@ -12,7 +18,7 @@
 
 <div class="container">
     {% if participant_stories %}
-    {% story_list participant_stories 150 %}
+    {% story_list_thumb participant_stories 150 %}
     {% endif %}
 </div>
 
@@ -21,21 +27,11 @@
             {% if intraconnections %}
         <div class="col p2">
             <h1>Intraconnections</h1>
-            <h3>Chain:</h3>
-            {% for ic in intraconnections %}
-            <h5><a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a></h5>
-            {% for t in ic.themes %}
-            <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
-            {% endfor %}
-            {% endfor%}
+            <h3>Chains</h3>
+            {% chain_with_theme_list intraconnections %}
             <h3>Themes</h3>
             {% for ic in intraconnections %}
-            {% for t in ic.themes %}
-            <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
-            {% for s in t.stories %}
-            <a href="/story/{{s.id}}/">{{s.name}}</a>
-            {% endfor %}
-            {% endfor %}
+            {% theme_with_story_list ic.themes %}
             {% endfor %}
 
         </div>
@@ -43,35 +39,18 @@
         <div class="col p2">
             <h1>Intraconnections</h1>
             <h3>Themes</h3>
-            {% for t in chainless_themes %}
-            <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}:</a></h5>
-            {% for s in t.stories %}
-            <a href="/story/{{s.id}}/">{{s.name}}</a>
-            {% endfor %}
-            {% endfor %}
-
+            {% theme_with_story_list chainless_themes %}
         </div>
             {% endif %}
             {% if interconnections %}
         <div class="col p2">
             <h1>Interconnections</h1>
 
-            <h3>Chains</h3>
-                {% for ic in interconnections %}
-            <h5>
-                <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}</a>
-            </h5>
-                {% endfor %}
-
+            <h3>Chain</h3>
+            {% chain_list interconnections %}
             <h3>Themes</h3>
             {% for ic in interconnections %}
-
-            <h5>
-                <a href="/chain/{{ic.chain.id}}/">{{ic.chain.name}}:</a></h5>
-
-            {% for t in ic.themes %}
-            <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
-            {% endfor%}
+            {% theme_list ic.themes %}
             {% endfor %}
         </div>
         {% endif%}
@@ -79,9 +58,7 @@
         {% if single_stories %}
         <div class="col p2">
             <h3>Unconnected Stories</h3>
-        {% for s in single_stories %}
-        <a href="/story/{{s.id}}/">{{s.name}}</a>
-        {% endfor %}
+            {% story_list single_stories %}
         </div>
         {% endif %}
     </div>
@@ -90,11 +67,7 @@
             {% if story_connections_intra %}
         <h3>Story to Story connections</h3>
         <ul>
-        {% for s in story_connections_intra %}
-        <li>
-<a href="/story/{{s.story1.id}}/">{{s.story1.name}}</a> -
-<a href="/story/{{s.story2.id}}/">{{s.story2.name}}</a></li>
-        {% endfor %}
+            {% story_to_story_connection_list story_connections_intra %}
     </ul>
             {% endif%}
         </div>
@@ -102,12 +75,7 @@
         {% if story_connections_inter %}
             <h3>Story to Story connections</h3>
             <ul>
-                {% for s in story_connections_inter %}
-                <li>
-        <a href="/story/{{s.story1.id}}/">{{s.story1.name}}</a> -
-        <a href="/story/{{s.story2.id}}/">{{s.story2.name}}</a>
-                </li>
-        {% endfor %}
+                {% story_to_story_connection_list story_connections_inter%}
             </ul>
         {% endif %}
         </div>
