@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
 from ..models import Connection, Participant, Chain
-from ..utils.s3_helpers import *
-from ..utils.connection_helpers import ConnectionBuilder, ParticipantConnectionBuilder
+from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 
 
@@ -39,14 +38,17 @@ def connection_view(request, connection_id):
         chains = builder.buildchains()
         themes = builder.buildthemes()
         s2s = builder.buildstoryconnections()
+
         context['participants'].append(
             ConnectionViewElement({'name': p.name,
-             'id': p.id,
-             'chains': chains,
-             'themes': themes,
-             'storyconnections': s2s
+                                   'id': p.id,
+                                   'chains': chains,
+                                   'themes': themes,
+                                   'storyconnections': s2s
+
             })
         )
+
 
     setup_page_context(context)
     return render(request, 'confabulation/connectionView.html', context)

@@ -214,4 +214,6 @@ def create_connections_data():
     ThemeInChain.objects.create(chain=c2, theme=t1, number=1)
     ThemeInChain.objects.create(chain=c2, theme=t3, number=2)
 
+    s2.keywords.add(Keyword.objects.create(name="keyword1", id=1))
+    s2.save()
     StoryToStoryConnection.objects.create(story1=s1, story2=s5, connection_range="Intraconnection")
