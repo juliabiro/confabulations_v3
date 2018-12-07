@@ -121,3 +121,12 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     margin: 0.4em;
     display: inline-block;
 }
+
+.tc_block {
+    display: block;
+    margin-bottom: 1em;
+}
+.tc_block.h5{
+    margin-bottom: 0.2em;
+}
+

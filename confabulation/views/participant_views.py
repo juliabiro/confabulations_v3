@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import Participant, Story, Chain, Theme, ConnectionRange
-from ..utils.s3_helpers import *
-from ..utils. media_helpers import *
+from ..models import Participant, Story
 from ..utils. connection_helpers import ParticipantConnectionBuilder, UnconnectedStoryFinder
 from .context_helpers import setup_page_context
 
@@ -31,14 +29,11 @@ def participant_view(request, participant_id):
     context["participant_stories"] = p_stories
     intrachains = intraBuilder.buildchains()
     interchains = interBuilder.buildchains()
-    # intrachains = buildchains(participant_id, 'Intraconnection')
-    # interchains = buildchains(participant_id, 'Interconnection')
 
     chainless_themes = intraBuilder.buildthemes()
 
     story_connections_intra = intraBuilder.buildstoryconnections()
     story_connections_inter = interBuilder.buildstoryconnections()
-    # story_connections_inter = buildstoryconnections(participant_id, "Interconnection")
     single_stories = unconnectedStoryFinder.buildsinglestories()
 
     if interchains:
