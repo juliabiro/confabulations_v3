@@ -2,8 +2,6 @@ import cloudinary
 import cloudinary.api
 import cloudinary.utils
 import cloudinary.uploader
-from .s3_helpers import *
-from ..models import Story
 from .data import CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, THUMBNAILS_PATH
 
 def get_cloudinary_image_thumb(key, size):

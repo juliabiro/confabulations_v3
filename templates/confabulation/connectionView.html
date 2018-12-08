@@ -1,6 +1,9 @@
 {% extends 'confabulation/base.html' %}
 
 {% block title %} Connection: {{connection.name}}{% endblock %}
+{% load chain_with_theme_list %}
+{% load theme_list %}
+{% load theme_with_keywords_list %}
 {% block content %}
 
 <div class="Connection">
@@ -27,21 +30,17 @@
             {% if not inter_chain %}
             <div class="col p2">
                 <h3>Chains</h3>
-                {% for c in p.chains %}
-                <h5><a href="/chain/{{c.chain.id}}/">{{c.chain.name}}:</a></h5>
-                {% for t in c.themes %}
-                <a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a>
-                {% endfor %}
-                {% endfor %}
+                {% chain_with_theme_list p.chains %}
             </div>
             {% endif %}
 
             <div class="col p2">
                 <h3>Themes</h3>
-                {% for t in p.themes %}
-                <h5><a href="/theme/{{t.theme.id}}/">{{t.theme.name}}</a></h5>
-
-                {% endfor %}
+                {% if inter_chain %}
+                {% theme_with_keywords_list p.themes %}
+                {% else %}
+                {% theme_list p.themes %}
+                {% endif %}
             </div>
         </div>
         {% endfor %}

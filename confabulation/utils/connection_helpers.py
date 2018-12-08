@@ -1,4 +1,4 @@
-from ..models import Theme, Chain, Story, StoryToStoryConnection
+from ..models import Theme, Chain, Story, StoryToStoryConnection, Keyword
 
 class ThemeWithStories():
     def __init__ (self, theme, stories):
@@ -9,6 +9,7 @@ class ChainWithThemes():
     def __init__(self, chain, themes):
         self.chain = chain
         self.themes = themes
+
 class StoryPair():
     def __init__(self, story1, story2):
         self.story1=story1
@@ -43,12 +44,12 @@ class ConnectionBuilder():
         return participant_chains
 
     def buildthemes(self):
-        participant_themes = []
+        themes_list = []
         themes = self.getThemes()
         for theme in themes:
-            participant_themes.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
+            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
 
-        return participant_themes
+        return themes_list
 
     def buildstoryconnections(self):
         participant_stories = set()
@@ -80,6 +81,15 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
         ret1 = StoryToStoryConnection.objects.filter(story1__participant_id=self.participant_id, connection_range=self.connection_range).distinct()
         ret2 = StoryToStoryConnection.objects.filter(story2__participant_id=self.participant_id, connection_range=self.connection_range).distinct()
         return list(ret1)+list(ret2)
+
+    def buildthemes(self):
+        themes_list = []
+        themes = self.getThemes()
+        for theme in themes:
+            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().filter(participant_id=self.participant_id).order_by('name')))
+
+        return themes_list
+
 
 class UnconnectedStoryFinder():
     def __init__(self, participant_id):
