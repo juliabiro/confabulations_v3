@@ -10,6 +10,6 @@ register = template.Library()
 @register.simple_tag
 def story_list_thumb(stories, size):
     return format_html_join('',
-                            "<div class='thumbnail'><a href='{}'><img src='{}'><br>{}</a></div>",
+                            "<a href='{}' class='thumbnail'><img src='{}'><br>{}</a>",
         ((s.get_absolute_url(), get_story_thumb(s, size), s.name) for s in stories)
     )

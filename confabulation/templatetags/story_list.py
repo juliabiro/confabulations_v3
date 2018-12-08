@@ -10,7 +10,7 @@ register = template.Library()
 @register.simple_tag
 def story_list(stories):
     return format_html_join(' ',
-                            "<a href='{}'>{}</a>",
+                            "<a href='{}' class='story'>{}</a>",
         ((s.get_absolute_url(), s.name) for s in stories)
     )
 
