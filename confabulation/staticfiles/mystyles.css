@@ -132,24 +132,63 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 
 /* coloring connections */
-.theme  {
+
+.theme {
     display: block;
-    color: #4925FE;
+    background: #4925FE;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+    color: #FFFFFF;
+}
+
+.theme:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+    background: #8F79FC;
 }
 
 .theme_inline  {
     display: inline;
-    color: #4925FE;
+    background: #4925FE;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+    color: #FFFFFF;
 }
 
-.chain a {
+.theme_inline:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+    background: #8F79FC;
+}
+
+.chain {
+    display: block;
+    border-radius: 5px;
+    background: #1A0584;
+    color: #FFFFFF;
+    padding: 3px;
+    margin: 2px;
+}
+
+.chain:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+    background: #2F0FCE;
+}
+
+.connection  {
     display: inline;
-    color: #1A0584;
+    background: #745AF9;
+    border-radius: 5px;
+    border: solid 2px #745AF9;
+    color: #FFFFFF;
+    margin: 1px;
 }
 
 .connection a {
-    display: inline;
-    color: #745AF9;
+    color: #FFFFFF;
 }
 
 .keyword {

@@ -21,9 +21,7 @@
     <div >
         {% if inter_chain %}
         <h5>The one connecting Chain accross participants </h5>
-        <div class="chain">
-            <h3><a href="/chain/{{inter_chain.id}}/">{{inter_chain.name}}</a></h3>
-        </div>
+            <h3><a href="/chain/{{inter_chain.id}}/" class="chain">{{inter_chain.name}}</a></h3>
                 <h3>Themes for each participant:</h3>
 
         {% endif%}
