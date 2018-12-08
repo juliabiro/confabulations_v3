@@ -16,7 +16,7 @@ def get_keywords(theme):
 @register.simple_tag
 def theme_with_keywords_list(themes):
     return format_html_join('',
-                            "<a href='{}'>{}</a><br> <b>Keywords:</b> {}<br>",
+                            "<div class='col-2 p2'><a href='{}'>{}</a><br> <b>Keywords:</b> {}</div>",
         ((t.theme.get_absolute_url(), t.theme.name, ', '.join( get_keywords(t))) for t in themes)
     )
 

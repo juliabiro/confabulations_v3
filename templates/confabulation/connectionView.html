@@ -34,14 +34,14 @@
             </div>
             {% endif %}
 
-            <div class="col p2">
-                <h3>Themes</h3>
                 {% if inter_chain %}
                 {% theme_with_keywords_list p.themes %}
                 {% else %}
+                <h3>Themes</h3>
+            <div class="col p2">
                 {% theme_list p.themes %}
-                {% endif %}
             </div>
+                {% endif %}
         </div>
         {% endfor %}
     </div>
