@@ -8,7 +8,7 @@ register = template.Library()
 @register.simple_tag
 def story_to_story_connection_list(story_pairs):
     return format_html_join('',
-                            "<li><a href='{}'>{}</a> - <a href='{}'>{}</a></li>",
+                            "<div class='connection'><li><a href='{}'>{}</a> - <a href='{}'>{}</a></li></div>",
         ((s.story1.get_absolute_url(), s.story1.name,s.story2.get_absolute_url(), s.story2.name) for s in story_pairs)
     )
 

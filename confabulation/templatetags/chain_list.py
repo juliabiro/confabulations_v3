@@ -7,7 +7,7 @@ register = template.Library()
 @register.simple_tag
 def chain_list(chains):
     return format_html_join(', ',
-                            "<h5><a href='{}'>{}</a></h5>",
+                            "<div class='chain'><h5><a href='{}'>{}</a></h5></div>",
         ((c.chain.get_absolute_url(), c.chain.name) for c in chains)
     )
 

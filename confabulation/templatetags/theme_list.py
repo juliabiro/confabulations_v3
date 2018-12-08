@@ -6,8 +6,8 @@ register = template.Library()
 
 @register.simple_tag
 def theme_list(themes):
-    return format_html_join(', ',
-                            "<a href='{}'>{}</a>",
+    return format_html_join('',
+                            "<div class='theme'><a href='{}'>{}</a></div>",
         ((t.theme.get_absolute_url(), t.theme.name) for t in themes)
     )
 
