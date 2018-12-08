@@ -130,3 +130,23 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     margin-bottom: 0.2em;
 }
 
+
+/* coloring connections */
+.theme a {
+    display: inline;
+    color: #4925FE;
+}
+
+.chain a {
+    display: inline;
+    color: #1A0584;
+}
+
+.connection a {
+    display: inline;
+    color: #745AF9;
+}
+
+.keyword {
+    color: #745AF9;
+}
