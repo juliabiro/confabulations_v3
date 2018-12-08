@@ -20,7 +20,7 @@ def connection_view(request, connection_id):
 
     connection = Connection.objects.get(pk=connection_id)
 
-    participants = Participant.objects.distinct()
+    participants = Participant.objects.distinct().order_by('name')
 
     context = {
         'connection': connection,
