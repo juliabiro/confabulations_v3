@@ -132,7 +132,12 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 
 /* coloring connections */
-.theme a {
+.theme  {
+    display: block;
+    color: #4925FE;
+}
+
+.theme_inline  {
     display: inline;
     color: #4925FE;
 }

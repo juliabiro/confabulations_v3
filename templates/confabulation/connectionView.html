@@ -2,7 +2,9 @@
 
 {% block title %} Connection: {{connection.name}}{% endblock %}
 {% load chain_with_theme_list %}
+{% load chain_with_theme_inline_list %}
 {% load theme_list %}
+{% load theme_inline_list %}
 {% load theme_with_keywords_list %}
 {% block content %}
 
@@ -28,22 +30,16 @@
     </div>
         {% for p in participants %}
         <div class="row">
-            <div class="col p2">
+            <div class="col-2 p2">
                 <h2><a href="/participant/{{p.p_id}}/">{{p.name}}</a></h2>
             </div>
-            {% if not inter_chain %}
-            <div class="col p2">
-                <h3>Chains</h3>
-                {% chain_with_theme_list p.chains %}
-            </div>
-            {% endif %}
-
                 {% if inter_chain %}
                 {% theme_with_keywords_list p.themes %}
                 {% else %}
-                <h3>Themes</h3>
-            <div class="col p2">
-                {% theme_list p.themes %}
+            <div class="col-10 p2">
+                {% chain_with_theme_inline_list p.chains %}
+                <h5>Themes</h5>
+                {% theme_inline_list p.themes %}
             </div>
                 {% endif %}
         </div>
