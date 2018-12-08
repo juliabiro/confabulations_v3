@@ -34,11 +34,11 @@ class ConnectionBuilder():
         chains = self.getChains()
 
         for chain in chains:
-            themes = chain.themes.distinct().order_by('name')
+            themes = chain.themes.distinct().order_by('themeinchain__number')
 
             theme_list = []
             for theme in themes:
-                theme_list.append(ThemeWithStories(theme, list(theme.stories.distinct().order_by('name'))))
+                theme_list.append(ThemeWithStories(theme, list(theme.stories.distinct().order_by('storyintheme__number'))))
 
             participant_chains.append(ChainWithThemes(chain, theme_list))
         return participant_chains
@@ -47,7 +47,7 @@ class ConnectionBuilder():
         themes_list = []
         themes = self.getThemes()
         for theme in themes:
-            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('name')))
+            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('storyintheme__number')))
 
         return themes_list
 
@@ -86,7 +86,7 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
         themes_list = []
         themes = self.getThemes()
         for theme in themes:
-            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().filter(participant_id=self.participant_id).order_by('name')))
+            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().filter(participant_id=self.participant_id).order_by('storyintheme__number')))
 
         return themes_list
 
