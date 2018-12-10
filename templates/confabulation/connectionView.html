@@ -6,12 +6,13 @@
 {% load theme_list %}
 {% load theme_inline_list %}
 {% load theme_with_keywords_list %}
+{% load colored_title %}
 {% block content %}
 
 <div class="Connection">
     {% if connection %}
 
-    <h1> <font color="{{connection.color_code}}">{{connection.name}}</font> </h1>
+    {% colored_title connection.name connection.color_code %}
 
     <div class="description">
         {{connection.description}}

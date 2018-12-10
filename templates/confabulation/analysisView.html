@@ -1,12 +1,13 @@
 {% extends 'confabulation/base.html' %}
 {% load story_list_thumb %}
+{% load colored_title %}
 {% block title %} Analysis: {{analysis_point.name}}{% endblock %}
 {% block content %}
 
 <div class="Analysis">
     {% if analysis_point %}
 
-    <h1> <font color="{{analysis_point.color_code}}">{{analysis_point.name}}</font> </h1>
+    {% colored_title analysis_point.name analysis_point.color_code %}
 
     Analysis Type:
     <a href="/analysis_type/{{analysis_point.analysis_type.id}}/">        {{analysis_point.analysis_type.name}}</a>
