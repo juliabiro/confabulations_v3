@@ -62,23 +62,14 @@
         </div>
         {% endif %}
     </div>
-    <div class="row">
-        <div class="col p2">
             {% if story_connections_intra %}
         <h3>Story to Story connections</h3>
-        <ul>
             {% story_to_story_connection_list story_connections_intra %}
-    </ul>
             {% endif%}
-        </div>
-        <div class="col p2">
         {% if story_connections_inter %}
             <h3>Story to Story connections</h3>
-            <ul>
                 {% story_to_story_connection_list story_connections_inter%}
-            </ul>
         {% endif %}
-        </div>
     </div>
 </div>
 {% endblock %}

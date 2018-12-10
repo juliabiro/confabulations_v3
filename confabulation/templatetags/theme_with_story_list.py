@@ -8,7 +8,7 @@ register = template.Library()
 @register.simple_tag
 def theme_with_story_list(themes):
     return format_html_join('',
-                            "<div class='tc_block'><div class='theme'><h5><a href='{}'>{}</a></h5></div>{}</div>",
+                            "<div class='tc_block'><h5><a href='{}' class='theme'>{}</a></h5>{}</div>",
         ((t.theme.get_absolute_url(), t.theme.name, story_list(t.stories)) for t in themes)
     )
 

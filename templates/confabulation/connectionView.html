@@ -6,37 +6,35 @@
 {% load theme_list %}
 {% load theme_inline_list %}
 {% load theme_with_keywords_list %}
+{% load colored_title %}
 {% block content %}
 
 <div class="Connection">
     {% if connection %}
 
-    <h1> <font color="{{connection.color_code}}">{{connection.name}}</font> </h1>
+    {% colored_title connection.name connection.color_code %}
 
     <div class="description">
         {{connection.description}}
     </div>
 
-    <div class="contianer">
     <div >
         {% if inter_chain %}
         <h5>The one connecting Chain accross participants </h5>
-        <div class="chain">
-            <h3><a href="/chain/{{inter_chain.id}}/">{{inter_chain.name}}</a></h3>
-        </div>
+            <h3><a href="/chain/{{inter_chain.id}}/" class="chain">{{inter_chain.name}}</a></h3>
                 <h3>Themes for each participant:</h3>
 
         {% endif%}
-    </div>
+    <div class="contianer">
         {% for p in participants %}
-        <div class="row">
+        <div class="row my-5">
             <div class="col-2 p2">
                 <h2><a href="/participant/{{p.p_id}}/">{{p.name}}</a></h2>
             </div>
                 {% if inter_chain %}
                 {% theme_with_keywords_list p.themes %}
                 {% else %}
-            <div class="col-10 p2">
+            <div class="col-9 p2">
                 {% chain_with_theme_inline_list p.chains %}
                 <h5>Themes</h5>
                 {% theme_inline_list p.themes %}
@@ -45,7 +43,7 @@
         </div>
         {% endfor %}
     </div>
-
+    </div>
     {% endif %}
-    {% endblock%}
 </div>
+    {% endblock%}

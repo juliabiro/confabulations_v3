@@ -1,23 +1,26 @@
 {% extends 'confabulation/base.html' %}
 {% block title %} Analysis Type: {{analysis_type.name}}{% endblock %}
 
+{% load colored_link %}
 {% block content %}
 
 <div class="AnalysisType">
     {% if analysis_type %}
-
-    <h1> {{analysis_type.name}} </h1>
-
-
-    {{analysis_type.description}}
-
-    Analysis Points:
     <div>
+        <h1> {{analysis_type.name}} </h1>
+        {{analysis_type.description}}
+
+
+    </div>
+    <div>
+        <h3>    Analysis Points:</h3>
         <ul>
-    {% for ap in analysis_points %}
-            <li><a href="/analysis/{{ap.id}}/">{{ap.name}}</a></li>
-{% endfor %}
+            {% for ap in analysis_points %}
+            <li>{% colored_link ap.name ap.color_code "/analysis/" ap.id %}
+                </li>
+            {% endfor %}
         </ul>
+    </div>
 </div>
 
 {% endif %}

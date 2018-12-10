@@ -115,13 +115,6 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     border-radius: 6px 0 6px 6px;
 }
 
-.thumbnail {
-    text-align:center;
-    padding-bottom: 0.5em;
-    margin: 0.4em;
-    display: inline-block;
-}
-
 .tc_block {
     display: block;
     margin-bottom: 1em;
@@ -132,26 +125,87 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 
 /* coloring connections */
-.theme  {
+
+.theme {
     display: block;
-    color: #4925FE;
+    border: 1px solid grey;
+    border-left: 10px solid #4925FE;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
+}
+
+.theme:hover {
+    border: 1px solid grey;
+    text-decoration: none;
+    border-left: 10px solid #A999F9;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
 }
 
 .theme_inline  {
-    display: inline;
-    color: #4925FE;
+    display: inline-block;
+    border: 1px solid grey;
+    border-left: 10px solid #4925FE;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
 }
 
-.chain a {
-    display: inline;
-    color: #1A0584;
+.theme_inline:hover {
+    text-decoration: none;
+    border: 1px solid grey;
+    border-left: 10px solid #A999F9;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
 }
 
-.connection a {
+.chain {
     display: inline;
-    color: #745AF9;
+    border: 1px solid grey;
+    border-radius: 5px;
+    border-left: 10px solid #1A0584;
+    padding: 3px;
+    margin: 2px;
+}
+
+.chain:hover {
+    text-decoration: none;
+    display: inline;
+    border: 1px solid grey;
+    border-left: 10px solid #6A5EA5;
+    padding: 3px;
+    margin: 2px;
+}
+
+.connection  {
+    display: inline-block;
+    border: 1px solid grey;
+    text-align: justify;
+    border-radius: 3px;
+    border: solid 1px grey;
+    border-left: 10px solid #745AF9;
+    margin: 2px;
 }
 
 .keyword {
-    color: #745AF9;
+    border-left: 5px solid #745AF9;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 2px;
+}
+
+.thumbnail {
+    text-align:center;
+    padding: 2px;
+    margin: 0.4em;
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.thumbnail:hover{
+    background: #FF7D7D;
 }
