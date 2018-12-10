@@ -128,76 +128,73 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 .theme {
     display: block;
-    background: #4925FE;
+    border: 1px solid grey;
+    border-left: 10px solid #4925FE;
     border-radius: 5px;
     padding: 3px;
     margin: 2px;
-    color: #FFFFFF;
 }
 
 .theme:hover {
+    border: 1px solid grey;
     text-decoration: none;
-    color: #FFFFFF;
-    background: #A999F9;
-}
-
-.theme_inline  {
-    display: inline;
-    background: #4925FE;
+    border-left: 10px solid #A999F9;
     border-radius: 5px;
     padding: 3px;
     margin: 2px;
-    color: #FFFFFF;
+}
+
+.theme_inline  {
+    display: inline-block;
+    border: 1px solid grey;
+    border-left: 10px solid #4925FE;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
 }
 
 .theme_inline:hover {
     text-decoration: none;
-    color: #FFFFFF;
-    background: #8F79FC;
+    border: 1px solid grey;
+    border-left: 10px solid #A999F9;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 2px;
 }
 
 .chain {
-    display: block;
+    display: inline;
+    border: 1px solid grey;
     border-radius: 5px;
-    background: #1A0584;
-    color: #FFFFFF;
+    border-left: 10px solid #1A0584;
     padding: 3px;
     margin: 2px;
 }
 
 .chain:hover {
     text-decoration: none;
-    color: #FFFFFF;
-    background: #6A5EA5;
+    display: inline;
+    border: 1px solid grey;
+    border-left: 10px solid #6A5EA5;
+    padding: 3px;
+    margin: 2px;
 }
 
 .connection  {
     display: inline-block;
+    border: 1px solid grey;
     text-align: justify;
-    border: solid 2px #745AF9;
-    background:#745AF9;
-    padding: 2px;
     border-radius: 3px;
+    border: solid 1px grey;
+    border-left: 10px solid #745AF9;
     margin: 2px;
 }
 
 .keyword {
-    color: #745AF9;
-}
-
-.story {
-    display: inline;
-    background: #CD2D2D;
+    border-left: 5px solid #745AF9;
     border-radius: 3px;
-    color: #FFFFFF;
-    padding: 2px;
-    margin: 1px;
-}
-
-.story:hover{
-    text-decoration: none;
-    color: #FFFFFF;
-    background: #FF7D7D;
+    padding: 3px;
+    margin: 2px;
 }
 
 .thumbnail {
@@ -205,9 +202,8 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     padding: 2px;
     margin: 0.4em;
     display: inline-block;
-    background: #CD2D2D;
+    border: 1px solid grey;
     border-radius: 5px;
-    color: #FFFFFF;
 }
 
 .thumbnail:hover{
