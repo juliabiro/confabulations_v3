@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Story Telling Database</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -65,6 +64,15 @@
                         <a  class="nav-link" tabindex="-1" href="{{ptype.link}}">{{ ptype.name}}</a>
                     </li>
                     {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <li>
+                        <a class="nav-link" href="/about">About this project</a>
+                        <a class="nav-link" href="/author">About the author</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">
