@@ -3,44 +3,49 @@
     align-items: stretch;
 }
 
-#sidebar {
+.sidebar {
     min-width: 250px;
     max-width: 250px;
 }
 
-#sidebar.active {
+#sidebar_left.active {
     margin-left: -250px;
 }
 
-#sidebar {
+#sidebar_right.active {
+    margin-right: -250px;
+}
+
+
+.sidebar {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
 }
 
-#sidebar .sidebar-header {
+.sidebar .sidebar-header {
     padding: 20px;
 }
 
-#sidebar ul.components {
+.sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid ;
 }
 
-#sidebar ul p {
+.sidebar ul p {
     padding: 10px;
 }
 
-#sidebar ul li a {
+.sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
 }
-#sidebar ul li a:hover {
+.sidebar ul li a:hover {
     background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+.sidebar ul li.active > a, a[aria-expanded="true"] {
 }
 ul ul a {
     font-size: 0.9em !important;

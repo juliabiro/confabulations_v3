@@ -22,8 +22,9 @@
             {% block navigation %}{% endblock %}
         </div>
         <div class="wrapper">
-            <nav id="sidebar">
-                {% block sidebar %}
+            <nav class="sidebar" id="sidebar_left">
+                {% block sidebar_left %}
+                {% include "sidebar_left.html" %}
                 {% endblock %}
             </nav>
             <div class="container" id="block-content">
@@ -33,7 +34,14 @@
                         {% endblock %}
                     </div>
                 </div>
-        </div><!-- block-content>
+            </div>
+
+            <nav class="sidebar" id="sidebar_right">
+                {% block sidebar_right %}
+                {% include "sidebar_right.html" %}
+                {% endblock %}
+            </nav>
+
         </div>
     </body>
 </html>
