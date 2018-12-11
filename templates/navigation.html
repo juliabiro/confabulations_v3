@@ -33,25 +33,6 @@ Hide left sidebar
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Taxonomy
-                </a>
-                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    {% for ptype, list in navigation.taxonomy.items %}
-                    <li class="dropdown-submenu">
-                        <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
-                        <ul class="dropdown-menu">
-                            {% for p in list %}
-                            <li>
-                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
-{% endfor%}
-                            </li>
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
                 <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Confabulation
                 </a>

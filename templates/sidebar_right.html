@@ -1,8 +1,6 @@
 {% block sidebar_right %}
         <ul class="list-unstyled components">
             <li>
-
-                {% if sidebar %}
                 {% if sidebar.participants %}
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Participants</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -12,7 +10,6 @@
                     </li>
                     {% endfor%}
                 </ul>
-                {% endif %}
                 {% endif %}
             </li>
         </ul>
