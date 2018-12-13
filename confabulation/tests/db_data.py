@@ -45,7 +45,7 @@ def populate_db():
     ]
 
     analysis_points = [AnalysisPoint(name='analysis_point1',
-                                     id=ANALYSIS_POINT_ID),
+                                     id=ANALYSIS_POINT_ID, color_code='#f2345a'),
                        AnalysisPoint(name='analysis_point2',
                                      id=2),
                        AnalysisPoint(name="alma_point",

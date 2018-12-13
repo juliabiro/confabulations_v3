@@ -29,7 +29,9 @@ def analysis_type_view(request, ap_type_id):
     aps = AnalysisPoint.objects.filter(analysis_type_id=ap_type_id).order_by('name')
     context = {
         'analysis_type': ap_type,
-        'analysis_points': aps
+        'analysis_points': [{'name': ap.name,
+                             'color_code': ap.color_code,
+                             'url': ap.get_absolute_url } for ap in aps]
     }
 
     setup_page_context(context)

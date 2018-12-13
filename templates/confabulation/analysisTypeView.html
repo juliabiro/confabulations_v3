@@ -16,7 +16,7 @@
         <h3>    Analysis Points:</h3>
         <ul>
             {% for ap in analysis_points %}
-            <li>{% colored_link ap.name ap.color_code "/analysis/" ap.id %}
+            <li>{% colored_link ap.name ap.color_code ap.url %}
                 </li>
             {% endfor %}
         </ul>
