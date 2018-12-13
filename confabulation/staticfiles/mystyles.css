@@ -1,11 +1,8 @@
 .wrapper {
     display: flex;
     align-items: stretch;
-}
-
-.sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #sidebar_left.active {
@@ -13,13 +10,19 @@
 }
 
 #sidebar_right.active {
-    margin-right: -250px;
+    margin-right: -350px;
 }
 
 
-.sidebar {
+#sidebar_left {
     min-width: 250px;
     max-width: 250px;
+    min-height: 100vh;
+}
+
+#sidebar_right {
+    min-width: 350px;
+    max-width: 350px;
     min-height: 100vh;
 }
 
