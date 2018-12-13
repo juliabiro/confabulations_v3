@@ -21,7 +21,7 @@ def story_view(request, story_id):
 
     story = Story.objects.get(pk=story_id)
     participant = Participant.objects.get(pk=story.participant.id)
-    analysis = story.analysis.all()
+    analysis = story.analysis.distinct()
     video_url = story.video_url
 
     photos = []
@@ -44,9 +44,19 @@ def story_view(request, story_id):
                    'name': participant.name,
                    'id': participant.id
                },
-               'analysis':analysis,
+               'analysis':[{
+                   'name': a.name,
+                   'url': a.get_absolute_url,
+                   'color_code': a.color_code,
+                   'description': a.description,
+               } for a in analysis],
                'photos': photos,
-               'eras': story.era.all(),
+               'eras': [{
+                   'name': era.name,
+                   'color_code': era.color_code,
+                   'url': era.get_absolute_url(),
+                   'description': era.description
+               } for era in story.era.distinct()],
                'keywords': story.keywords.all()
               }
     if video_url:

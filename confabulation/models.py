@@ -173,6 +173,10 @@ class Chain(models.Model):
 class Era(models.Model):
     def __str__(self):
         return "%s" % self.name
+
+    def get_absolute_url(self):
+        return "/eras/%i/" % self.id
+
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=2000, null=True, blank=True)
     color_code = RGBColorField()
