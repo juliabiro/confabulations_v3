@@ -40,5 +40,6 @@ class AnalysisViews(TestCase):
         self.assertContains(response, ap.name)
         self.assertContains(response, "alma")
         self.assertContains(response, ap.get_absolute_url())
+        self.assertContains(response, ap.color_code)
 
 

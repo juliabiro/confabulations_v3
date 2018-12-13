@@ -1,4 +1,4 @@
-{% extends 'confabulation/base.html' %}
+{% extends 'base.html' %}
 {% block title %}{{participant.name}}{% endblock %}
 {% load story_list %}
 {% load chain_list %}
@@ -24,7 +24,7 @@
 
 <div class="container">
     <div class=" row">
-            {% if intraconnections %}
+        {% if intraconnections %}
         <div class="col p2">
             <h1>Intraconnections</h1>
             <h3>Chains</h3>
@@ -41,8 +41,8 @@
             <h3>Themes</h3>
             {% theme_with_story_list chainless_themes %}
         </div>
-            {% endif %}
-            {% if interconnections %}
+        {% endif %}
+        {% if interconnections %}
         <div class="col p2">
             <h1>Interconnections</h1>
 
@@ -62,14 +62,13 @@
         </div>
         {% endif %}
     </div>
-            {% if story_connections_intra %}
-        <h3>Story to Story connections</h3>
-            {% story_to_story_connection_list story_connections_intra %}
-            {% endif%}
-        {% if story_connections_inter %}
-            <h3>Story to Story connections</h3>
-                {% story_to_story_connection_list story_connections_inter%}
-        {% endif %}
-    </div>
+    {% if story_connections_intra %}
+    <h3>Story to Story connections</h3>
+    {% story_to_story_connection_list story_connections_intra %}
+    {% endif%}
+    {% if story_connections_inter %}
+    <h3>Story to Story connections</h3>
+    {% story_to_story_connection_list story_connections_inter%}
+    {% endif %}
 </div>
 {% endblock %}

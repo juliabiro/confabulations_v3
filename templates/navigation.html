@@ -5,6 +5,15 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            {% if sidebar_left %}
+            <li class="nav-item">
+                    <button type="button" id="sidebarLeftCollapse" class="btn btn-info btn-sm">
+                        <i class="fas fa-align-left"></i>
+Hide left sidebar
+                    </button>
+
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
                 <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Participants
@@ -12,25 +21,6 @@
 
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     {% for ptype, list in navigation.participants.items %}
-                    <li class="dropdown-submenu">
-                        <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
-                        <ul class="dropdown-menu">
-                            {% for p in list %}
-                            <li>
-                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
-{% endfor%}
-                            </li>
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Taxonomy
-                </a>
-                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    {% for ptype, list in navigation.taxonomy.items %}
                     <li class="dropdown-submenu">
                         <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
                         <ul class="dropdown-menu">
@@ -75,13 +65,15 @@
                     </li>
                 </ul>
             </li>
+            {% if sidebar_right %}
             <li class="nav-item">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info btn-sm">
+                    <button type="button" id="sidebarRightCollapse" class="btn btn-info btn-sm">
                         <i class="fas fa-align-left"></i>
-                        <span>Hide sidebar</span>
+Hide right sidebar
                     </button>
 
             </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

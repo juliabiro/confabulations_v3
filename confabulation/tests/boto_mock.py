@@ -7,4 +7,4 @@ def mock_head_object(Bucket, Key):
     raise ClientError
 
 def mock_generate_presigned_url(ClientMethod, Params):
-    return "https://valid.media.url/"+Paralms['Key']
+    return "https://valid.media.url/"+Params['Key']

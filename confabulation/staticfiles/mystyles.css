@@ -1,46 +1,53 @@
 .wrapper {
     display: flex;
     align-items: stretch;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
+.sidebar {
+    display: none;
 }
 
-#sidebar.active {
-    margin-left: -250px;
+.sidebar.active {
+    display: block;
 }
 
-#sidebar {
+#sidebar_left {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
 }
 
-#sidebar .sidebar-header {
+#sidebar_right {
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 100vh;
+}
+
+.sidebar .sidebar-header {
     padding: 20px;
 }
 
-#sidebar ul.components {
+.sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid ;
 }
 
-#sidebar ul p {
+.sidebar ul p {
     padding: 10px;
 }
 
-#sidebar ul li a {
+.sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
 }
-#sidebar ul li a:hover {
+.sidebar ul li a:hover {
     background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+.sidebar ul li.active > a, a[aria-expanded="true"] {
 }
 ul ul a {
     font-size: 0.9em !important;

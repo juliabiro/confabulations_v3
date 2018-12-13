@@ -19,13 +19,20 @@
         <div class="container-fluid" id="page-header">
 
             <h1><a href="/">{% if debug %}LOCAL DB{%else%}Story Telling Database{%endif%}</a></h1>
-            {% block navigation %}{% endblock %}
+            {% if navigation %}
+            {% block navigation %}
+{% include 'navigation.html' %}
+            {% endblock %}
+            {% endif %}
         </div>
         <div class="wrapper">
-            <nav id="sidebar">
-                {% block sidebar %}
+            {% if sidebar_left %}
+            <nav class="sidebar active" id="sidebar_left">
+                {% block sidebar_left %}
+                {% include "sidebar_left.html" %}
                 {% endblock %}
             </nav>
+            {% endif %}
             <div class="container" id="block-content">
                 <div class="row">
                     <div class="col-xl- p1">
@@ -33,7 +40,17 @@
                         {% endblock %}
                     </div>
                 </div>
-        </div><!-- block-content>
+            </div>
+
+            {% if sidebar_right %}
+            <nav class="sidebar active" id="sidebar_right">
+                {% block sidebar_right %}
+                {% include "sidebar_right.html" %}
+                {% endblock %}
+            </nav>
+            {% endif %}
+
         </div>
+
     </body>
 </html>

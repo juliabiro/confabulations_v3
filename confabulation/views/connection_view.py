@@ -50,6 +50,6 @@ def connection_view(request, connection_id):
         )
 
 
-    setup_page_context(context)
+    setup_page_context(context, sidebar_left=True)
     return render(request, 'confabulation/connectionView.html', context)
 
