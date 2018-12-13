@@ -56,6 +56,6 @@ def story_view(request, story_id):
                 context['video_url'] = url
 
         except (ClientError, AttributeError):
-            context["video_error_message"] = "The video for " + story.name + " doesn't exist."
+            context["video_error_message"] = "The video for " + parse_key_from_url(video_url) + " doesn't exist."
     setup_page_context(context)
     return render(request, 'confabulation/storyView.html', context)

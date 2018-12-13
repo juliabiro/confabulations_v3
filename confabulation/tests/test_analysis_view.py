@@ -36,6 +36,7 @@ class AnalysisViews(TestCase):
 
         # i could do the lookup here too, but it would be repeating the program lgoic
         # instead just lets look for something that I know should be there
+        print(response)
         ap = AnalysisPoint.objects.get(pk=ANALYSIS_POINT_ID)
         self.assertContains(response, ap.name)
         self.assertContains(response, "alma")
