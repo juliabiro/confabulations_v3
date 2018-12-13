@@ -27,7 +27,7 @@
         </div>
         <div class="wrapper">
             {% if sidebar_left %}
-            <nav class="sidebar" id="sidebar_left">
+            <nav class="sidebar active" id="sidebar_left">
                 {% block sidebar_left %}
                 {% include "sidebar_left.html" %}
                 {% endblock %}
@@ -43,7 +43,7 @@
             </div>
 
             {% if sidebar_right %}
-            <nav class="sidebar" id="sidebar_right">
+            <nav class="sidebar active" id="sidebar_right">
                 {% block sidebar_right %}
                 {% include "sidebar_right.html" %}
                 {% endblock %}

@@ -1,18 +1,17 @@
 .wrapper {
     display: flex;
     align-items: stretch;
-    margin-left: 20px;
-    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#sidebar_left.active {
-    margin-left: -250px;
+.sidebar {
+    display: none;
 }
 
-#sidebar_right.active {
-    margin-right: -350px;
+.sidebar.active {
+    display: block;
 }
-
 
 #sidebar_left {
     min-width: 250px;
