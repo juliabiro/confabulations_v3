@@ -27,21 +27,10 @@ def participant_view(request, participant_id):
 
     p_stories = Story.objects.filter(participant_id=participant_id).order_by('name')
     context["participant_stories"] = p_stories
-    # intrachains = intraBuilder.buildchains()
-    # interchains = interBuilder.buildchains()
-
-    # chainless_themes = intraBuilder.buildthemes()
 
     story_connections_intra = intraBuilder.buildstoryconnections()
     story_connections_inter = interBuilder.buildstoryconnections()
     single_stories = unconnectedStoryFinder.buildsinglestories()
-
-    # if interchains:
-    #     context['interconnections'] = interchains
-    # if intrachains:
-    #     context['intraconnections'] = intrachains
-    # if chainless_themes:
-    #     context['chainless_themes'] = chainless_themes
 
     if story_connections_intra:
         context['story_connections_intra'] = story_connections_intra
