@@ -32,10 +32,8 @@ def get_signed_photo_url(file_name, raise_error=True):
 def get_signed_asset_link(key, raise_error=True):
     try:
         s3_client = _gets3()
-
         # this will raise an error if the key doesnt exists
         s3_client.head_object(Bucket=S3_BUCKET, Key=key)
-
         url = s3_client.generate_presigned_url(
             ClientMethod='get_object',
             Params={
@@ -45,6 +43,7 @@ def get_signed_asset_link(key, raise_error=True):
         )
 
         return url
+
     except ClientError as e:
         if raise_error:
             raise e

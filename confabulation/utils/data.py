@@ -7,4 +7,4 @@ THUMBNAILS_PATH='confabulations/thumbnails/'
 
 S3_BUCKET='confabulations'
 
-VIDEOS_DIR='Videos/720/'
+VIDEOS_DIR='Video/720/'
