@@ -1,12 +1,12 @@
 {% block sidebar_left %}
 <ul class="collapse components navbar-nav">
 {% load colored_link %}
-    {% if sidebar %}
-    {% if sidebar.taxonomy %}
+    {% if sidebar_left %}
+    {% if sidebar_left.taxonomy %}
     <li >
         <h3> <a href="#taxonomySubMenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Taxonomy</a></h3>
         <ul class="collapse list-unstyled show" id="taxonomySubMenu">
-            {% for ptype, list in sidebar.taxonomy.items %}
+            {% for ptype, list in sidebar_left.taxonomy.items %}
             <li>
                 <h5>  <a href="#ap_{{ptype|cut:' '}}" data-toggle="collapse"  aria-expanded="true" class="dropdown-toggle"  >{{ ptype}}</a></h5>
                 <ul class="collapse list-unstyled show" id="ap_{{ptype|cut:' '}}">

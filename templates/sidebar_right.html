@@ -1,16 +1,46 @@
 {% block sidebar_right %}
-        <ul class="list-unstyled components">
-            <li>
-                {% if sidebar.participants %}
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Participants</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    {% for p in sidebar.participants %}
-                    <li>
-                        <a href="{{p.link}}">{{p.name}}</a>
-                    </li>
-                    {% endfor%}
-                </ul>
-                {% endif %}
-            </li>
-        </ul>
+{% load chain_list %}
+{% load theme_list %}
+{% load theme_with_story_list %}
+{% load chain_with_theme_list %}
+{% if sidebar_right %}
+<ul class="list-unstyled components">
+    {% if sidebar_right.intraconnections %}
+    <li>
+        <h3><a href="#intraSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Intraconnections</a></h3>
+        <div class="collapse show" id="intraSubmenu">
+            <h5>Chains</h5>
+            {% chain_with_theme_list sidebar_right.intraconnections %}
+            <h5>Themes</h5>
+            {% for ic in sidebar_right.intraconnections %}
+            {% theme_with_story_list ic.themes %}
+            {% endfor %}
+
+        </div>
+    </li>
+    {% elif sidebar_right.chainless_themes %}
+    <li>
+        <h3><a href="#intraChainlessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Interconnections</a></h3>
+        <div class="collapse show" id="intraChainlessSubmenu">
+            <h5>Themes</h5>
+            {% theme_with_story_list sidebar_right.chainless_themes %}
+        </div>
+    </li>
+    {% endif %}
+    {% if sidebar_right.interconnections %}
+    <li>
+        <h3><a href="#interSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Interconnections</a></h3>
+        <div class="collapse show" id="interSubmenu">
+            <h5>Chain</h5>
+            {% chain_list sidebar_right.interconnections %}
+            <h5>Themes</h5>
+            {% for ic in sidebar_right.interconnections %}
+            {% theme_list ic.themes %}
+            {% endfor %}
+
+        </div>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
 {% endblock %}
