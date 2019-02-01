@@ -31,7 +31,6 @@ class StoryView(TestCase):
         for ap in story.analysis.all():
             self.assertContains(response, ap.name)
             self.assertContains(response, ap.get_absolute_url())
-        self.assertContains(response, 'sometext')
         self.assertContains(response, VALID_PHOTO_NAME)
         self.assertContains(response, VALID_VIDEO_NAME)
 
@@ -41,7 +40,6 @@ class StoryView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/storyView.html')
-        self.assertContains(response, 'invalid notes')
         self.assertContains(response, INVALID_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, MALFORMED_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, MISSING_PHOTO_NAME+" doesn&#39;t exist")
