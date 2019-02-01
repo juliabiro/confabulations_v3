@@ -121,7 +121,7 @@ def populate_db():
     valid_story.analysis.add(analysis_points[0])
     valid_story.era.add(eras[0])
     valid_story.era.add(eras[1])
-    valid_story.notes = "sometext"
+    valid_story.notes = "valid notes"
     valid_story.keywords.add(Keyword.objects.get(pk=1))
     valid_story.save()
 
