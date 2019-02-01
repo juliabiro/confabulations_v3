@@ -40,5 +40,8 @@ def participant_view(request, participant_id):
     if single_stories:
         context['single_stories'] = single_stories
 
-    setup_page_context(context, sidebar_right=True, participant_id=participant_id)
+    setup_page_context(context,
+                       sidebar_right=True,
+                       sidebar_left=True,
+                       participant_id=participant_id)
     return render(request, 'confabulation/participantView.html', context)
