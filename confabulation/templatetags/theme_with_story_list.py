@@ -13,7 +13,7 @@ def submenu_item_name(string):
 @register.simple_tag
 def theme_with_story_list(themes):
     return format_html_join('',
-                            "<div class='tc_block'> <h5>  <a href='{}' class='theme'>{}</a> </h5><a href=\"#{}\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\"dropdown-toggle\"></a>  <div class=\"collapse hide\" id=\"{}\">{} </div> </div>",
+                            "<div class='tc_block'> <h5>  <a href='{}' class='theme'>{}</a> <a href=\"#{}\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\"dropdown-toggle\"></a> </h5> <div class=\"collapse\" id=\"{}\">{} </div> </div>",
                             ((t.theme.get_absolute_url(), t.theme.name,submenu_item_name(t.theme.name),  submenu_item_name(t.theme.name), story_list(t.stories)) for t in themes)
     )
 
