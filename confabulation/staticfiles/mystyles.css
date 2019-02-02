@@ -39,9 +39,8 @@
 }
 
 .sidebar ul li a {
-    padding: 10px;
     font-size: 1.1em;
-    display: block;
+    display: inline;
 }
 .sidebar ul li a:hover {
     background: #fff;
@@ -58,9 +57,9 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+.dropdown-toggle::before {
     display: block;
-    position: absolute;
+    /* position: absolute; */
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
@@ -170,7 +169,7 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 }
 
 .chain {
-    display: inline;
+    display: block;
     border: 1px solid grey;
     border-radius: 5px;
     border-left: 10px solid #1A0584;
@@ -180,7 +179,6 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 .chain:hover {
     text-decoration: none;
-    display: inline;
     border: 1px solid grey;
     border-left: 10px solid #6A5EA5;
     padding: 3px;

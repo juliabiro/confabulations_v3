@@ -36,7 +36,7 @@
             {% chain_list sidebar_right.interconnections %}
             <h5>Themes</h5>
             {% for ic in sidebar_right.interconnections %}
-            {% theme_list ic.themes %}
+            {% theme_with_story_list ic.themes %}
             {% endfor %}
 
         </div>
@@ -49,5 +49,5 @@
         </div>
     {% endif %}
 </ul>
-{% endif %}
+{% endif %} 
 {% endblock %}
