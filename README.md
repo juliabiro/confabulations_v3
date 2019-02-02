@@ -16,10 +16,15 @@ The media files are stored on AWS S3, and they are shown using signed URLs that 
 
 ```
 $ docker-compose build
+
+# set up superuser
 $ docker-compose run web python manage.py createsuperuser
 
-# provide set up superuser
-
+# set up database schema
+$ docker-compose run web python manage.py makemigrations
+$ docker-compose run web python manage.py migrate
+ 
+# run server
 $ docker-compose up
 
 # access page on localhost/8000
