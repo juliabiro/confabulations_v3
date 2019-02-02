@@ -1,5 +1,5 @@
 from ..models import Participant, AnalysisType, AnalysisPoint
-from ..utils.connection_helpers import ParticipantConnectionBuilder
+from ..utils.connection_helpers import ParticipantConnectionBuilder,UnconnectedStoryFinder
 
 # todo move this out from here
 def sidebar_left_context():
@@ -37,9 +37,14 @@ def sidebar_right_context(participant_id):
 
     chainless_themes = intraBuilder.buildthemes()
 
+    unconnectedStoryFinder = UnconnectedStoryFinder(participant_id)
+    single_stories = unconnectedStoryFinder.buildsinglestories()
     ret['interconnections'] = interchains
     ret['intraconnections'] = intrachains
     ret['chainless_themes'] = chainless_themes
+
+    if single_stories:
+        ret['single_stories'] = single_stories
 
     return ret
 

@@ -1,4 +1,5 @@
 {% block sidebar_right %}
+{% load story_list %}
 {% load chain_list %}
 {% load theme_list %}
 {% load theme_with_story_list %}
@@ -40,6 +41,12 @@
 
         </div>
     </li>
+    {% endif %}
+    {% if sidebar_right.single_stories %}
+        <h3><a href="#singleSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Unconnected Stories</a></h3>
+        <div class="collapse show" id="singleSubmenu">
+            {% story_list sidebar_right.single_stories %}
+        </div>
     {% endif %}
 </ul>
 {% endif %}
