@@ -17,7 +17,7 @@ def analysis_view(request, ap_id):
     stories = list(Story.objects.filter(analysis__id=ap.id).distinct().order_by('name'))
     context['stories'] = stories
 
-    setup_page_context(context)
+    setup_page_context(context, sidebar_left=True)
     return render(request, 'confabulation/analysisView.html', context)
 
 def analysis_type_view(request, ap_type_id):
@@ -34,6 +34,6 @@ def analysis_type_view(request, ap_type_id):
                              'url': ap.get_absolute_url } for ap in aps]
     }
 
-    setup_page_context(context)
+    setup_page_context(context, sidebar_left=True)
     return render(request, 'confabulation/analysisTypeView.html', context)
 
