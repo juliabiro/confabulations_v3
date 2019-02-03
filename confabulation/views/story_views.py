@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
-from ..models import  Story, Era, AnalysisPoint, Participant, Keyword
+from ..models import  Story, Era, AnalysisPoint, Participant, Keyword, StoryToStoryConnection
 from ..utils.s3_helpers import *
+from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 
 def stories(request):
@@ -67,5 +68,10 @@ def story_view(request, story_id):
 
         except (ClientError, AttributeError):
             context["video_error_message"] = "The video for " + parse_key_from_url(video_url) + " doesn't exist."
+
+    story_pairs = ParticipantConnectionBuilder(participant.id, 'Intraconnection').getStoryToStoryConnections() + ParticipantConnectionBuilder(participant.id, 'Interconnection').getStoryToStoryConnections()
+
+    connected_stories = map(lambda s: s.story1 if int(story_id)==s.story2.id else s.story2, list((s for s in story_pairs if int(story_id) in (s.story1.id, s.story2.id))))
+    context["connected_stories"] = connected_stories
     setup_page_context(context)
     return render(request, 'confabulation/storyView.html', context)
