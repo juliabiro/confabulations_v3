@@ -3,67 +3,74 @@
 {% block title %}Story: {{story.name}}{% endblock %}
 {% block content %}
 {% load colored_link %}
+{% load story_list %}
 {% if story %}
 
-<div class="story">
-    <h1> {{ story.name }}</h1>
-    <h4>
-        <a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
-    {% if eras %}
+    <div class="story">
+        <h1> {{ story.name }}</h1>
+        <h4>
+            <a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
+        {% if eras %}
 
 
-    Era:
-    {% for era in eras %}
-    {% colored_link era.name era.color_code era.url era.description %}
+        Era:
+        {% for era in eras %}
+        {% colored_link era.name era.color_code era.url era.description %}
+        {% endfor %}
+        {% endif %}
+    </br>
+
+    {% if keywords %}
+    Keywords:
+    {% for keyword in keywords %}
+    {{ keyword.name }}
     {% endfor %}
     {% endif %}
-</br>
 
-{% if keywords %}
-Keywords:
-{% for keyword in keywords %}
-{{ keyword.name }}
-{% endfor %}
-{% endif %}
+    <h3>Analysis</h3>
+    <ul>
+        {% for a in analysis %}
+        <li>
+            {% colored_link a.name a.color_code a.url a.description %}
+        </li>
+        {% endfor %}
+    </ul>
 
-<h3>Analysis</h3>
-<ul>
-    {% for a in analysis %}
-    <li>
-        {% colored_link a.name a.color_code a.url a.description %}
-    </li>
+    <h3>Video</h3>
+    {% if video_url %}
+        <video width="530" height="440" controls >
+            <source src={{ video_url }} type="video/mp4"></source>
+        </video>
+    {% else %}
+        {% if video_error_message %}
+            {{ video_error_message }}
+        {% endif %}
+    {% endif %}
+
+    <h3>Photos</h3>
+    {% for photo in photos %}
+    <div class="story_photo_boc">
+        <div class="story_photo_name">
+            {{ photo.name }} 
+        </div>
+        {% if photo.url %}
+        <div id="story_photo">
+            <a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
+        </div>
+        {% else %}
+        {{photo.photo_error_message}}
+        {% endif %}
+    </div>
     {% endfor %}
-</ul>
 
-<h3>Video</h3>
-{% if video_url %}
-<video width="530" height="440" controls >
-    <source src={{ video_url }} type="video/mp4"></source>
-</video>
-{% else %}
-{% if video_error_message %}
-{{ video_error_message }}
-{% endif %}
-{% endif %}
-
-<h3>Photos</h3>
-{% for photo in photos %}
-<div class="story_photo_boc">
-    <div class="story_photo_name">
-        {{ photo.name }} 
     </div>
-    {% if photo.url %}
-    <div id="story_photo">
-<a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
-    </div>
-{% else %}
-{{photo.photo_error_message}}
-{% endif %}
-</div>
-{% endfor %}
 
-</div>
+    {% if connected_stories %}
+    <h3>Connected Stories</h3>
+    {% story_list connected_stories %}
+    {% endif %}
 {% endif %}
+
 
 
 {% endblock %}
