@@ -8,3 +8,5 @@ THUMBNAILS_PATH='confabulations/thumbnails/'
 S3_BUCKET='confabulations'
 
 VIDEOS_DIR='Video/720/'
+
+TAXONOMY_VIDEO_KEY='TAXONOMY.mp4'

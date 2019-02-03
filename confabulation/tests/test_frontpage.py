@@ -1,7 +1,10 @@
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth import get_user_model
+import mock
+from .utils_mock import mock_get_signed_asset_link
 
+@mock.patch('confabulation.views.static_views.get_signed_video_url', mock_get_signed_asset_link)
 class StaticPages(TestCase):
     def setUp(self):
         self.client = Client()
@@ -19,7 +22,7 @@ class StaticPages(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'author.html')
 
-    def test_about(self): 
+    def test_about(self):
         response = self.client.get('/about')
 
         self.assertEqual(response.status_code, 200)
