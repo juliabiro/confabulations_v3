@@ -27,7 +27,7 @@ def story_view(request, story_id):
 
     photos = []
     for p in story.photos.all():
-        url = get_signed_photo_url(parse_key_from_url(p.file_url),
+        url = get_signed_photo_url(p.file_url,
                                    raise_error=False)
         if url is not None:
             photos.append(
