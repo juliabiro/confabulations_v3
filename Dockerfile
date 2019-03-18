@@ -1,4 +1,4 @@
-FROM python:3.6.6
+FROM python:3.6.8
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib
 RUN mkdir /code
