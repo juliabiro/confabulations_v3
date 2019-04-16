@@ -42,6 +42,8 @@ if 'CLOUDINARY_API_SECRET' in os.environ:
 
 ALLOWED_HOSTS = []
 
+SITE_NAME = "Beyond The Photograph"
+DEBUG_SITE_NAME = "LOCAL DB"
 
 # Application definition
 

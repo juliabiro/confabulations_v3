@@ -2,6 +2,9 @@ from .sidebar import sidebar_left_context, sidebar_right_context
 from .navbar import navigation_context
 import os
 
+SITE_NAME = "Beyond The Photograph"
+DEBUG_SITE_NAME = "LOCAL DB ALMA"
+
 def setup_page_context(context=None, sidebar_left=False, sidebar_right=False, participant_id=None, navbar=True):
     if not context:
        context={}
@@ -12,6 +15,9 @@ def setup_page_context(context=None, sidebar_left=False, sidebar_right=False, pa
     if navbar:
         context['navigation'] = navigation_context()
     if 'LOCAL' in os.environ:
-        context['debug'] = True
+        context['site_name'] = DEBUG_SITE_NAME
+    else:
+        context['site_name'] = SITE_NAME
+
     return context
 
