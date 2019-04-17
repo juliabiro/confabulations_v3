@@ -32,8 +32,8 @@ def sidebar_right_context(participant_id):
     intraBuilder = ParticipantConnectionBuilder(participant_id, 'Intraconnection')
     interBuilder = ParticipantConnectionBuilder(participant_id, 'Interconnection')
 
-    intrachains = intraBuilder.buildchains()
-    interchains = interBuilder.buildchains()
+    intrachains = intraBuilder.buildchains(intraBuilder.getChains())
+    interchains = interBuilder.buildchains(interBuilder.getChains())
 
     chainless_themes_intra = intraBuilder.buildchainlessthemes()
     chainless_themes_inter = interBuilder.buildchainlessthemes()
