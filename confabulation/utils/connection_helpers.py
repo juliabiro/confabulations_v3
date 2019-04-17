@@ -47,19 +47,23 @@ class ConnectionBuilder():
     def getStoryToStoryConnections(self):
         return list(StoryToStoryConnection.objects.filter(connection_range=self.connection_range).distinct())
 
-    def buildchains(self, chains):
+    def buildchains(self):
         participant_chains = []
 
+        chains = self.getChains()
         for chain in chains:
             themes = chain.themes.distinct().order_by('themeinchain__number')
 
-            theme_list = self.buildthemes(themes)
+            themes_list = []
+            for theme in themes:
+                themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('storyintheme__number')))
 
-            participant_chains.append(ChainWithThemes(chain, theme_list))
+            participant_chains.append(ChainWithThemes(chain, themes_list))
         return participant_chains
 
-    def buildthemes(self, themes):
+    def buildthemes(self):
         themes_list = []
+        themes = self.getThemes()
         for theme in themes:
             themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('storyintheme__number')))
 
@@ -107,8 +111,9 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
         ret2 = StoryToStoryConnection.objects.filter(story2__participant_id=self.participant_id, connection_range=self.connection_range).distinct()
         return list(ret1)+list(ret2)
 
-    def buildthemes(self, themes):
+    def buildthemes(self):
         themes_list = []
+        themes = self.getThemes()
         for theme in themes:
             themes_list.append(ThemeWithStories(theme, theme.stories.distinct().filter(participant_id=self.participant_id).order_by('storyintheme__number')))
 
@@ -149,8 +154,8 @@ class UnconnectedStoryFinder():
 
 
         # stories in themes
-        themes_inter = self.interBuilder.buildthemes(self.getThemes())
-        themes_intra= self.intraBuilder.buildthemes(self.getThemes())
+        themes_inter = self.interBuilder.buildthemes()
+        themes_intra= self.intraBuilder.buildthemes()
 
         for tcoll in themes_inter, themes_intra:
             for theme in tcoll:

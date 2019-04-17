@@ -35,8 +35,8 @@ def connection_view(request, connection_id):
 
     for p in participants:
         builder = ParticipantConnectionBuilder(p.id, connection.connection_range)
-        chains = builder.buildchains(builder.getChains())
-        themes = builder.buildthemes(builder.getThemes())
+        chains = builder.buildchains()
+        themes = builder.buildthemes()
         s2s = builder.buildstoryconnections()
 
         context['participants'].append(
