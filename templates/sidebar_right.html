@@ -12,19 +12,20 @@
         <div class="collapse show" id="intraSubmenu">
             <h5>Chains</h5>
             {% chain_with_theme_list sidebar_right.intraconnections %}
-            <h5>Themes</h5>
-            {% for ic in sidebar_right.intraconnections %}
-            {% theme_with_story_list ic.themes %}
-            {% endfor %}
-
+            <!-- <h5>Themes</h5>
+                 {% for ic in sidebar_right.intraconnections %}
+                 {% theme_with_story_list ic.themes %}
+                 {% endfor %}
+               -->
         </div>
     </li>
-    {% elif sidebar_right.chainless_themes %}
+    {% endif%}
+    {% if sidebar_right.chainless_themes_intra %}
     <li>
-        <h3><a href="#intraChainlessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Interconnections</a></h3>
+        <h5><a href="#intraChainlessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Themes</a></h5>
         <div class="collapse show" id="intraChainlessSubmenu">
-            <h5>Themes</h5>
-            {% theme_with_story_list sidebar_right.chainless_themes %}
+            <!-- <h5>Themes</h5> -->
+            {% theme_with_story_list sidebar_right.chainless_themes_intra %}
         </div>
     </li>
     {% endif %}

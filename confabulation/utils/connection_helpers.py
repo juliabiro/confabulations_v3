@@ -1,4 +1,4 @@
-from ..models import Theme, Chain, Story, StoryToStoryConnection, Keyword
+from ..models import Theme, Chain, Story, StoryToStoryConnection, Keyword, ThemeInChain
 
 class ThemeWithStories():
     def __init__ (self, theme, stories):
@@ -26,21 +26,39 @@ class ConnectionBuilder():
     def getThemes(self):
         return Theme.objects.filter(connection_range=self.connection_range).distinct().order_by('name')
 
+    def getChainlessThemes(self):
+        all_themes = self.getThemes()
+        all_chains = self.getChains()
+
+        chained_theme_ids = set()
+        for ch in all_chains:
+            themes = ch.themes.distinct()
+
+            for th in themes:
+                chained_theme_ids.add(th.id)
+
+
+        chainless_themes = []
+        for th in all_themes.distinct():
+            if th.id not in chained_theme_ids:
+                chainless_themes.append(th)
+        return chainless_themes
+
     def getStoryToStoryConnections(self):
         return list(StoryToStoryConnection.objects.filter(connection_range=self.connection_range).distinct())
 
     def buildchains(self):
         participant_chains = []
-        chains = self.getChains()
 
+        chains = self.getChains()
         for chain in chains:
             themes = chain.themes.distinct().order_by('themeinchain__number')
 
-            theme_list = []
+            themes_list = []
             for theme in themes:
-                theme_list.append(ThemeWithStories(theme, list(theme.stories.distinct().order_by('storyintheme__number'))))
+                themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('storyintheme__number')))
 
-            participant_chains.append(ChainWithThemes(chain, theme_list))
+            participant_chains.append(ChainWithThemes(chain, themes_list))
         return participant_chains
 
     def buildthemes(self):
@@ -48,6 +66,17 @@ class ConnectionBuilder():
         themes = self.getThemes()
         for theme in themes:
             themes_list.append(ThemeWithStories(theme, theme.stories.distinct().order_by('storyintheme__number')))
+
+        return themes_list
+
+
+    def buildchainlessthemes(self):
+        chainless_themes = self.getChainlessThemes()
+
+        themes_list = []
+        for th in chainless_themes:
+                themes_list.append(th)
+
 
         return themes_list
 
@@ -72,7 +101,7 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
         return Chain.objects.filter(themes__stories__participant_id=self.participant_id, connection_range=self.connection_range).distinct().order_by('name')
 
     def getThemes(self):
-        return Theme.objects.filter(stories__participant_id=self.participant_id, connection_range=self.connection_range).distinct().order_by('name')
+        return  Theme.objects.filter(stories__participant_id=self.participant_id, connection_range=self.connection_range).distinct().order_by('name')
 
     def getStories(self):
         return Story.objects.filter(participant_id=self.participant_id).distinct()
@@ -90,12 +119,24 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
 
         return themes_list
 
+    def buildchainlessthemes(self):
+        themes_list = []
+        chainless_themes = self.getChainlessThemes()
+
+        for theme in chainless_themes:
+            themes_list.append(ThemeWithStories(theme, theme.stories.distinct().filter(participant_id=self.participant_id).order_by('storyintheme__number')))
+
+        return themes_list
+
 
 class UnconnectedStoryFinder():
     def __init__(self, participant_id):
         self.participant_id=participant_id
         self.intraBuilder=ParticipantConnectionBuilder(participant_id, 'Intraconnection')
         self.interBuilder=ParticipantConnectionBuilder(participant_id, 'Interconnection')
+
+    def getThemes(self):
+        return  Theme.objects.filter(stories__participant_id=self.participant_id).distinct().order_by('name')
 
     def getStories(self):
         return Story.objects.filter(participant_id=self.participant_id).distinct()
