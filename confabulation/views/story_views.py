@@ -73,5 +73,8 @@ def story_view(request, story_id):
 
     connected_stories = map(lambda s: s.story1 if int(story_id)==s.story2.id else s.story2, list((s for s in story_pairs if int(story_id) in (s.story1.id, s.story2.id))))
     context["connected_stories"] = connected_stories
-    setup_page_context(context)
+    setup_page_context(context,
+                       sidebar_right=True,
+                       sidebar_left=True,
+                       participant_id=participant.id)
     return render(request, 'confabulation/storyView.html', context)
