@@ -141,6 +141,14 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     margin: 2px;
 }
 
+.inter {
+    background: #F5CD06;
+}
+
+.intra {
+    background: #FFF835;
+}
+
 .theme:hover {
     border: 1px solid grey;
     text-decoration: none;

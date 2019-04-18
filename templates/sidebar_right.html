@@ -11,12 +11,7 @@
         <h3><a href="#intraSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Intraconnections</a></h3>
         <div class="collapse show" id="intraSubmenu">
             <h5>Chains</h5>
-            {% chain_with_theme_list sidebar_right.intraconnections %}
-            <!-- <h5>Themes</h5>
-                 {% for ic in sidebar_right.intraconnections %}
-                 {% theme_with_story_list ic.themes %}
-                 {% endfor %}
-               -->
+            {% chain_with_theme_list sidebar_right.intraconnections "intra" %}
         </div>
     </li>
     {% endif%}
@@ -25,7 +20,7 @@
         <h5><a href="#intraChainlessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Themes</a></h5>
         <div class="collapse show" id="intraChainlessSubmenu">
             <!-- <h5>Themes</h5> -->
-            {% theme_with_story_list sidebar_right.chainless_themes_intra %}
+            {% theme_with_story_list sidebar_right.chainless_themes_intra "intra" %}
         </div>
     </li>
     {% endif %}
@@ -36,8 +31,8 @@
             <h5>Chain</h5>
             {% chain_list sidebar_right.interconnections %}
             <h5>Themes</h5>
-            {% for ic in sidebar_right.interconnections %}
-            {% theme_with_story_list ic.themes %}
+            {% for ic in sidebar_right.interconnections%}
+            {% theme_with_story_list ic.themes "inter"%}
             {% endfor %}
 
         </div>
@@ -50,5 +45,5 @@
         </div>
     {% endif %}
 </ul>
-{% endif %} 
+{% endif %}
 {% endblock %}
