@@ -78,9 +78,8 @@ class ParticipantConnectionBuilderTest(TestCase):
         chains = ParticipantConnectionBuilder(PARTICIPANT_ID, 'Intraconnection').buildchains()
         self.assertEquals(len(chains), 1)
         self.assertEquals(chains[0].chain.name, 'Chain1')
-        self.assertEquals(len(chains[0].themes), 2)
+        self.assertEquals(len(chains[0].themes), 1)
         self.assertEquals(chains[0].themes[0].theme.name, 'Theme1')
-        self.assertEquals(chains[0].themes[1].theme.name, 'Theme2')
 
     def test_build_inter_themes(self):
         themes=ParticipantConnectionBuilder(PARTICIPANT_ID, 'Interconnection').buildthemes()
