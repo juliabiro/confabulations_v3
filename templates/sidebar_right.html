@@ -6,7 +6,7 @@
 <ul class="list-unstyled components">
     {% if sidebar_right.intraconnections %}
     <li>
-        <h3> Intraconnections</h3>
+        <h3> Intra-connections</h3>
             <h5><a href="#intraSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Chains</a></h5>
         <div class="collapse show" id="intraSubmenu">
             {% chain_with_theme_list sidebar_right.intraconnections "intra" %}
@@ -24,7 +24,7 @@
     {% endif %}
     {% if sidebar_right.interconnections %}
     <li>
-        <h3>Interconnections</h3>
+        <h3>Inter-connections</h3>
             <h5><a href="#interSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Chain</a></h5>
         <div class="collapse show" id="interSubmenu">
             {% chain_with_theme_list sidebar_right.interconnections "inter" %}
