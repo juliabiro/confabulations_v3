@@ -111,6 +111,22 @@ class ParticipantConnectionBuilder(ConnectionBuilder):
         ret2 = StoryToStoryConnection.objects.filter(story2__participant_id=self.participant_id, connection_range=self.connection_range).distinct()
         return list(ret1)+list(ret2)
 
+    def buildchains(self):
+        participant_chains = []
+
+        chains = self.getChains()
+        for chain in chains:
+            themes = chain.themes.distinct().order_by('themeinchain__number')
+
+            themes_list = []
+            for theme in themes:
+                stories = theme.stories.filter(participant_id=self.participant_id).distinct().order_by('storyintheme__number')
+                if len(stories) is not 0:
+                    themes_list.append(ThemeWithStories(theme, stories))
+
+            participant_chains.append(ChainWithThemes(chain, themes_list))
+        return participant_chains
+
     def buildthemes(self):
         themes_list = []
         themes = self.getThemes()
