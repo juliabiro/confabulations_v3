@@ -23,38 +23,6 @@
 </div>
 
 <div class="container">
-    <div class=" row">
-        {% if intraconnections %}
-        <div class="col p2">
-            <h1>Intraconnections</h1>
-            <h3>Chains</h3>
-            {% chain_with_theme_list intraconnections "intra"%}
-            <h3>Themes</h3>
-            {% for ic in intraconnections %}
-            {% theme_with_story_list ic.themes "intra" %}
-            {% endfor %}
-
-        </div>
-        {% elif chainless_themes %}
-        <div class="col p2">
-            <h1>Intraconnections</h1>
-            <h3>Themes</h3>
-            {% theme_with_story_list chainless_themes "intra" %}
-        </div>
-        {% endif %}
-        {% if interconnections %}
-        <div class="col p2">
-            <h1>Interconnections</h1>
-
-            <h3>Chain</h3>
-            {% chain_list interconnections %}
-            <h3>Themes</h3>
-            {% for ic in interconnections %}
-            {% theme_list ic.themes %}
-            {% endfor %}
-        </div>
-        {% endif%}
-    </div>
     {% if story_connections_intra %}
     <h3>Story to Story connections</h3>
     {% story_to_story_connection_list story_connections_intra %}
