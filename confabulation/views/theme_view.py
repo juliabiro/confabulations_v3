@@ -22,7 +22,7 @@ def theme_view(request, theme_id):
     stories = theme.stories.all()
     chains = Chain.objects.filter(themes__id=theme_id)
 
-    connection_range =  "Intra-connection" if theme.connection_range is 'Intraconnection' else "Inter-connection"
+    connection_range = "Intra-connection" if theme.connection_range == 'Intraconnection' else "Inter-connection"
 
 
     context = {'theme':theme, 'stories': stories, 'chains': chains, 'connection_range': connection_range}

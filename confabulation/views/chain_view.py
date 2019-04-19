@@ -21,6 +21,8 @@ def chain_view(request, chain_id):
 
     themes = chain.themes.all()
 
-    context = {'chain':chain, 'themes': themes}
+    connection_range = 'Intra-connection' if chain.connection_range == "Intraconnection" else 'Inter-connection'
+
+    context = {'chain':chain, 'themes': themes, 'connection_range': connection_range}
     setup_page_context(context)
     return render(request, 'confabulation/chainView.html', context)
