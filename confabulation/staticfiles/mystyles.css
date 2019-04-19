@@ -254,3 +254,13 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     margin:0px;
     padding-top:20px;
 }
+
+.taxonomy {
+    display: block;
+    border: 1px solid grey;
+    border-left:10px solid;
+    border-radius: 7px;
+    padding: 3px;
+    margin: 2px;
+}
+

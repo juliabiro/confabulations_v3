@@ -12,16 +12,15 @@ def sidebar_left_context():
 
     taxonomy_types = AnalysisType.objects.all().exclude(name='Connects')
 
-    taxonomy = {}
+    taxonomy =[]
     for t in taxonomy_types:
-        taxonomy [t.name] = []
         ap_list = AnalysisPoint.objects.filter(analysis_type_id=t.id).order_by('order_in_menu')
 
         # populate submenu items
         ap_list_by_type = [{"name": ap.name,
                             "link": ap.get_absolute_url(),
                             "color_code": ap.color_code} for ap in ap_list]
-        taxonomy[t.name] = ap_list_by_type
+        taxonomy.append({'name':t.name, 'url':t.get_absolute_url(), 'ap_list': ap_list_by_type})
 
     ret['taxonomy'] = taxonomy
 

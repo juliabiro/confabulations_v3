@@ -1,19 +1,20 @@
 {% block sidebar_left %}
 <ul class="clist-unstyled  components navbar-nav">
-{% load colored_link %}
+{% load ap_link %}
     {% if sidebar_left %}
     {% if sidebar_left.taxonomy %}
         <h3> Taxonomy </h3>
-            {% for ptype, list in sidebar_left.taxonomy.items %}
-            <li>
-                <h5>  <a href="#ap_{{ptype|cut:' '}}" data-toggle="collapse"  aria-expanded="true" class="dropdown-toggle"  >{{ ptype}}</a></h5>
-                <ul class="collapse list-unstyled show" id="ap_{{ptype|cut:' '}}">
-                    {% for p in list %}
-                    <li>
-                        {% colored_link p.name p.color_code p.link %}
+            {% for t in sidebar_left.taxonomy %}
+        <li>
+            <div>
+                <h5>  <a href="{{t.url}}"> {{t.name}}</a>
+                    <a href="#ap_{{t.name|cut:' '}}" data-toggle="collapse"  aria-expanded="true" class="dropdown-toggle"  ></a></h5>
+                <div class="collapse list-unstyled show" id="ap_{{t.name|cut:' '}}">
+                    {% for p in t.ap_list %}
+                        {% ap_link p.name p.color_code p.link %}
                         {% endfor%}
-                    </li>
-                </ul>
+                </div>
+            </div>
             </li>
 
             {% endfor %}
@@ -21,3 +22,4 @@
     {% endif %}
     {% endif %}
 {% endblock %}
+ 
