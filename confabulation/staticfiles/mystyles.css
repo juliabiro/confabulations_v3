@@ -30,7 +30,7 @@
 }
 
 .sidebar ul.components {
-    padding: 20px 0;
+    padding: 20px 0px;
     border-bottom: 1px solid ;
 }
 
@@ -247,5 +247,10 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 
 #block-content{
-    padding: 1rem;
+    margin-left: .5rem;
+}
+
+.row {
+    margin:0px;
+    padding-top:20px;
 }

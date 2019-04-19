@@ -1,11 +1,9 @@
 {% block sidebar_left %}
-<ul class="collapse components navbar-nav">
+<ul class="clist-unstyled  components navbar-nav">
 {% load colored_link %}
     {% if sidebar_left %}
     {% if sidebar_left.taxonomy %}
-    <li >
-        <h3> <a href="#taxonomySubMenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Taxonomy</a></h3>
-        <ul class="collapse list-unstyled show" id="taxonomySubMenu">
+        <h3> Taxonomy </h3>
             {% for ptype, list in sidebar_left.taxonomy.items %}
             <li>
                 <h5>  <a href="#ap_{{ptype|cut:' '}}" data-toggle="collapse"  aria-expanded="true" class="dropdown-toggle"  >{{ ptype}}</a></h5>
@@ -20,8 +18,6 @@
 
             {% endfor %}
         </ul>
-    </li>
     {% endif %}
     {% endif %}
-</ul>
 {% endblock %}
