@@ -9,6 +9,6 @@ register = template.Library()
 def chain_with_theme_list(chains, connection_range):
     return format_html_join('',
                             "<div class='tc_block'><h5><a href='{}' class='chain {}'>{}</a></h5>{}</div>",
-        ((c.chain.get_absolute_url(), connection_range, c.chain.name, theme_list(c.themes)) for c in chains)
+        ((c.chain.get_absolute_url(), connection_range, c.chain.name, theme_list(c.themes, connection_range)) for c in chains)
     )
 
