@@ -262,5 +262,9 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     border-radius: 7px;
     padding: 3px;
     margin: 2px;
+    max-width: 200px;
 }
-
+ /* this is a hack: becasue the video thumbnails have 0.4em margin, they start a bit more in. This looks ugly, so lets bring all elements that are above them just the right amount in*/
+.view_title {
+    margin-left:0.4em;
+}
