@@ -13,15 +13,14 @@
 <h4>participation group: {{ participant.participation_group }} </h4>
 
 {% endif %}
-<img src="{{cl}}">
 
-<div class="container">
+<div>
     {% if participant_stories %}
     {% story_list_thumb participant_stories 150 %}
     {% endif %}
 </div>
 
-<div class="container">
+<div>
     {% if story_connections_intra %}
     <h3>Story to Story connections</h3>
     {% story_to_story_connection_list story_connections_intra %}

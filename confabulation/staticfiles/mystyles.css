@@ -20,7 +20,7 @@
 }
 
 #sidebar_right {
-    min-width: 350px;
+    min-width: 300px;
     max-width: 350px;
     min-height: 100vh;
 }
@@ -243,4 +243,9 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 .thumbnail:hover{
     background: #FF7D7D;
+}
+
+
+#block-content{
+    padding: 1rem;
 }
