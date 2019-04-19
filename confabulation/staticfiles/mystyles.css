@@ -41,10 +41,19 @@
 .sidebar ul li a {
     font-size: 1.1em;
     display: inline;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
 }
-.sidebar ul li a:hover {
-    background: #fff;
+/* .sidebar ul li a:hover { */
+/*     background: #fff; */
+/* } */
+
+.sidebar li {
+    margin-bottom: 1rem;
 }
+
+.collapse {
+    margin-bottom: 1rem;}
 
 .sidebar ul li.active > a, a[aria-expanded="true"] {
 }
@@ -130,15 +139,6 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 }
 /* coloring connections */
 
-.theme {
-    display: block;
-    border: 1px solid grey;
-    border-left: 10px solid #4925FE;
-    border-radius: 5px;
-    padding: 3px;
-    margin: 2px;
-}
-
 .inter {
     background: #F5CD06;
 }
@@ -146,14 +146,55 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 .intra {
     background: #FFF835;
 }
+.inter:hover {
+    background: #F5CD06;
+}
+
+.intra:hover {
+    background: #FFF835;
+}
+
+
+.chain {
+    display: block;
+    border: 1px solid grey;
+    border-radius: 5px;
+    border-left: 10px solid #1A0584;
+    padding: 3px;
+    margin: 2px;
+    margin-bottom: 5px;
+}
+
+.chain h5{
+    margin-bottom: 0.2em;
+}
+
+.chain:hover {
+    text-decoration: none;
+    border: 1px solid grey;
+    border-left: 10px solid #6A5EA5;
+}
+
+.theme {
+    display: block;
+    border: 1px solid grey;
+    border-left: 10px solid #4925FE;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 5px;
+    margin: 2px;
+}
+
+.theme h6{
+    margin-bottom: 0.2em;
+    padding: 1px;
+}
+
 
 .theme:hover {
-    border: 1px solid grey;
     text-decoration: none;
     border-left: 10px solid #A999F9;
     border-radius: 5px;
-    padding: 3px;
-    margin: 2px;
 }
 
 .theme_inline  {
@@ -170,23 +211,6 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     border: 1px solid grey;
     border-left: 10px solid #A999F9;
     border-radius: 5px;
-    padding: 3px;
-    margin: 2px;
-}
-
-.chain {
-    display: block;
-    border: 1px solid grey;
-    border-radius: 5px;
-    border-left: 10px solid #1A0584;
-    padding: 3px;
-    margin: 2px;
-}
-
-.chain:hover {
-    text-decoration: none;
-    border: 1px solid grey;
-    border-left: 10px solid #6A5EA5;
     padding: 3px;
     margin: 2px;
 }
