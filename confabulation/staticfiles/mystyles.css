@@ -12,10 +12,12 @@
 /* .sidebar.active { */
 /*     display: block; */
 /* } */
-
+.sidebar {
+    display:inline;
+}
 .sidebar_left {
     display: block;
-    min-width: 250px;
+    min-width: 200px;
     max-width: 250px;
     min-height: 100vh;
 }
@@ -26,7 +28,7 @@
 
 .sidebar_right {
     display: block;
-    min-width: 300px;
+    min-width: 250px;
     max-width: 350px;
     min-height: 100vh;
 }
@@ -276,3 +278,4 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 .view_title {
     margin-left:0.4em;
 }
+

@@ -1,8 +1,8 @@
 {% block sidebar_left %}
-<div class="sidebar_left" id="sidebar_left">
-<ul class="clist-unstyled  components navbar-nav" >
 {% load ap_link %}
     {% if sidebar_left %}
+<div class="sidebar_left" id="sidebar_left">
+<ul class="list-unstyled  components" >
     {% if sidebar_left.taxonomy %}
         <h3> Taxonomy </h3>
             {% for t in sidebar_left.taxonomy %}
@@ -19,9 +19,12 @@
             </li>
 
             {% endfor %}
+    {% endif %}
 </ul>
 </div>
-    {% endif %}
-    {% endif %}
+<label class="smallbutton">
+<input id="sidebar_left_button" type="checkbox" checked  data-toggle="toggle" data-on="X" data-off="&#10004;"  data-size="small" data-onstyle="info">
+</label>
+{% endif %}
 {% endblock %}
  
