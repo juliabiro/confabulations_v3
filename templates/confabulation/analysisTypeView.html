@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Analysis Type: {{analysis_type.name}}{% endblock %}
 
-{% load colored_link %}
+{% load ap_link %}
 {% block content %}
 
-<div class="AnalysisType">
+<div class="view_title">
     {% if analysis_type %}
-    <div>
+    <div >
         <h1> {{analysis_type.name}} </h1>
         {{analysis_type.description}}
 
@@ -14,12 +14,9 @@
     </div>
     <div>
         <h3>    Analysis Points:</h3>
-        <ul>
             {% for ap in analysis_points %}
-            <li>{% colored_link ap.name ap.color_code ap.url %}
-                </li>
+            {% ap_link ap.name ap.color_code ap.url %}
             {% endfor %}
-        </ul>
     </div>
 </div>
 

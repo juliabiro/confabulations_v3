@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href={% static 'mystyles.css'%} type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     </head>
     <body>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -15,23 +16,22 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <script src={% static 'mystyles.js' %}></script>
         <div class="container-fluid" id="page-header">
 
             <h1><a href="/">{{ site_name }}</a></h1>
             {% if navigation %}
             {% block navigation %}
-{% include 'navigation.html' %}
+            {% include 'navigation.html' %}
             {% endblock %}
             {% endif %}
         </div>
         <div class="wrapper">
             {% if sidebar_left %}
-            <nav class="sidebar active" id="sidebar_left">
-                {% block sidebar_left %}
-                {% include "sidebar_left.html" %}
-                {% endblock %}
-            </nav>
+            {% block sidebar_left %}
+            {% include "sidebar_left.html" %}
+            {% endblock %}
             {% endif %}
             <div id="block-content">
                 <div class="row">
@@ -43,11 +43,9 @@
             </div>
 
             {% if sidebar_right %}
-            <nav class="sidebar active" id="sidebar_right">
                 {% block sidebar_right %}
                 {% include "sidebar_right.html" %}
                 {% endblock %}
-            </nav>
             {% endif %}
 
         </div>

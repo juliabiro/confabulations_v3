@@ -3,7 +3,9 @@
 {% load theme_with_story_list %}
 {% load chain_with_theme_list %}
 {% if sidebar_right %}
-<ul class="list-unstyled components">
+<input id="sidebar_right_button" type="checkbox" checked  data-toggle="toggle" data-on="X" data-off="&#10004;"  data-size="small" data-onstyle="info">
+<div class="sidebar_right" id="sidebar_right">
+    <ul class="list-unstyled components" >
     <li>
         <h3> Intra-connections</h3>
     {% if sidebar_right.intraconnections %}
@@ -44,6 +46,7 @@
             {% story_list sidebar_right.single_stories %}
         </div>
     {% endif %}
-</ul>
+    </ul>
+</div>
 {% endif %}
 {% endblock %}

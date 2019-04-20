@@ -5,24 +5,36 @@
     padding-right: 20px;
 }
 
+/* .sidebar { */
+/*     display: none; */
+/* } */
+
+/* .sidebar.active { */
+/*     display: block; */
+/* } */
 .sidebar {
-    display: none;
+    display:inline;
 }
-
-.sidebar.active {
+.sidebar_left {
     display: block;
-}
-
-#sidebar_left {
-    min-width: 250px;
+    min-width: 200px;
     max-width: 250px;
     min-height: 100vh;
 }
 
-#sidebar_right {
-    min-width: 300px;
+.sidebar_left.active {
+    display:none;
+}
+
+.sidebar_right {
+    display: block;
+    min-width: 250px;
     max-width: 350px;
     min-height: 100vh;
+}
+
+.sidebar_right.active {
+    display:none;
 }
 
 .sidebar .sidebar-header {
@@ -30,7 +42,7 @@
 }
 
 .sidebar ul.components {
-    padding: 20px 0;
+    padding: 20px 0px;
     border-bottom: 1px solid ;
 }
 
@@ -44,9 +56,6 @@
     margin-bottom: .5rem;
     margin-top: .5rem;
 }
-/* .sidebar ul li a:hover { */
-/*     background: #fff; */
-/* } */
 
 .sidebar li {
     margin-bottom: 1rem;
@@ -57,6 +66,7 @@
 
 .sidebar ul li.active > a, a[aria-expanded="true"] {
 }
+
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -247,5 +257,25 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 
 #block-content{
-    padding: 1rem;
+    margin-left: .5rem;
 }
+
+.row {
+    margin:0px;
+    padding-top:20px;
+}
+
+.taxonomy {
+    display: block;
+    border: 1px solid grey;
+    border-left:10px solid;
+    border-radius: 7px;
+    padding: 3px;
+    margin: 2px;
+    max-width: 200px;
+}
+ /* this is a hack: becasue the video thumbnails have 0.4em margin, they start a bit more in. This looks ugly, so lets bring all elements that are above them just the right amount in*/
+.view_title {
+    margin-left:0.4em;
+}
+
