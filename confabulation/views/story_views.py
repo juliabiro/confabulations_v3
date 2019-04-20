@@ -69,9 +69,9 @@ def story_view(request, story_id):
         except (ClientError, AttributeError):
             context["video_error_message"] = "The video for " + parse_key_from_url(video_url) + " doesn't exist."
 
-    story_pairs = ParticipantConnectionBuilder(participant.id, 'Intraconnection').getStoryToStoryConnections() + ParticipantConnectionBuilder(participant.id, 'Interconnection').getStoryToStoryConnections()
-
+    story_pairs = ParticipantConnectionBuilder(participant.id, 'Intraconnection').buildstoryconnections()
     connected_stories = map(lambda s: s.story1 if int(story_id)==s.story2.id else s.story2, list((s for s in story_pairs if int(story_id) in (s.story1.id, s.story2.id))))
+
     context["connected_stories"] = connected_stories
     setup_page_context(context,
                        sidebar_right=True,
