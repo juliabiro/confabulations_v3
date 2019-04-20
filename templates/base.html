@@ -27,10 +27,14 @@
         </div>
         <div class="wrapper">
             {% if sidebar_left %}
-            <nav class="sidebar active" id="sidebar_left">
                 {% block sidebar_left %}
                 {% include "sidebar_left.html" %}
                 {% endblock %}
+            <nav class="sidebar active" id="sidebar_left_button">
+                    <button type="button" id="sidebarLeftCollapse" class="btn btn-info btn-sm">
+                        <i class="fas fa-align-left"></i>
+Hide right sidebar
+                    </button>
             </nav>
             {% endif %}
             <div id="block-content">
@@ -43,11 +47,15 @@
             </div>
 
             {% if sidebar_right %}
-            <nav class="sidebar active" id="sidebar_right">
+            <nav class="sidebar active" id="sidebar_right_button">
+                    <button type="button" id="sidebarRightCollapse" class="btn btn-info btn-sm">
+                        <i class="fas fa-align-right"></i>
+Hide right sidebar
+                    </button>
+            </nav>
                 {% block sidebar_right %}
                 {% include "sidebar_right.html" %}
                 {% endblock %}
-            </nav>
             {% endif %}
 
         </div>

@@ -1,5 +1,6 @@
 {% block sidebar_left %}
-<ul class="clist-unstyled  components navbar-nav">
+<div class="sidebar_left" id="sidebar_left">
+<ul class="clist-unstyled  components navbar-nav" >
 {% load ap_link %}
     {% if sidebar_left %}
     {% if sidebar_left.taxonomy %}
@@ -18,7 +19,8 @@
             </li>
 
             {% endfor %}
-        </ul>
+</ul>
+</div>
     {% endif %}
     {% endif %}
 {% endblock %}
