@@ -19,7 +19,6 @@ def get_signed_video_url(file_name, raise_error=True):
 
 def get_signed_photo_url(file_url, raise_error=True):
     try:
-        print(file_url.split(S3_BUCKET))
         key = file_url.split(S3_BUCKET)[-1].strip("/")
         return get_signed_asset_link(key, raise_error)
 

@@ -33,6 +33,7 @@ class StoryView(TestCase):
             self.assertContains(response, ap.get_absolute_url())
         self.assertContains(response, VALID_PHOTO_NAME)
         self.assertContains(response, VALID_VIDEO_NAME)
+        self.assertContains(response, THEME_INTER_ID)
 
     def test_story_view_invalid_media(self):
         story = Story.objects.get(pk=INVALID_STORY_ID)
@@ -44,4 +45,3 @@ class StoryView(TestCase):
         self.assertContains(response, MALFORMED_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, MISSING_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, INVALID_VIDEO_NAME+" doesn&#39;t exist")
-
