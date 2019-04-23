@@ -41,12 +41,11 @@ class NavigationContext(TestCase):
         for c in context['connects']:
             self.assertTrue(len(c) > 0)
 
-    @mock.patch('confabulation.views.navbar.Participant.objects.filter', empty_query_set_participant)
+    @mock.patch('confabulation.views.navbar.Participant.objects.distinct', empty_query_set_participant)
     def test_nav_context_no_participants(self):
         context=navigation_context()
         self.assertTrue('participants' in context)
-        for p in context['participants']:
-            self.assertEqual(context['participants'][p], [])
+        self.assertEqual(context['participants'], [])
 
     @mock.patch('confabulation.views.navbar.AnalysisType.objects.all', empty_query_set_analysistype)
     def test_nav_context_no_analysys_types(self):
