@@ -11,18 +11,9 @@
                 </a>
 
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    {% for ptype, list in navigation.participants.items %}
-                    <li class="dropdown-submenu">
-                        <a  class="nav-item dropdown-item" tabindex="-1" >{{ ptype}}</a>
-                        <ul class="dropdown-menu">
-                            {% for p in list %}
-                            <li>
-                                <a class="nav-link" href="{{p.link}}">{{p.name}}</a>
+                    {% for p in navigation.participants %}
+                                <a class="nav-link" href="{{p.url}}">{{p.name}}</a>
 {% endfor%}
-                            </li>
-                        </ul>
-                    </li>
-                    {% endfor %}
                 </ul>
             </li>
             <li class="nav-item dropdown">

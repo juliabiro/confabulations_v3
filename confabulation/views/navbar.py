@@ -9,12 +9,8 @@ def navigation_context():
                'connects': []
               }
 
-    participant_types = ParticipantTypes.choices()
-    for pt in participant_types:
-        pt_name = pt[0]
-        plist = Participant.objects.filter(participation_group=pt_name)
-        p_by_type = [{"name": p.name, "link": p.get_absolute_url()} for p in plist]
-        context['participants'][pt_name] = p_by_type
+    participants = Participant.objects.distinct().order_by('name')
+    context['participants'] = [{'name':p.name, 'url':p.get_absolute_url()} for p in participants]
 
     taxonomy_types = AnalysisType.objects.all().exclude(name='Connects')
 
