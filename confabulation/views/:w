@@ -25,7 +25,8 @@ def story_view(request, story_id):
     analysis = story.analysis.distinct()
     video_url = story.video_url
 
-    themes = Theme.objects.filter(stories__id=story_id).distinct()
+    themes = Theme.objects.filter(stories__id = story_id).distinct()
+    print(themes)
     photos = []
     for p in story.photos.all():
         url = get_signed_photo_url(p.file_url,
@@ -60,7 +61,7 @@ def story_view(request, story_id):
                    'description': era.description
                } for era in story.era.distinct()],
                'keywords': story.keywords.all(),
-               'themes': [{'name': t.name, 'url': t.get_absolute_url()} for t in themes]
+               'themes': [t.name for t in themes]
               }
     if video_url:
         try:

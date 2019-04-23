@@ -36,6 +36,15 @@
         {% endfor %}
     </ul>
 
+    {% if themes %}
+    <h3>Themes</h3>
+        {% for t in themes %}
+    <a href="{{t.url}}">{{t.name}}</a>
+    </br>
+        {% endfor %}
+    {% endif %}
+    </br>
+
     <h3>Video</h3>
     {% if video_url %}
         <video width="530" height="440" controls >
