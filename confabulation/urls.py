@@ -8,6 +8,7 @@ from .views.connection_view import connection_view
 from .views.era_views import era_view
 from .views.theme_view import themes, theme_view
 from .views.chain_view import chains, chain_view
+from .views.search_list_view import search_list_view
 
 urlpatterns = [
     url(r'^participant/$', participants),
@@ -25,5 +26,6 @@ urlpatterns = [
     url(r'^about/?$', about),
     url(r'^author/?$', author),
     url(r'^menumap/$', menumap),
+    url(r'^search/', search_list_view),
     url(r'^', index),
 ]
