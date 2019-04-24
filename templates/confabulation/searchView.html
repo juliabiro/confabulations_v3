@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}{{participant.name}}{% endblock %}
+{% load story_list %}
+{% load chain_list %}
+{% load story_list_thumb %}
+{% load theme_with_story_list %}
+{% load chain_with_theme_list %}
+{% load story_to_story_connection_list %}
+{% block content %}
+
+{% if search %}
+
+<div class="view_title">
+<h1> Search results for {{ search }}:</h1>
+</div>
+
+    {% if stories %}
+<div>
+    <h3>Stories</h3>
+        {% for s in stories %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+    {% endif %}
+
+    {% if participants %}
+<div>
+    <h3>Participants</h3>
+        {% for s in participants %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+    {% endif %}
+
+    {% if themes %}
+<div>
+    <h3>Themes</h3>
+        {% for s in themes %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+{% endif %}
+
+    {% if chains %}
+<div>
+    <h3>Chains</h3>
+        {% for s in chains %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+    {% endif %}
+
+    {% if aps %}
+<div>
+    <h3>Analysis Points</h3>
+        {% for s in aps %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+    {% endif %}
+
+    {% if ap_types %}
+<div>
+    <h3>Analysis Types</h3>
+        {% for s in ap_types %}
+            <a href="{{s.url}}">{{s.name}}</a>
+            </br>
+        {% endfor %}
+</div>
+{% endif %}
+
+{% if nohits %}
+<div>
+    <h2>Sorry, no matches found for {{search}} :(</h2>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}
