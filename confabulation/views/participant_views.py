@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from ..models import Participant, Story
 from ..utils. connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
+from ..utils.story_sorter import sort_story_list
 
 def participants(request):
     if not request.user.is_authenticated:
@@ -25,7 +26,9 @@ def participant_view(request, participant_id):
     interBuilder = ParticipantConnectionBuilder(participant_id, 'Interconnection')
 
     p_stories = Story.objects.filter(participant_id=participant_id).order_by('name')
-    context["participant_stories"] = p_stories
+    p_stories_sorted = sort_story_list(list(p_stories))
+
+    context["participant_stories"] = p_stories_sorted
 
     story_connections_intra = intraBuilder.buildstoryconnections()
     story_connections_inter = interBuilder.buildstoryconnections()
