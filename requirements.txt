@@ -10,3 +10,4 @@ boto3
 pylint==2.3.0
 mock
 cloudinary
+cryptography
