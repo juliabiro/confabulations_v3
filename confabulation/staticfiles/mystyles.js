@@ -7,4 +7,9 @@ $(document).ready(function () {
     $('#sidebar_right').toggleClass('active');
   });
 
+  $('.theme-dropdown').on('click', function(){
+    var themeID = $(this).attr('id');
+
+    $('.'+themeID).toggleClass('highlight');
+  });
 });
