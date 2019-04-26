@@ -43,7 +43,7 @@ The secrets come form environmental variables. Required variables:
  - CLOUDINARY_API_SECRET
  - DJANGO_SECRET_KEY
  - CLOUDFRONT_KEY_ID
- - CLOUDFRONT_KEY
+ - CLOUDFRONT_KEY (in a one-line string that contains the CR and NL character as \r and \n)
  
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
