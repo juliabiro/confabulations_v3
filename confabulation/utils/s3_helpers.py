@@ -1,7 +1,7 @@
 import re
 from botocore.exceptions import ClientError
 import boto3
-from .data import S3_BUCKET, VIDEOS_DIR
+from .data import S3_BUCKET, VIDEOS_DIR, CLOUDFRONT_DISTRIBUTION, CLOUDFRONT_KEY_ID, CLOUDFRONT_KEY_PATH
 from datetime import datetime, timedelta
 
 from cryptography.hazmat.backends import default_backend
@@ -19,7 +19,7 @@ def _gets3():
     return s3_client
 
 def rsa_signer(message):
-    with open('/pk-APKAJ6OXE6IOMB4LF4FA.pem', 'rb') as key_file:
+    with open(CLOUDFRONT_KEY_PATH, 'rb') as key_file:
         private_key = serialization.load_pem_private_key(
             key_file.read(),
             password=None,
@@ -29,8 +29,7 @@ def rsa_signer(message):
 
 
 def _getCloudFront():
-   key_id = 'APKAJ6OXE6IOMB4LF4FA'
-   cloudfront_signer = CloudFrontSigner(key_id, rsa_signer)
+   cloudfront_signer = CloudFrontSigner(CLOUDFRONT_KEY_ID, rsa_signer)
    return cloudfront_signer
 
 def parse_key_from_url(url):
@@ -38,7 +37,7 @@ def parse_key_from_url(url):
 
 def get_signed_video_url(file_name, raise_error=True):
     key = VIDEOS_DIR+file_name
-    return get_signed_asset_link(key, raise_error)
+    return get_signed_video_link(key, raise_error)
 
 def get_signed_photo_url(file_url, raise_error=True):
     try:
@@ -53,17 +52,34 @@ def get_signed_photo_url(file_url, raise_error=True):
 
 def get_signed_asset_link(key, raise_error=True):
     try:
-        #s3_client = _gets3()
+        s3_client = _gets3()
+        # this will raise an error if the key doesnt exists
+        s3_client.head_object(Bucket=S3_BUCKET, Key=key)
+        url = s3_client.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': S3_BUCKET,
+                'Key': key
+            }
+        )
+
+        return url
+
+    except ClientError as e:
+        if raise_error:
+            raise e
+        else:
+            print(e)
+            print(key)
+            return None
+
+def get_signed_video_link(key, raise_error=True):
+    try:
         cloudfront_client = _getCloudFront()
-        url='https://d3g74r7twa0u2z.cloudfront.net/'+S3_BUCKET+'/'+key
-        expiry = datetime.now()+timedelta(hours=6)
-        print(expiry)
+        url= CLOUDFRONT_DISTRIBUTION + key
+        expiry = datetime.now()+timedelta(hours=2)
         signed_url = cloudfront_client.generate_presigned_url(url, date_less_than=expiry)
 
-        # this will raise an error if the key doesnt exists
-        #cloudfront_client.head_object(Bucket=S3_BUCKET, Key=key)
-
-        print(signed_url)
         return signed_url
 
     except ClientError as e:
