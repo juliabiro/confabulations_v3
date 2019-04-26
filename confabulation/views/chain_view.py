@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from ..models import Story, Chain, Theme
 from .context_helpers import setup_page_context
 
@@ -17,7 +17,7 @@ def chain_view(request, chain_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    chain = Chain.objects.get(pk=chain_id)
+    chain = get_object_or_404(Chain, pk=chain_id)
 
     themes = chain.themes.all()
 

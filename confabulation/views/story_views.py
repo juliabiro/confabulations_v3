@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from ..models import  Story, Era, AnalysisPoint, Participant, Keyword, StoryToStoryConnection, Theme
 from ..utils.s3_helpers import *
 from ..utils.connection_helpers import ParticipantConnectionBuilder
@@ -20,8 +20,8 @@ def story_view(request, story_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    story = Story.objects.get(pk=story_id)
-    participant = Participant.objects.get(pk=story.participant.id)
+    story = get_object_or_404(Story, pk=story_id)
+    participant = get_object_or_404(Participant, pk=story.participant.id)
     analysis = story.analysis.distinct()
     video_url = story.video_url
 
