@@ -8,7 +8,10 @@ The actual data is in a postgres DB.
 
 ## where is the media?
 
-The media files are stored on AWS S3, and they are shown using signed URLs that expire, therefore ensuring that just visiting the app doesn't give permanent access to the files. Some images are served by Cloudinary. 
+The media files are stored on AWS S3, and they are served by CloudFront using signed URLs that expire, therefore ensuring that just visiting the app doesn't give permanent access to the files. Some images are served by Cloudinary. 
+
+## what else?
+The site doesn't work as an API, with meaningful URI structure. This is intentional, this site is not intended to be used as such, this is strictly for browsing. It was designed to display private photos belonging to the research participants, therefore the signed URLs. To prevent casual broswers from downloading the content easily, the context menus (mouse right-click) is disabled. It doesn't restrict access to the files, but makes it harder to just casually download the images and videos. 
 
 # Development
 
@@ -39,6 +42,8 @@ The secrets come form environmental variables. Required variables:
  - CLOUDINARY_API_KEY
  - CLOUDINARY_API_SECRET
  - DJANGO_SECRET_KEY
+ - CLOUDFRONT_KEY_ID
+ - CLOUDFRONT_KEY
  
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
