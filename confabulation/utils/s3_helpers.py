@@ -37,7 +37,7 @@ def parse_key_from_url(url):
 
 def get_signed_video_url(file_name, raise_error=True):
     key = VIDEOS_DIR+file_name
-    return get_signed_video_link(key, raise_error)
+    return get_signed_asset_link(key, raise_error)
 
 def get_signed_photo_url(file_url, raise_error=True):
     try:
@@ -50,7 +50,7 @@ def get_signed_photo_url(file_url, raise_error=True):
         else:
             return None
 
-def get_signed_asset_link(key, raise_error=True):
+def get_signed_asset_s3_link(key, raise_error=True):
     try:
         s3_client = _gets3()
         # this will raise an error if the key doesnt exists
@@ -73,11 +73,11 @@ def get_signed_asset_link(key, raise_error=True):
             print(key)
             return None
 
-def get_signed_video_link(key, raise_error=True):
+def get_signed_asset_link(key, raise_error=True):
     try:
         cloudfront_client = _getCloudFront()
         url= CLOUDFRONT_DISTRIBUTION + key
-        expiry = datetime.now()+timedelta(hours=2)
+        expiry = datetime.now()+timedelta(hours=1)
         signed_url = cloudfront_client.generate_presigned_url(url, date_less_than=expiry)
 
         return signed_url
