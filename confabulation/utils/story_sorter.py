@@ -6,7 +6,7 @@ def get_sortable_number(story):
     if m:
         match = m.group()
         return int(match)
-    return name
+    return 0
 
 def sort_story_list(story_list):
     story_list.sort(key=get_sortable_number)
