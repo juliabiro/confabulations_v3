@@ -9,7 +9,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from botocore.signers import CloudFrontSigner
-
+import os
 
 def _gets3():
 
@@ -19,12 +19,14 @@ def _gets3():
     return s3_client
 
 def rsa_signer(message):
-    with open(CLOUDFRONT_KEY_PATH, 'rb') as key_file:
-        private_key = serialization.load_pem_private_key(
-            key_file.read(),
-            password=None,
-            backend=default_backend()
-        )
+
+    #with open(CLOUDFRONT_KEY_PATH, 'rb') as key_file:
+    key = os.environ['CLOUDFRONT_KEY'].replace('\\r', '\r').replace('\\n', '\n')
+    private_key = serialization.load_pem_private_key(
+        data=key.encode('ascii'),
+        password=None,
+        backend=default_backend()
+    )
     return private_key.sign(message, padding.PKCS1v15(), hashes.SHA1())
 
 
