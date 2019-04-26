@@ -12,6 +12,13 @@ $(document).ready(function () {
 
     $('.'+themeID).toggleClass('highlight');
   });
+
+  $('.zoomable').on('click', function(){
+    $(this).toggleClass('fit');
+    $(this).toggleClass('zoomin');
+    $(this).toggleClass('zoomout');
+
+  });
 });
 
 $(document).bind("contextmenu", function (event) {
