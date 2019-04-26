@@ -5,13 +5,23 @@ from ..models import Participant, Story, Theme, Chain, AnalysisPoint, AnalysisTy
 from .context_helpers import setup_page_context
 from ..forms import SearchForm
 
+import re
+
 def search_list_view(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     search = SearchForm(request.GET)['search'].value()
 
-    stories = Story.objects.filter(name__icontains=search)
+    m=re.search('\d+', search)
+    if m:
+        prefix = search[0:m.start()].strip()
+        postfix = int(m.group())
+
+        stories = Story.objects.filter(name__icontains=prefix).filter(name__icontains=postfix)
+    else:
+        stories = Story.objects.filter(name__icontains=search)
+
     participants = Participant.objects.filter(name__icontains=search)
     themes = Theme.objects.filter(name__icontains=search)
     chains = Chain.objects.filter(name__icontains=search)
