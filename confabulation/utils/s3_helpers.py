@@ -55,7 +55,7 @@ def get_signed_asset_link(key, raise_error=True):
     try:
         #s3_client = _gets3()
         cloudfront_client = _getCloudFront()
-        url='http://d3g74r7twa0u2z.cloudfront.net/'+S3_BUCKET+'/'+key
+        url='https://d3g74r7twa0u2z.cloudfront.net/'+S3_BUCKET+'/'+key
         expiry = datetime.now()+timedelta(hours=6)
         print(expiry)
         signed_url = cloudfront_client.generate_presigned_url(url, date_less_than=expiry)
