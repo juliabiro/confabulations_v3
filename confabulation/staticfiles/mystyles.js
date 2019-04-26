@@ -12,4 +12,28 @@ $(document).ready(function () {
 
     $('.'+themeID).toggleClass('highlight');
   });
+
+  $('.zoomable').on('click', function(){
+    $(this).toggleClass('fit');
+    $(this).toggleClass('zoomin');
+    $(this).toggleClass('zoomout');
+
+  });
 });
+
+$(document).bind("contextmenu", function (event) {
+  event.preventDefault();
+
+  var ae= this.activeElement;
+  if(ae.tagName == 'A'){
+    $("<a href='"+ae.href+"' class='custom-menu' target='_blank'>Open link in new tab</a>")
+      .appendTo("body")
+      .css({top: event.pageY + "px", left: event.pageX + "px"});
+  }
+}
+                );
+
+$(document).bind("click", function(event) {
+  $("a.custom-menu").hide();
+});
+

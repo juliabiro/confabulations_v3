@@ -292,3 +292,30 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     font-size: 12px;
     font-weight: lighter;
 }
+
+
+.custom-menu {
+    z-index:1000;
+    position: absolute;
+    background-color:#FFFFFF;
+    border: 1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.fit{
+    display: grid;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+    -webkit-user-select: none;
+}
+
+.zoomin{
+    cursor: zoom-in;
+}
+
+.zoomout{
+    cursor: zoom-out;
+}

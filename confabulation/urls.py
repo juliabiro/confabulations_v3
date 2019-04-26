@@ -9,6 +9,7 @@ from .views.era_views import era_view
 from .views.theme_view import themes, theme_view
 from .views.chain_view import chains, chain_view
 from .views.search_list_view import search_list_view
+from .views.image_view import image_view
 
 urlpatterns = [
     url(r'^participant/$', participants),
@@ -23,6 +24,7 @@ urlpatterns = [
     url(r'^chain/$', chains),
     url(r'^chain/(?P<chain_id>[0-9]+)/?$', chain_view),
     url(r'^connects/(?P<connection_id>[0-9]+)/?$', connection_view),
+    url(r'^image/(?P<image_name>[a-zA-Z0-9]+)/?$', image_view),
     url(r'^about/?$', about),
     url(r'^author/?$', author),
     url(r'^menumap/$', menumap),
