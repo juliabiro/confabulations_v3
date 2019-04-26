@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from ..models import Connection, Participant, Chain
 from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
@@ -18,7 +18,7 @@ def connection_view(request, connection_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    connection = Connection.objects.get(pk=connection_id)
+    connection = get_object_or_404(Connection, pk=connection_id)
 
     participants = Participant.objects.distinct().order_by('name')
 

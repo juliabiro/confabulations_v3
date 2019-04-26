@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from django.contrib.auth import views as auth_views
+from django.conf.urls import handler404, handler500
+from confabulation.views.error_views import error_404, error_500
 
 urlpatterns = [
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
@@ -25,3 +27,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('confabulation.urls')),
 ]
+
+handler404 = error_404
+handler500 = error_500

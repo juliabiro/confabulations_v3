@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from ..models import Participant, Story
 from ..utils. connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
@@ -19,7 +19,7 @@ def participant_view(request, participant_id):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    participant = Participant.objects.get(pk=participant_id)
+    participant = get_object_or_404(Participant, pk=participant_id)
     context = {'participant':participant}
 
     intraBuilder = ParticipantConnectionBuilder(participant_id, 'Intraconnection')
