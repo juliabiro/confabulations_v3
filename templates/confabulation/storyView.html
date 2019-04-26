@@ -6,18 +6,18 @@
 {% load story_list %}
 {% if story %}
 
-    <div class="story">
-        <h1> {{ story.name }}</h1>
-        <h4>
-            <a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
-        {% if eras %}
+<div class="story">
+    <h1> {{ story.name }}</h1>
+    <h4>
+        <a href="/participant/{{participant.id}}/">{{participant.name}}</a></h4>
+    {% if eras %}
 
 
-        Era:
-        {% for era in eras %}
-        {% colored_link era.name era.color_code era.url era.description %}
-        {% endfor %}
-        {% endif %}
+    Era:
+    {% for era in eras %}
+    {% colored_link era.name era.color_code era.url era.description %}
+    {% endfor %}
+    {% endif %}
     </br>
 
     {% if keywords %}
@@ -38,22 +38,22 @@
 
     {% if themes %}
     <h3>Themes</h3>
-        {% for t in themes %}
+    {% for t in themes %}
     <a href="{{t.url}}">{{t.name}}</a>
     </br>
-        {% endfor %}
+    {% endfor %}
     {% endif %}
     </br>
 
     <h3>Video</h3>
     {% if video_url %}
-        <video width="530" height="440" controls >
-            <source src={{ video_url }} type="video/mp4"></source>
-        </video>
+    <video width="530" height="440" controls controlsList="nodownload">
+        <source src={{ video_url }} type="video/mp4"></source>
+    </video>
     {% else %}
-        {% if video_error_message %}
-            {{ video_error_message }}
-        {% endif %}
+    {% if video_error_message %}
+    {{ video_error_message }}
+    {% endif %}
     {% endif %}
 
     <h3>Photos</h3>
@@ -72,12 +72,12 @@
     </div>
     {% endfor %}
 
-    </div>
+</div>
 
-    {% if connected_stories %}
-    <h3>Connected Stories</h3>
-    {% story_list connected_stories %}
-    {% endif %}
+{% if connected_stories %}
+<h3>Connected Stories</h3>
+{% story_list connected_stories %}
+{% endif %}
 {% endif %}
 
 

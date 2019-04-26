@@ -292,3 +292,14 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
     font-size: 12px;
     font-weight: lighter;
 }
+
+
+.custom-menu {
+    z-index:1000;
+    position: absolute;
+    background-color:#FFFFFF;
+    border: 1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+}
+
