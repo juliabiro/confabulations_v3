@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}Not Found{% endblock %}
+
 {% block content %}
 
-Well, this is sad... unfortunately the page you are looking for can't be found.
 
-You can go back to the <a href="/">start page</a>.
+<div class="block404">
+    <div class="giant404">
+        404 :(
+    </div>
 
+       Well, this is sad... unfortunately the page you are looking for can't be found.
+
+        Maybe you want to go back to the
+
+        <a class="btn btn-primary" href="/" role="button">Start Page</a>?
+</div>
 
 {% endblock %}

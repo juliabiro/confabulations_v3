@@ -282,3 +282,8 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 .highlight {
     background: #FF7D7D;
 }
+
+.giant404{
+    font-size: 200px;
+    font-weight: bolder;
+}
