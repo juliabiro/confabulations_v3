@@ -29,3 +29,4 @@ urlpatterns = [
     url(r'^search/', search_list_view),
     url(r'^', index),
 ]
+
