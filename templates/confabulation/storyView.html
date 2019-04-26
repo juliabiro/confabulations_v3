@@ -60,11 +60,11 @@
     {% for photo in photos %}
     <div class="story_photo_boc">
         <div class="story_photo_name">
-            {{ photo.name }} 
+            {{ photo.name }}
         </div>
         {% if photo.url %}
         <div id="story_photo">
-            <a href={{photo.url}}>   <img width=100 src={{ photo.url }} ></a>
+            <a href="/image/{{photo.name}}/">   <img width=100 src={{ photo.url }} ></a>
         </div>
         {% else %}
         {{photo.photo_error_message}}
