@@ -7,7 +7,6 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
-      - /Users/juliabiro/Downloads/pk-APKAJ6OXE6IOMB4LF4FA.pem:/pk-cloudfront.pem
     ports:
       - "8000:8000"
     depends_on:

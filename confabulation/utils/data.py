@@ -10,7 +10,3 @@ S3_BUCKET='confabulations'
 VIDEOS_DIR='Video/720/'
 
 TAXONOMY_VIDEO_KEY='TAXONOMY.mp4'
-
-CLOUDFRONT_KEY_ID=settings.CLOUDFRONT_KEY_ID
-CLOUDFRONT_KEY_PATH="/pk-cloudfront.pem"
-CLOUDFRONT_DISTRIBUTION='https://d3g74r7twa0u2z.cloudfront.net/'

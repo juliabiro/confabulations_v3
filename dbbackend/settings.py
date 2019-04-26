@@ -40,12 +40,6 @@ if 'CLOUDINARY_API_KEY' in os.environ:
 if 'CLOUDINARY_API_SECRET' in os.environ:
     CLOUDINARY_API_SECRET=os.environ['CLOUDINARY_API_SECRET']
 
-
-CLOUDFRONT_KEY_ID=""
-if "CLOUDFRONT_KEY_ID" in os.environ:
-    CLOUDFRONT_KEY_ID=os.environ["CLOUDFRONT_KEY_ID"]
-
-
 ALLOWED_HOSTS = []
 
 SITE_NAME = "Beyond The Photograph"
