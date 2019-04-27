@@ -69,7 +69,7 @@
 
 ul ul a {
     font-size: 0.9em !important;
-    padding-left: 30px !important;
+    padding-left: 25px !important;
 }
 
 a[data-toggle="collapse"] {
@@ -106,10 +106,20 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
 }
+.nav-item {
+    min-width: 150px;
+    margin-left: 50px;
+    display: block;
+}
+
+
 .nav-item:hover>.dropdown-menu {
     display: block;
 }
 
+.navbar-nav .dropdown-menu {
+    margin:0;
+}
 .dropdown-submenu>a:after {
     display: block;
     content: " ";

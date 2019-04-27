@@ -1,9 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +25,9 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="#">Connects</a>
+                <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Connects
+                </a>
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     {% for ptype in navigation.connects %}
                     <li>
@@ -39,16 +37,20 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+                <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About
+                </a>
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     <li>
-                        <a class="nav-link" href="/about">About this project</a>
-                        <a class="nav-link" href="/author">About the author</a>
+                        <a class="nav-link" tabindex="-1" href="/about">About this project</a>
+                    </li>
+                <li>
+                        <a class="nav-link" tabindex="-1" href="/author">About the author</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="input-group input-group-sm mb-3">
+                <div class="search input-group input-group-sm">
                     <form id="searchform" action="/search/" method="get" accept-charset="utf-8">
                         <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2" name="search">
                     </form>
