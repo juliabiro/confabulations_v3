@@ -1,7 +1,7 @@
 import re
 
 def getmatchednumber(s):
-    return str(int(s.group()))
+    return str(int(s.group())).zfill(3)
 
 def get_sortable_name(story):
     name = story.name
