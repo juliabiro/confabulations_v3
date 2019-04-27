@@ -3,13 +3,24 @@
 <script type="text/javascript">
  // create an array with nodes
  var nodes = new vis.DataSet([
-     {% for s in story_list %}{id: {{s.id}}, label: '{{s.name}}'},{% endfor %}
+     {% for s in node_list %}
+     {id: {{s.id}},
+      label: '{{s.label}}',
+      color:'{{s.color}}',
+      font: '25px arial black',
+      shape: 'dot',
+      size: 40,
+      url: '{{s.url}}',
+     },
+     {% endfor %}
  ]);
 
  // create an array with edges
  var edges = new vis.DataSet([
-     {% for c in connections %}
-{from: {{c.story1.id}}, to: {{c.story2.id}} },
+     {% for e in edges %}
+     {from: {{e.node1.id}},
+      to: {{e.node2.id}}
+     },
      {% endfor %}
  ]);
 
@@ -21,8 +32,16 @@
      nodes: nodes,
      edges: edges
  };
- var options = {};
+ var options = {
+     improvedLayout: false};
 
  // initialize your network!
  var network = new vis.Network(container, data, options);
+
+ network.on("selectNode", function (params) {
+     if (params.nodes.length === 1) {
+         var node = nodes.get(params.nodes[0]);
+         window.open(node.url, '_blank');
+     }
+ });
 </script>
