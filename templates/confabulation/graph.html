@@ -1,21 +1,14 @@
-<div id="mynetwork">
-</div>
+{% for p in participants %}
+<h3>{{p.name}}</h3>
+<div class="graph small_graph" id="graph_{{p.name}}"></div>
+{% endfor %}
+<h3>All stories</h3>
+<div class="graph" id="graph1"></div>
+
 <script type="text/javascript">
- // create an array with nodes
- var nodes = new vis.DataSet([
-     {% for s in node_list %}
-     {id: {{s.id}},
-      label: '{{s.label}}',
-      color:'{{s.color}}',
-      font: '25px arial black',
-      shape: 'dot',
-      size: 40,
-      url: '{{s.url}}',
-     },
-     {% endfor %}
- ]);
 
  // create an array with edges
+ // reuse this data
  var edges = new vis.DataSet([
      {% for e in edges %}
      {from: {{e.node1.id}},
@@ -24,16 +17,81 @@
      {% endfor %}
  ]);
 
+{% for p in participants %}
+ var nodes_{{p.name}} = new vis.DataSet([
+     {% for s in node_list %}
+     {% if s.group == p.name %}
+     {id: {{s.id}},
+      label: '{{s.label}}',
+      url: '{{s.url}}',
+      group: '{{s.group}}',
+     },
+     {% endif %}
+     {% endfor %}
+ ]);
+
  // create a network
- var container = document.getElementById('mynetwork');
+ var container_{{p.name}} = document.getElementById('graph_{{p.name}}');
+
+ // provide the data in the vis format
+ var data_{{p.name}} = {
+     nodes: nodes_{{p.name}},
+     edges: edges,
+ };
+ var options_{{p.name}} = {
+     layout: {
+         improvedLayout: false,
+     },
+     groups:{
+        useDefaultGroups: true,
+        {{ p.name }}:{
+            color: '{{p.color}}',
+            font: '25px arial black',
+            shape: 'dot',
+            size: 40,
+        },
+    }
+ };
+
+ // initialize your network!
+ var network = new vis.Network(container_{{p.name}}, data_{{p.name}}, options_{{p.name}});
+ {% endfor %}
+
+ // create an array with nodes
+ var nodes = new vis.DataSet([
+     {% for s in node_list %}
+     {id: {{s.id}},
+      label: '{{s.label}}',
+      url: '{{s.url}}',
+      group: '{{s.group}}',
+     },
+     {% endfor %}
+ ]);
+
+ // create a network
+ var container = document.getElementById('graph1');
 
  // provide the data in the vis format
  var data = {
      nodes: nodes,
-     edges: edges
+     edges: edges,
  };
  var options = {
-     improvedLayout: false};
+     layout: {
+         improvedLayout: false,
+     },
+     groups:{
+        useDefaultGroups: true,
+        {% for p in participants %}
+        {{ p.name }}:{
+            color: '{{p.color}}',
+            font: '25px arial black',
+            shape: 'dot',
+            size: 40,
+        },
+        {% endfor %}
+    }
+ };
 
  // initialize your network!
  var network = new vis.Network(container, data, options);
@@ -44,4 +102,5 @@
          window.open(node.url, '_blank');
      }
  });
+
 </script>

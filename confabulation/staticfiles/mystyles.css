@@ -337,8 +337,13 @@ video {
     padding:1rem;
 }
 
-#mynetwork {
-    width: 600px;
-    height: 400px;
+.graph {
+    width: 90%;
+    border: 1px solid lightgray;
+}
+.small_graph {
+    diplay: inline-block;
+    width: 300px;
+    height: 300px;
     border: 1px solid lightgray;
 }

@@ -9,10 +9,9 @@ from ..utils.story_sorter import sort_story_list
 from ..utils.connection_helpers import ConnectionBuilder
 
 COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray'}
-def _get_color(s):
-    participant_id = s.participant.id
+def _get_color(participant):
 
-    return COLORS[str(participant_id)]
+    return COLORS[str(participant.id)]
 
 def graph_view(request):
     if not request.user.is_authenticated:
@@ -28,13 +27,14 @@ def graph_view(request):
 
     nodes = [{'id': s.id,
               'label':s.name,
-              'color': _get_color(s),
+              'group': s.participant.name.replace(' ', '_'),
               'url': s.get_absolute_url()}
              for s in list(set(stories))]
     edges =[{'node1': {'id': c.story1.id},
              'node2': {'id': c.story2.id}}
             for c in connections]
-    context = {'node_list':nodes, 'edges':edges}
+    participants = [{'name':p.name.replace(' ', '_'), 'color': _get_color(p) } for p in Participant.objects.distinct()]
+    context = {'node_list':nodes, 'edges':edges, 'participants':participants}
 
     setup_page_context(context)
     return render(request, 'confabulation/graphView.html', context)
