@@ -7,8 +7,8 @@
 
 {% if participant_list %}
 <ul>
-    {% for participant in participant_list %}
-    <li><a href="/participant/{{ participant.id }}/">{{ participant.name }}</a></li>
+    {% for p in participant_list %}
+    <li><a href="{{p.url}}"> {{p.name}}</a></li>
     {% endfor %}
 </ul>
 {% endif %}

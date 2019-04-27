@@ -10,7 +10,7 @@ def participants(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    participant_list = Participant.objects.all()
+    participant_list = [{'name': p.name, 'url': p.get_absolute_url()} for p in Participant.objects.all()]
     context = {'participant_list':participant_list}
     setup_page_context(context)
     return render(request, 'confabulation/participants.html', context)
