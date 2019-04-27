@@ -5,10 +5,8 @@
 
 {% block content %}
 
+{% block graph %}
+{% include "confabulation/graph.html" %}
+{% endblock %}
 
-<h1>Stories</h1>
-
-{% if story_list %}
-    {% story_list_thumb story_list 150 %}
-{% endif %}
 {% endblock %}
