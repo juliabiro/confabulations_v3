@@ -5,13 +5,10 @@
     padding-right: 20px;
 }
 
-/* .sidebar { */
-/*     display: none; */
-/* } */
+#block-content {
+    width: 100%;
+}
 
-/* .sidebar.active { */
-/*     display: block; */
-/* } */
 .sidebar {
     display:inline;
 }
@@ -20,6 +17,7 @@
     min-width: 200px;
     max-width: 250px;
     min-height: 100vh;
+    margin-right: 30px;
 }
 
 .sidebar_left.active {
@@ -29,8 +27,9 @@
 .sidebar_right {
     display: block;
     min-width: 250px;
-    max-width: 350px;
+    max-width: 300px;
     min-height: 100vh;
+    margin-left: 30px;
 }
 
 .sidebar_right.active {
@@ -69,7 +68,7 @@
 
 ul ul a {
     font-size: 0.9em !important;
-    padding-left: 30px !important;
+    padding-left: 25px !important;
 }
 
 a[data-toggle="collapse"] {
@@ -106,10 +105,20 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
 }
+.nav-item {
+    min-width: 150px;
+    margin-left: 50px;
+    display: block;
+}
+
+
 .nav-item:hover>.dropdown-menu {
     display: block;
 }
 
+.navbar-nav .dropdown-menu {
+    margin:0;
+}
 .dropdown-submenu>a:after {
     display: block;
     content: " ";
@@ -318,4 +327,8 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 .zoomout{
     cursor: zoom-out;
+}
+
+.search{
+margin-left:auto 
 }
