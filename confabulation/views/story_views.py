@@ -5,12 +5,14 @@ from ..models import  Story, Era, AnalysisPoint, Participant, Keyword, StoryToSt
 from ..utils.s3_helpers import *
 from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
+from ..utils.story_sorter import sort_story_list
 
 def stories(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    story_list = Story.objects.all().order_by('name')
+    story_list = sort_story_list(list(Story.objects.distinct()))
+
     context = {'story_list': story_list}
     setup_page_context(context)
     return render(request, 'confabulation/stories.html', context)

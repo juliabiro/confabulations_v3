@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load story_list_thumb %}
 
 {% block title %}Stories{% endblock %}
 
@@ -7,11 +8,7 @@
 
 {% if story_list %}
 <ul>
-    {% for story in story_list %}
-    <li><a href="/story/{{ story.id }}/">{{ story.name }}
-        {% if story.image_link %}
-<img src="{{story.image_link}}" width=100>
-{% endif %}
+    {% story_list_thumb story_list 150 %}
 </a>
     </li>
     {% endfor %}
