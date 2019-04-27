@@ -5,13 +5,10 @@
     padding-right: 20px;
 }
 
-/* .sidebar { */
-/*     display: none; */
-/* } */
+#block-content {
+    width: 100%;
+}
 
-/* .sidebar.active { */
-/*     display: block; */
-/* } */
 .sidebar {
     display:inline;
 }
