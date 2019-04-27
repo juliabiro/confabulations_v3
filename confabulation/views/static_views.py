@@ -14,13 +14,15 @@ def index(request):
     return render(request, 'frontpage.html', context)
 
 def about(request):
-    return render(request, 'about.html')
+    context = setup_page_context(None, navbar=False)
+    return render(request, 'confabulation/about.html', context)
 
 def author(request):
-    return render(request, 'author.html')
+    context = setup_page_context(None, navbar=False)
+    return render(request, 'confabulation/author.html', context)
 
 def menumap(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-    setup_page_context(None, navbar=False)
+    context = setup_page_context(None, navbar=True)
     return render(request, 'menumap.html', context)
