@@ -20,13 +20,13 @@ class StaticPages(TestCase):
         response = self.client.get('/author')
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'author.html')
+        self.assertTemplateUsed(response, 'confabulation/author.html')
 
     def test_about(self):
         response = self.client.get('/about')
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about.html')
+        self.assertTemplateUsed(response, 'confabulation/about.html')
 
     def test_static_files(self):
         css_response = self.client.get('/static/mystyles.css')
