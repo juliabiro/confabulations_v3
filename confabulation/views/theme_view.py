@@ -8,7 +8,7 @@ def themes(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
-    theme_list = Theme.objects.all()
+    theme_list = [{'name': t.name, 'url':t.get_absoule_url()} for t in Theme.objects.all()]
     context = {'theme_list':theme_list}
     setup_page_context(context)
     return render(request, 'confabulation/themes.html', context)

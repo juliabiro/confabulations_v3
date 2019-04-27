@@ -1,0 +1,28 @@
+<div id="mynetwork">
+</div>
+<script type="text/javascript">
+ // create an array with nodes
+ var nodes = new vis.DataSet([
+     {% for s in story_list %}{id: {{s.id}}, label: '{{s.name}}'},{% endfor %}
+ ]);
+
+ // create an array with edges
+ var edges = new vis.DataSet([
+     {% for c in connections %}
+{from: {{c.story1.id}}, to: {{c.story2.id}} },
+     {% endfor %}
+ ]);
+
+ // create a network
+ var container = document.getElementById('mynetwork');
+
+ // provide the data in the vis format
+ var data = {
+     nodes: nodes,
+     edges: edges
+ };
+ var options = {};
+
+ // initialize your network!
+ var network = new vis.Network(container, data, options);
+</script>

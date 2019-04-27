@@ -336,3 +336,9 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 video {
     padding:1rem;
 }
+
+#mynetwork {
+    width: 600px;
+    height: 400px;
+    border: 1px solid lightgray;
+}
