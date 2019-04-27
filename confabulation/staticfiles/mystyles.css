@@ -330,5 +330,9 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 }
 
 .search{
-margin-left:auto 
+    margin-left:auto;
+}
+
+video {
+    padding:1rem;
 }
