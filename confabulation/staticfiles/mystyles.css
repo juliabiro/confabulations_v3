@@ -20,6 +20,7 @@
     min-width: 200px;
     max-width: 250px;
     min-height: 100vh;
+    margin-right: 30px;
 }
 
 .sidebar_left.active {
@@ -29,8 +30,9 @@
 .sidebar_right {
     display: block;
     min-width: 250px;
-    max-width: 350px;
+    max-width: 300px;
     min-height: 100vh;
+    margin-left: 30px;
 }
 
 .sidebar_right.active {
@@ -328,4 +330,8 @@ Code taken from here: https://codepen.io/svnt/pen/beEgre
 
 .zoomout{
     cursor: zoom-out;
+}
+
+.search{
+margin-left:auto 
 }
