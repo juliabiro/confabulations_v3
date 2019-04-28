@@ -11,20 +11,20 @@
 
 {% for p in participant_graphs %}
  var nodes_{{p.name}} = new vis.DataSet([
-     {{ p.nodes }}
+     {{ p.nodes|safe }}
  ]);
 
- // reuse this data
- var edges = new vis.DataSet([
-     {{ p.edges }}
+ var edges_{{p.name}} = new vis.DataSet([
+     {{ p.edges|safe }}
  ]);
+
  // create a network
  var container_{{p.name}} = document.getElementById('graph_{{p.name}}');
 
  // provide the data in the vis format
  var data_{{p.name}} = {
      nodes: nodes_{{p.name}},
-     edges: edges,
+     edges: edges_{{p.name}},
  };
  var options_{{p.name}} = {
      layout: {
@@ -32,7 +32,7 @@
      },
      groups:{
          useDefaultGroups: true,
-         {{p.group}}
+         {{p.group|safe}}
     }
  };
 

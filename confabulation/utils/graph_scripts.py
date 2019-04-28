@@ -20,6 +20,6 @@ def participant_story_connections(participant):
         Template("{ from: $fromm, to: $to}").substitute(fromm=p.story1.id, to=p.story2.id) for p in pairs]
     )
 
-    group= Template("$name: { color: $color, font: '25px arial black', shape: 'dot',}").substitute(name=participant.name.replace(" ", "_"), color=COLORS[str(participant.id)])
+    group= Template("$name: { color: '$color', font: '25px arial black', shape: 'dot',}").substitute(name=participant.name.replace(" ", "_"), color=COLORS[str(participant.id)])
 
     return node_list, edge_list, group
