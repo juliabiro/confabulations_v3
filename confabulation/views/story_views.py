@@ -6,14 +6,17 @@ from ..utils.s3_helpers import *
 from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 from ..utils.story_sorter import sort_story_list
+from ..utils.connection_helpers import ConnectionBuilder
 
 def stories(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     story_list = sort_story_list(list(Story.objects.distinct()))
+    connections = ConnectionBuilder('Intraconnection').buildstoryconnections()
 
-    context = {'story_list': story_list}
+    context = {'story_list': story_list, 'connections':connections}
+
     setup_page_context(context)
     return render(request, 'confabulation/stories.html', context)
 
