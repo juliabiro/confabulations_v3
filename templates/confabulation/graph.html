@@ -41,45 +41,42 @@
  {% endfor %}
 
 
- /* create an array with nodes
-  * var nodes = new vis.DataSet([
-  *     {% for s in node_list %}
-  *     {id: {{s.id}},
-  *      label: '{{s.label}}',
-  *      url: '{{s.url}}',
-  *      group: '{{s.group}}',
-  *     },
-  *     {% endfor %}
-  * ]);
+ /* Big graph with all stories */
+ /* create an array with nodes*/
+ var nodes = new vis.DataSet([
+     {% for p in participant_graphs %}
+     {{ p.nodes|safe }},
+     {% endfor %}
+ ]);
 
-  * // create a network
-  * var container = document.getElementById('graph1');
+ var edges = new vis.DataSet([
+     {% for p in participant_graphs %}
+     {{ p.edges|safe }},
+     {% endfor %}
 
-  * // provide the data in the vis format
-  * var data = {
-  *     nodes: nodes,
-  *     edges: edges,
-  * };
-  * var options = {
-  *     layout: {
-  *         improvedLayout: false,
-  *     },
-  *     groups:{
-  *        useDefaultGroups: true,
-  *        {% for p in participants %}
-  *        {{ p.name }}:{
-  *            color: '{{p.color}}',
-  *            font: '25px arial black',
-  *            shape: 'dot',
-  *            size: 40,
-  *        },
-  *        {% endfor %}
-  *    }
-  * };
-
-  * // initialize your network!
-  * var network = new vis.Network(container, data, options);
-  */
+ ]);
+ /* create a network*/
+ var container = document.getElementById('graph1');
+ 
+ /* provide the data in the vis format*/
+ var data = {
+     nodes: nodes,
+     edges: edges,
+ };
+ var options = {
+     layout: {
+         improvedLayout: false,
+     },
+     groups:{
+         useDefaultGroups: true,
+         {% for p in participant_graphs %}
+         {{ p.group|safe }},
+         {% endfor %}
+     }
+ };
+ 
+ /* initialize your network!*/
+ var network = new vis.Network(container, data, options);
  network.on("selectNode", function (params) {
      if (params.nodes.length === 1) {
          var node = nodes.get(params.nodes[0]);
