@@ -57,7 +57,7 @@
  ]);
  /* create a network*/
  var container = document.getElementById('graph1');
- 
+
  /* provide the data in the vis format*/
  var data = {
      nodes: nodes,
@@ -74,9 +74,10 @@
          {% endfor %}
      }
  };
- 
+
  /* initialize your network!*/
  var network = new vis.Network(container, data, options);
+
  network.on("selectNode", function (params) {
      if (params.nodes.length === 1) {
          var node = nodes.get(params.nodes[0]);
