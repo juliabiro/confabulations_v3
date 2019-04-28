@@ -18,14 +18,18 @@ def graph_participant_view(request, participant_id):
         'participant_graphs':[],
     }
     participant=get_object_or_404(Participant, pk=participant_id)
-    node_list, edge_list, group = participant_story_connections(participant)
 
+
+    #node_list, edge_list, group = participant_story_connections(participant)
+    # instead get the whole package:
+
+    node_list, edge_list, groups = participant_chains_themes_stories(participant)
 
     context['participant_graphs'].append({
         'name': participant.name.replace(' ','_'),
         'nodes': node_list,
         'edges': edge_list,
-        'groups': ','.join([group, story_group(participant)])
+        'groups': groups,
     })
 
     setup_page_context(context)
