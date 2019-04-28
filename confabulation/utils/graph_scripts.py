@@ -26,19 +26,19 @@ def sanitize_name(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node(participant, chain):
-    node = Template("{id: $id, label:'$label', url: '$url', group: 'chain', color: '$color',}").substitute(id=get_unique_node_id(chain), label=sanitize_name(chain.name), url=chain.get_absolute_url(), color=COLORS[str(participant.id)])
+    node = Template("{id: $id, label:'$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 0.5}").substitute(id=get_unique_node_id(chain), label=sanitize_name(chain.name), url=chain.get_absolute_url(), color=COLORS[str(participant.id)])
     return node
 
 def theme_node(participant, theme):
-    node = Template("{id: $id, label:'$label', url: '$url', group: 'theme', color: '$color',}").substitute(id=get_unique_node_id(theme), label=sanitize_name(theme.name), url=theme.get_absolute_url(), color=COLORS[str(participant.id)])
+    node = Template("{id: $id, label:'$label', url: '$url', group: 'theme', color: '$color',size: 25, mass:0.5}").substitute(id=get_unique_node_id(theme), label=sanitize_name(theme.name), url=theme.get_absolute_url(), color=COLORS[str(participant.id)])
     return node
 
 def story_node(participant, story):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',}").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=participant.name.replace(' ','_'))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass:0.2}").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=participant.name.replace(' ','_'))
     return node
 
 def participant_node(participant):
-    node = Template("{id: $id, label:'$label', url: '$url', group: 'participant_$group', color: '$color',}").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=participant.name.replace(' ','_'))
+    node = Template("{id: $id, label:'$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 0.1}").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=participant.name.replace(' ','_'))
     return node
 
 def story_to_story_edge(story1, story2):
@@ -119,6 +119,8 @@ def participant_chains_themes_stories(participant):
 
     # edges can be built on the fly
     # stories, themes and chains are collected and processed into nodes later
+    # this collection doesn't try to skip duplicates, eg the story-to-participant edge is added with every story.
+    # the duplicates are skipped later by turning these collections into sets.
     edges=[]
 
     cc = []
@@ -161,7 +163,6 @@ def participant_chains_themes_stories(participant):
 
     for p in pairs:
         edges.append(story_to_story_edge(p.story1, p.story2))
-
 
     # need to make sure that items in the nodes and edges list are unique
     # they aren't necessarily: eg the story-to-story connections have an overlapping set of nodes with the stories that belong to themes
