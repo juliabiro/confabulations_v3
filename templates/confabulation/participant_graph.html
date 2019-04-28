@@ -29,15 +29,24 @@
      layout: {
          improvedLayout: false,
      },
+     edges:{
+         smooth:{
+             enabled: true,
+             },
+         width: 3,
+         color: {
+             inherit: 'to',
+         },
+     },
      groups:{
          useDefaultGroups: true,
          {{p.groups|safe}},
      },
      physics:{
          barnesHut:{
-             centralGravity: 0.01,
+             centralGravity: 0.001,
              gravitationalConstant: -10000,
-             springConstant: 0.4,
+             springConstant: 0.04,
              springLength: 200,
              damping: 0.5,
          },
