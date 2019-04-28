@@ -91,6 +91,16 @@ class ConnectionBuilder():
 
         return [StoryPair(q[0], q[1]) for q in (sorted(participant_stories, key=lambda x: x[0].id))]
 
+    def getstoriesinconnections(self):
+        pairs = self.buildstoryconnections()
+
+        stories =[]
+        for p in pairs:
+            stories.append(p.story1)
+            stories.append(p.story2)
+
+        return list(set(stories))
+
 
 class ParticipantConnectionBuilder(ConnectionBuilder):
     def __init__(self, participant_id, connection_range):

@@ -1,4 +1,4 @@
-{% for p in participants %}
+{% for p in participant_graphs %}
 <h3>{{p.name}}</h3>
 <div class="graph small_graph" id="graph_{{p.name}}"></div>
 {% endfor %}
@@ -8,28 +8,16 @@
 <script type="text/javascript">
 
  // create an array with edges
+
+{% for p in participant_graphs %}
+ var nodes_{{p.name}} = new vis.DataSet([
+     {{ p.nodes }}
+ ]);
+
  // reuse this data
  var edges = new vis.DataSet([
-     {% for e in edges %}
-     {from: {{e.node1.id}},
-      to: {{e.node2.id}}
-     },
-     {% endfor %}
+     {{ p.edges }}
  ]);
-
-{% for p in participants %}
- var nodes_{{p.name}} = new vis.DataSet([
-     {% for s in node_list %}
-     {% if s.group == p.name %}
-     {id: {{s.id}},
-      label: '{{s.label}}',
-      url: '{{s.url}}',
-      group: '{{s.group}}',
-     },
-     {% endif %}
-     {% endfor %}
- ]);
-
  // create a network
  var container_{{p.name}} = document.getElementById('graph_{{p.name}}');
 
@@ -43,13 +31,8 @@
          improvedLayout: false,
      },
      groups:{
-        useDefaultGroups: true,
-        {{ p.name }}:{
-            color: '{{p.color}}',
-            font: '25px arial black',
-            shape: 'dot',
-            size: 40,
-        },
+         useDefaultGroups: true,
+         {{p.group}}
     }
  };
 
@@ -57,45 +40,46 @@
  var network = new vis.Network(container_{{p.name}}, data_{{p.name}}, options_{{p.name}});
  {% endfor %}
 
- // create an array with nodes
- var nodes = new vis.DataSet([
-     {% for s in node_list %}
-     {id: {{s.id}},
-      label: '{{s.label}}',
-      url: '{{s.url}}',
-      group: '{{s.group}}',
-     },
-     {% endfor %}
- ]);
 
- // create a network
- var container = document.getElementById('graph1');
+ /* create an array with nodes
+  * var nodes = new vis.DataSet([
+  *     {% for s in node_list %}
+  *     {id: {{s.id}},
+  *      label: '{{s.label}}',
+  *      url: '{{s.url}}',
+  *      group: '{{s.group}}',
+  *     },
+  *     {% endfor %}
+  * ]);
 
- // provide the data in the vis format
- var data = {
-     nodes: nodes,
-     edges: edges,
- };
- var options = {
-     layout: {
-         improvedLayout: false,
-     },
-     groups:{
-        useDefaultGroups: true,
-        {% for p in participants %}
-        {{ p.name }}:{
-            color: '{{p.color}}',
-            font: '25px arial black',
-            shape: 'dot',
-            size: 40,
-        },
-        {% endfor %}
-    }
- };
+  * // create a network
+  * var container = document.getElementById('graph1');
 
- // initialize your network!
- var network = new vis.Network(container, data, options);
+  * // provide the data in the vis format
+  * var data = {
+  *     nodes: nodes,
+  *     edges: edges,
+  * };
+  * var options = {
+  *     layout: {
+  *         improvedLayout: false,
+  *     },
+  *     groups:{
+  *        useDefaultGroups: true,
+  *        {% for p in participants %}
+  *        {{ p.name }}:{
+  *            color: '{{p.color}}',
+  *            font: '25px arial black',
+  *            shape: 'dot',
+  *            size: 40,
+  *        },
+  *        {% endfor %}
+  *    }
+  * };
 
+  * // initialize your network!
+  * var network = new vis.Network(container, data, options);
+  */
  network.on("selectNode", function (params) {
      if (params.nodes.length === 1) {
          var node = nodes.get(params.nodes[0]);

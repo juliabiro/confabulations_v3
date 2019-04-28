@@ -7,34 +7,27 @@ from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 from ..utils.story_sorter import sort_story_list
 from ..utils.connection_helpers import ConnectionBuilder
+from ..utils.graph_scripts import participant_story_connections
 
-COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray'}
-def _get_color(participant):
 
-    return COLORS[str(participant.id)]
 
 def graph_view(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
+    context={
+        'participant_graphs':[]
+    }
+    for participant in Participant.objects.distinct():
+        node_list, edge_list, group = participant_story_connections(participant)
 
-    connections = ConnectionBuilder('Intraconnection').buildstoryconnections()
+        context['participant_graphs'].append({
+            'name': participant.name.replace(' ','_'),
+            'nodes': node_list,
+            'edges': edge_list,
+            'group': group
+        })
 
-    stories = []
-    for c in connections:
-        stories.append(c.story1)
-        stories.append(c.story2)
-
-    nodes = [{'id': s.id,
-              'label':s.name,
-              'group': s.participant.name.replace(' ', '_'),
-              'url': s.get_absolute_url()}
-             for s in list(set(stories))]
-    edges =[{'node1': {'id': c.story1.id},
-             'node2': {'id': c.story2.id}}
-            for c in connections]
-    participants = [{'name':p.name.replace(' ', '_'), 'color': _get_color(p) } for p in Participant.objects.distinct()]
-    context = {'node_list':nodes, 'edges':edges, 'participants':participants}
 
     setup_page_context(context)
     return render(request, 'confabulation/graphView.html', context)
