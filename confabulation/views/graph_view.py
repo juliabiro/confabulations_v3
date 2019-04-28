@@ -7,7 +7,7 @@ from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 from ..utils.story_sorter import sort_story_list
 from ..utils.connection_helpers import ConnectionBuilder
-from ..utils.graph_scripts import participant_story_connections
+from ..utils.graph_scripts import *
 
 
 
@@ -16,18 +16,26 @@ def graph_view(request):
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
     context={
-        'participant_graphs':[]
+        'participant_graphs':[],
+        'story_to_participant_graph':{
+            'nodes':"",
+            'edges':"",
+        }
     }
-    for participant in Participant.objects.distinct():
+    participants= Participant.objects.distinct()
+    for participant in participants:
         node_list, edge_list, group = participant_story_connections(participant)
+
 
         context['participant_graphs'].append({
             'name': participant.name.replace(' ','_'),
             'nodes': node_list,
             'edges': edge_list,
-            'group': group
+            'groups': ','.join([group, story_group(participant)])
         })
 
+    context['story_to_participant_graph']['nodes']=','.join([participant_node(p) for p in participants])
+    context['story_to_participant_graph']['edges']=','.join([story_to_participant_edges(p) for p in participants])
 
     setup_page_context(context)
     return render(request, 'confabulation/graphView.html', context)

@@ -9,7 +9,7 @@
 
  // create an array with edges
 
-{% for p in participant_graphs %}
+ {% for p in participant_graphs %}
  var nodes_{{p.name}} = new vis.DataSet([
      {{ p.nodes|safe }}
  ]);
@@ -32,8 +32,15 @@
      },
      groups:{
          useDefaultGroups: true,
-         {{p.group|safe}}
-    }
+         {{p.groups|safe}},
+     },
+     physics:{
+         barnesHut:{
+             centralGravity: 0.2,
+             gravitationalConstant: -5000,
+             springConstant: 0.2,
+         },
+     }
  };
 
  // initialize your network!
@@ -47,12 +54,14 @@
      {% for p in participant_graphs %}
      {{ p.nodes|safe }},
      {% endfor %}
+     {{ story_to_participant_graph.nodes|safe}},
  ]);
 
  var edges = new vis.DataSet([
      {% for p in participant_graphs %}
      {{ p.edges|safe }},
      {% endfor %}
+     {{ story_to_participant_graph.edges|safe}},
 
  ]);
  /* create a network*/
@@ -70,19 +79,26 @@
      groups:{
          useDefaultGroups: true,
          {% for p in participant_graphs %}
-         {{ p.group|safe }},
+         {{ p.groups|safe }},
          {% endfor %}
+     },
+     physics:{
+         barnesHut:{
+             centralGravity: 0.4,
+             gravitationalConstant: -3000,
+             springConstant: 0.1,
+         },
      }
- };
+};
 
  /* initialize your network!*/
  var network = new vis.Network(container, data, options);
 
- network.on("selectNode", function (params) {
-     if (params.nodes.length === 1) {
-         var node = nodes.get(params.nodes[0]);
-         window.open(node.url, '_blank');
-     }
- });
-
+ /* network.on("selectNode", function (params) {
+  *     if (params.nodes.length === 1) {
+  *         var node = nodes.get(params.nodes[0]);
+  *         window.open(node.url, '_blank');
+  *     }
+  * });
+  */
 </script>
