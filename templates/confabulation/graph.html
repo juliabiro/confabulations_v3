@@ -1,51 +1,8 @@
-{% for p in participant_graphs %}
-<h3>{{p.name}}</h3>
-<div class="graph small_graph" id="graph_{{p.name}}"></div>
-{% endfor %}
 <h3>All stories</h3>
 <div class="graph" id="graph1"></div>
 
 <script type="text/javascript">
 
- // create an array with edges
-
- {% for p in participant_graphs %}
- var nodes_{{p.name}} = new vis.DataSet([
-     {{ p.nodes|safe }}
- ]);
-
- var edges_{{p.name}} = new vis.DataSet([
-     {{ p.edges|safe }}
- ]);
-
- // create a network
- var container_{{p.name}} = document.getElementById('graph_{{p.name}}');
-
- // provide the data in the vis format
- var data_{{p.name}} = {
-     nodes: nodes_{{p.name}},
-     edges: edges_{{p.name}},
- };
- var options_{{p.name}} = {
-     layout: {
-         improvedLayout: false,
-     },
-     groups:{
-         useDefaultGroups: true,
-         {{p.groups|safe}},
-     },
-     physics:{
-         barnesHut:{
-             centralGravity: 0.2,
-             gravitationalConstant: -5000,
-             springConstant: 0.2,
-         },
-     }
- };
-
- // initialize your network!
- var network = new vis.Network(container_{{p.name}}, data_{{p.name}}, options_{{p.name}});
- {% endfor %}
 
 
  /* Big graph with all stories */

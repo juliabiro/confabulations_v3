@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load story_list_thumb %}
+
+{% block title %}Stories{% endblock %}
+
+{% block content %}
+
+<h1>connected stories</h1>
+{% block graph %}
+{% include "confabulation/participant_graph.html" %}
+{% endblock %}
+
+{% endblock %}

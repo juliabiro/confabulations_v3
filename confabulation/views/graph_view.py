@@ -10,6 +10,26 @@ from ..utils.connection_helpers import ConnectionBuilder
 from ..utils.graph_scripts import *
 
 
+def graph_participant_view(request, participant_id):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    context={
+        'participant_graphs':[],
+    }
+    participant=get_object_or_404(Participant, pk=participant_id)
+    node_list, edge_list, group = participant_story_connections(participant)
+
+
+    context['participant_graphs'].append({
+        'name': participant.name.replace(' ','_'),
+        'nodes': node_list,
+        'edges': edge_list,
+        'groups': ','.join([group, story_group(participant)])
+    })
+
+    setup_page_context(context)
+    return render(request, 'confabulation/participantGraph.html', context)
 
 def graph_view(request):
     if not request.user.is_authenticated:
