@@ -1,4 +1,5 @@
 import re
+from base64 import b64decode
 from botocore.exceptions import ClientError
 import boto3
 from .data import S3_BUCKET, VIDEOS_DIR, CLOUDFRONT_DISTRIBUTION, CLOUDFRONT_KEY_ID, CLOUDFRONT_KEY_PATH
@@ -21,9 +22,9 @@ def _gets3():
 def rsa_signer(message):
 
     #with open(CLOUDFRONT_KEY_PATH, 'rb') as key_file:
-    key = os.environ['CLOUDFRONT_KEY'].replace('\\r', '\r').replace('\\n', '\n')
+    key = b64decode(os.environ['CLOUDFRONT_KEY'])
     private_key = serialization.load_pem_private_key(
-        data=key.encode('ascii'),
+        data=key,
         password=None,
         backend=default_backend()
     )
