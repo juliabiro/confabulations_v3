@@ -72,39 +72,45 @@ def chain_group(participant=None):
 def participant_group(participant):
     return Template("participant_$name: {color: '$color', font: '25px arial black', shape: 'ellipse',}").substitute(name=participant.name.replace(' ','_'), color=COLORS[str(participant.id)])
 
+def data_to_script(data):
+    return ',\n'.join(list(set(data)))
 
 # collector functions
 def story_to_participant_edges(participant):
     stories = Story.objects.filter(participant__id=participant.id).distinct()
 
-    edges = ',\n'.join([
+    edges = data_to_script([
         story_to_participant_edge(participant, s) for s in stories
     ])
 
     return edges
 
-def participant_story_connections(participant):
+def collect_participant_story_connections(participant):
     builder = ParticipantConnectionBuilder(participant, 'Intraconnection')
     pairs = builder.buildstoryconnections()
     stories = builder.getstoriesinconnections()
 
     # using template strings https://docs.python.org/3/library/string.html#template-strings
     # because in normal format, the ':' is for identifiers and it is really hard to escape it
+    node_list = [story_node(participant, s) for s in stories]
 
-    node_list = ',\n'.join(
-        [story_node(participant, s) for s in stories]
-    )
-
-    # whoops, from is a reserved keyword :)
-    edge_list = ',\n'.join([story_to_story_edge(p.story1, p.story2) for p in pairs])
-
+    edge_list = [story_to_story_edge(p.story1, p.story2) for p in pairs]
     group= story_group(participant)
 
     return node_list, edge_list, group
 
 
+def participant_story_connections(participant):
+    n, e, g = collect_participant_story_connections(participant)
+
+    node_list = data_to_script(n)
+    edge_list = data_to_script(e)
+    group = data_to_script(g)
+    return node_list, edge_list, group
+
+
 # bug function getting all parts necessary
-def participant_chains_themes_stories(participant):
+def collect_participant_chains_themes_stories(participant):
     participant_id = participant.id
     intraBuilder = ParticipantConnectionBuilder(participant_id, 'Intraconnection')
     interBuilder = ParticipantConnectionBuilder(participant_id, 'Interconnection')
@@ -165,12 +171,17 @@ def participant_chains_themes_stories(participant):
     for p in pairs:
         edges.append(story_to_story_edge(p.story1, p.story2))
 
-    # need to make sure that items in the nodes and edges list are unique
-    # they aren't necessarily: eg the story-to-story connections have an overlapping set of nodes with the stories that belong to themes
-    node_list = ',\n'.join(list(set(nodes)))
-    edge_list = ',\n'.join(list(set(edges)))
-    groups=',\n'.join([story_group(participant), theme_group(), chain_group()])
+    groups=[story_group(participant), theme_group(), chain_group()]
 
+    return nodes, edges, groups
+
+def participant_chains_themes_stories(participant):
+
+    n, e, g = collect_participant_chains_themes_stories(participant)
+
+    node_list = data_to_script(n)
+    edge_list = data_to_script(e)
+    groups = data_to_script(g)
     return node_list, edge_list, groups
 
 
