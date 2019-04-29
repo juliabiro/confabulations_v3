@@ -8,17 +8,11 @@
  /* Big graph with all stories */
  /* create an array with nodes*/
  var nodes = new vis.DataSet([
-     {% for p in participant_graphs %}
-     {{ p.nodes|safe }},
-     {% endfor %}
-     {{ story_to_participant_graph.nodes|safe}},
+     {{ nodes|safe }},
  ]);
 
  var edges = new vis.DataSet([
-     {% for p in participant_graphs %}
-     {{ p.edges|safe }},
-     {% endfor %}
-     {{ story_to_participant_graph.edges|safe}},
+     {{ edges|safe }},
 
  ]);
  /* create a network*/
@@ -35,9 +29,7 @@
      },
      groups:{
          useDefaultGroups: true,
-         {% for p in participant_graphs %}
-         {{ p.groups|safe }},
-         {% endfor %}
+         {{ groups|safe }},
      },
      physics:{
          barnesHut:{
