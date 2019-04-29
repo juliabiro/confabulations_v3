@@ -42,15 +42,17 @@ def graph_view(request):
     groups=[]
     participants= Participant.objects.distinct()
     for participant in participants:
-        n, e, g = collect_participant_story_connections(participant)
+        #n, e, g = collect_participant_story_connections(participant)
+        n, e, g = collect_participant_chains_themes_stories(participant)
         nodes.extend(n)
         edges.extend(e)
         groups.extend(g)
-        nodes.append(participant_node(participant))
-        edges.extend(collect_story_to_participant_edges(participant))
+        #nodes.append(participant_node(participant))
+        #edges.extend(collect_story_to_participant_edges(participant))
         groups.append(story_group(participant))
 
     context={}
+
     context['nodes'] = data_to_script(nodes)
     context['edges'] = data_to_script(edges)
     context['groups'] = data_to_script(groups)

@@ -23,57 +23,60 @@ def get_unique_node_id(node):
     return OBJECT_TYPE_PREFIXES[typ]+postfix
 
 def sanitize_name(name):
+    return name.replace(' ', '_')
+
+def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node(participant, chain):
-    node = Template("{ id: $id, label:'$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 0.1 }").substitute(id=get_unique_node_id(chain), label=sanitize_name(chain.name), url=chain.get_absolute_url(), color=COLORS[str(participant.id)])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 0.1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color=COLORS[str(participant.id)])
     return node
 
 def theme_node(participant, theme):
-    node = Template("{ id: $id, label:'$label', url: '$url', group: 'theme', color: '$color',size: 25, mass:0.2 }").substitute(id=get_unique_node_id(theme), label=sanitize_name(theme.name), url=theme.get_absolute_url(), color=COLORS[str(participant.id)])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass:0.2 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color=COLORS[str(participant.id)])
     return node
 
 def story_node(participant, story):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass:0.5 }").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=participant.name.replace(' ','_'))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass:0.5 }").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=sanitize_name(participant.name))
     return node
 
 def participant_node(participant):
-    node = Template("{ id: $id, label:'$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 0.01 }").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=participant.name.replace(' ','_'))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 0.01 }").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=sanitize_name(participant.name))
     return node
 
 def story_to_story_edge(story1, story2):
-    edge= Template("{ to: $to, from:$fromm }").substitute(to=get_unique_node_id(story1), fromm=get_unique_node_id(story2))
+    edge= Template("{ to: $to, from: $fromm }").substitute(to=get_unique_node_id(story1), fromm=get_unique_node_id(story2))
     return edge
 
 def story_to_participant_edge(participant, story):
-    edge= Template("{ to: $to, from:$fromm }").substitute(to=get_unique_node_id(story), fromm=get_unique_node_id(participant))
+    edge= Template("{ to: $to, from: $fromm }").substitute(to=get_unique_node_id(story), fromm=get_unique_node_id(participant))
     return edge
 
 def story_to_theme_edge(theme, story):
-    edge= Template("{ to: $to, from:$fromm }").substitute(to=get_unique_node_id(story), fromm=get_unique_node_id(theme))
+    edge= Template("{ to: $to, from: $fromm }").substitute(to=get_unique_node_id(story), fromm=get_unique_node_id(theme))
     return edge
 
 def theme_to_chain_edge(theme, chain):
-    edge= Template("{ to: $to, from:$fromm }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme))
+    edge= Template("{ to: $to, from: $fromm }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme))
     return edge
 
 def story_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'red'
-    return Template("story_$name: { color: '$color',font: '25px arial black', shape: 'dot'}").substitute(name=participant.name.replace(" ", "_"), color=color)
+    return Template("story_$name: { color: '$color', font: '25px arial black', shape: 'dot'}").substitute(name=sanitize_name(participant.name), color=color)
 
 def theme_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'aqua'
-    return Template("theme: { color: '$color',font: '25px arial black', shape: 'triangle' }").substitute( color=color)
+    return Template("theme: { color: '$color', font: '25px arial black', shape: 'triangle' }").substitute( color=color)
 
 def chain_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'maroon'
-    return Template("chain: { color: '$color',font: '25px arial black', shape: 'hexagon' }").substitute(color=color)
+    return Template("chain: { color: '$color', font: '25px arial black', shape: 'hexagon' }").substitute(color=color)
 
 def participant_group(participant):
-    return Template("participant_$name: { color: '$color', font: '25px arial black', shape: 'ellipse' }").substitute(name=participant.name.replace(' ','_'), color=COLORS[str(participant.id)])
+    return Template("participant_$name: { color: '$color', font: '25px arial black', shape: 'ellipse' }").substitute(name=sanitize_name(participant.name), color=COLORS[str(participant.id)])
 
 def data_to_script(data):
-    return ',\n'.join(list(set(data)))
+    return ',\n'.join(sorted(list(set(data))))
 
 # collector functions
 def collect_story_to_participant_edges(participant):
