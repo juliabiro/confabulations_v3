@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import os
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
@@ -20,8 +21,16 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import handler404, handler500
 from confabulation.views.error_views import error_404, error_500
 
+login_context={
+    'is_login' : True
+}
+if 'LOCAL' in os.environ:
+    login_context['site_name'] = "LOCAL login"
+else:
+    login_context['site_name'] = "Beyond The Photograph"
+
 urlpatterns = [
-    url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^login/$', auth_views.LoginView.as_view(extra_context=login_context), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^confabulation/', include('confabulation.urls')),
     url(r'^admin/', admin.site.urls),
