@@ -26,6 +26,9 @@
         <div class="container-fluid" id="page-header">
 
             <h1><a href="/">{{ site_name }}</a></h1>
+            {% if is_login %}
+            {% include 'login.html' %}
+            {% endif %}
             {% if navigation %}
             {% block navigation %}
             {% include 'navigation.html' %}
