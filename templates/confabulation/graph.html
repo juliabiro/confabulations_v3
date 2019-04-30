@@ -32,10 +32,12 @@
          {{ groups|safe }},
      },
      physics:{
-         barnesHut:{
-             centralGravity: 0.4,
-             gravitationalConstant: -3000,
-             springConstant: 0.1,
+     barnesHut:{
+             centralGravity: 0.001,
+             gravitationalConstant: -35000,
+             springConstant: 0.4,
+             springLength: 200,
+             damping: 0.5,
          },
      }
 };
