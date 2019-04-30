@@ -6,8 +6,8 @@
 <div class="sidebar_right" id="sidebar_right">
     <ul class="list-unstyled components" >
     <li>
-        <h3> Intra-connections</h3>
     {% if sidebar_right.intraconnections %}
+        <h3> Intra-connections</h3>
         <h5><a href="#intraSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Chain</a></h5>
         <div class="collapse show" id="intraSubmenu">
             {% chain_with_theme_list sidebar_right.intraconnections "intra" %}
