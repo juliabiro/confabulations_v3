@@ -1,31 +1,27 @@
-{% for p in participant_graphs %}
-<h3>{{p.name}}</h3>
-<div class="graph small_graph" id="graph_{{p.name}}"></div>
-{% endfor %}
-<div class="graph" id="graph1"></div>
+<h3>{{name}}</h3>
+<div class="graph small_graph" id="graph"></div>
 
 <script type="text/javascript">
 
  // create an array with edges
 
- {% for p in participant_graphs %}
- var nodes_{{p.name}} = new vis.DataSet([
-     {{ p.nodes|safe }}
+ var nodes = new vis.DataSet([
+     {{ nodes|safe }}
  ]);
 
- var edges_{{p.name}} = new vis.DataSet([
-     {{ p.edges|safe }}
+ var edges = new vis.DataSet([
+     {{ edges|safe }}
  ]);
 
  // create a network
- var container_{{p.name}} = document.getElementById('graph_{{p.name}}');
+ var container = document.getElementById('graph');
 
  // provide the data in the vis format
- var data_{{p.name}} = {
-     nodes: nodes_{{p.name}},
-     edges: edges_{{p.name}},
+ var data = {
+     nodes: nodes,
+     edges: edges,
  };
- var options_{{p.name}} = {
+ var options = {
      layout: {
          improvedLayout: false,
      },
@@ -34,13 +30,10 @@
              enabled: true,
              },
          width: 3,
-         color: {
-             inherit: 'to',
-         },
      },
      groups:{
          useDefaultGroups: true,
-         {{p.groups|safe}},
+         {{groups|safe}},
      },
      physics:{
          barnesHut:{
@@ -54,8 +47,7 @@
  };
 
  // initialize your network!
- var network = new vis.Network(container_{{p.name}}, data_{{p.name}}, options_{{p.name}});
- {% endfor %}
+ var network = new vis.Network(container, data, options);
 
 
  /* network.on("selectNode", function (params) {
