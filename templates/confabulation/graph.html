@@ -33,12 +33,14 @@
      },
      physics:{
          barnesHut:{
-             centralGravity: 0.4,
-             gravitationalConstant: -3000,
-             springConstant: 0.1,
+             centralGravity: 0.001,
+             gravitationalConstant: -25000,
+             springConstant: 0.4,
+             springLength: 200,
+             damping: 0.5,
          },
      }
-};
+ };
 
  /* initialize your network!*/
  var network = new vis.Network(container, data, options);
