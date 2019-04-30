@@ -17,7 +17,7 @@ def stories(request):
 
     context = {'story_list': story_list, 'connections':connections}
 
-    setup_page_context(context)
+    setup_page_context(context, sidebar_left=True, sidebar_right=False)
     return render(request, 'confabulation/stories.html', context)
 
 ## there is no ssearch on the html, so all necessary data needs to be here
