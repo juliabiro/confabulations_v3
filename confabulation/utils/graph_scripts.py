@@ -29,19 +29,19 @@ def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node( chain):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 0.1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color=COLORS['Chain'])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color=COLORS['Chain'])
     return node
 
 def theme_node(theme):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass:0.2 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color=COLORS['Theme'])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color=COLORS['Theme'])
     return node
 
 def story_node(participant, story):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass:0.5 }").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=sanitize_name(participant.name))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass: 1 }").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=sanitize_name(participant.name))
     return node
 
 def participant_node(participant):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 0.01 }").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=sanitize_name(participant.name))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 1 }").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=sanitize_name(participant.name))
     return node
 
 def story_to_story_edge(story1, story2):
