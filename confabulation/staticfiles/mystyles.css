@@ -338,7 +338,8 @@ video {
 }
 
 .graph {
-    width: 90%;
+    width: 600px;
+    height: 600px;
     border: 1px solid lightgray;
 }
 .small_graph {
@@ -346,4 +347,8 @@ video {
     width: 600px;
     height: 600px;
     border: 1px solid lightgray;
+}
+
+div.vis-network {
+    background-color: lightgray;
 }
