@@ -4,7 +4,7 @@ from .connection_helpers import ParticipantConnectionBuilder, ChainWithThemes, T
 
 # first, a big set of helper functions generating the code snippets belonging to nodes, edges and groups
 
-COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06'}
+COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06', 'story2story': '#745AF9'}
 
 OBJECT_TYPE_PREFIXES={
     'Story': '10',
@@ -29,23 +29,23 @@ def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node( chain, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group', mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), group="chain_inter" if is_inter==True else "chain")
+    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group'}").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), group="chain_inter" if is_inter==True else "chain")
     return node
 
 def theme_node(theme, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group', mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), group="theme_inter" if is_inter is True else "theme")
+    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group'}").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), group="theme_inter" if is_inter is True else "theme")
     return node
 
 def story_node(participant, story):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group',size:12, mass: 1 }").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=sanitize_name(participant.name))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'story_$group'}").substitute(id=get_unique_node_id(story), label=story.name, url=story.get_absolute_url(), group=sanitize_name(participant.name))
     return node
 
 def participant_node(participant):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'participant_$group', color: '$color', size: 75, mass: 1 }").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=sanitize_name(participant.name))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'participant_$group', color: '$color', size: 75}").substitute(id=get_unique_node_id(participant), label=participant.name, url=participant.get_absolute_url(), color=COLORS[str(participant.id)], group=sanitize_name(participant.name))
     return node
 
 def story_to_story_edge(story1, story2):
-    edge= Template("{ to: $to, from: $fromm }").substitute(to=get_unique_node_id(story1), fromm=get_unique_node_id(story2))
+    edge= Template("{ to: $to, from: $fromm, color: { color: '$color' } }").substitute(to=get_unique_node_id(story1), fromm=get_unique_node_id(story2), color=COLORS['story2story'])
     return edge
 
 def story_to_participant_edge(participant, story):
@@ -53,16 +53,16 @@ def story_to_participant_edge(participant, story):
     return edge
 
 def story_to_theme_edge(story, theme, is_inter=False):
-    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(theme), fromm=get_unique_node_id(story), set_color="color: { color: '#f5cd06', highlight: 'f5cd06'}" if is_inter is True else "color: {inherit: 'to'}")
+    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(theme), fromm=get_unique_node_id(story), set_color="color: { color: '"+COLORS['Inter']+"', highlight: '"+COLORS['Inter']+"'}" if is_inter is True else "color: {inherit: 'to'}")
     return edge
 
 def theme_to_chain_edge(theme, chain, is_inter=False):
-    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme), set_color=("color: { color: '#f5cd06', highlight: 'f5cd06'}" if is_inter is True else "color: { inherit: 'to' }"))
+    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme), set_color=("color: { color: '"+COLORS['Inter']+"', highlight: '"+COLORS['Inter']+"'}" if is_inter is True else "color: { inherit: 'to' }"))
     return edge
 
 def story_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'red'
-    return Template("story_$name: { color: '$color', font: '25px arial black', shape: 'dot'}").substitute(name=sanitize_name(participant.name), color=color)
+    return Template("story_$name: { color: '$color', font: '25px arial black', shape: 'dot', size: 25}").substitute(name=sanitize_name(participant.name), color=color)
 
 def chain_group(is_inter=False):
     return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 5 }").substitute(
