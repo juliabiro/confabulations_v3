@@ -29,11 +29,11 @@ def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node( chain, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', $color,size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color="color: { background: 'maroon', highlight: 'f5cd06' }" if is_inter is True else "color: '{}' ".format(COLORS['Chain']))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group', mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), group="chain_inter" if is_inter==True else "chain")
     return node
 
 def theme_node(theme, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', $color,size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color="color: { background: 'aqua', highlight: 'f5cd06' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
+    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group', mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), group="theme_inter" if is_inter is True else "theme")
     return node
 
 def story_node(participant, story):
@@ -64,12 +64,16 @@ def story_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'red'
     return Template("story_$name: { color: '$color', font: '25px arial black', shape: 'dot'}").substitute(name=sanitize_name(participant.name), color=color)
 
-def theme_group(participant=None):
-    return "theme: {font: '25px arial black', shape: 'triangle' }"
+def chain_group(is_inter=False):
+    return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 5 }").substitute(
+        group="chain_inter" if is_inter is True else "chain",
+        color="color: { background: '#f5cd06', highlight: {border: 'maroon', background: '#f5cd06'}, border: 'maroon' }" if is_inter is True else "color: 'maroon'"
+    )
 
-def chain_group(participant=None):
-    color = COLORS[(str(participant.id))] if participant is not None else 'maroon'
-    return Template("chain: { color: '$color', font: '25px arial black', shape: 'hexagon' }").substitute(color=color)
+def theme_group(is_inter=False):
+    return Template("$group: {$color, font: '25px arial black', shape: 'dot', size: 50, borderWidth: 5 }").substitute(
+        group="theme_inter" if is_inter is True else "theme",
+        color="color: { background: '#f5cd06', highlight: {background: '#f5cd06', border: 'aqua' }, border: 'aqua' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
 
 def participant_group(participant):
     return Template("participant_$name: { color: '$color', font: '25px arial black', shape: 'ellipse' }").substitute(name=sanitize_name(participant.name), color=COLORS[str(participant.id)])
@@ -201,7 +205,7 @@ def collect_participant_chains_themes_stories(participant):
     for p in pairs:
         edges.append(story_to_story_edge(p.story1, p.story2))
 
-    groups=[story_group(participant), theme_group(), chain_group()]
+    groups=[story_group(participant), theme_group(), theme_group(is_inter=True), chain_group(), chain_group(is_inter=True)]
 
     return nodes, edges, groups
 
