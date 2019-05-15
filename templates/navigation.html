@@ -30,7 +30,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Connects
+                    Connections
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     {% for ptype in navigation.connects %}
@@ -38,19 +38,6 @@
                         <a  class="nav-link" tabindex="-1" href="{{ptype.link}}">{{ ptype.name}}</a>
                     </li>
                     {% endfor %}
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    About
-                </a>
-                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    <li>
-                        <a class="nav-link" tabindex="-1" href="/about">About this project</a>
-                    </li>
-                <li>
-                        <a class="nav-link" tabindex="-1" href="/author">About the author</a>
-                    </li>
                 </ul>
             </li>
             <li>

@@ -5,21 +5,28 @@
 {% block content %}
 
     {% if analysis_point %}
-<div class="view_title">
+<div class="row">
 
-    {% colored_title analysis_point.name analysis_point.color_code %}
+    <div class="col">
+        <div>
+            {% colored_title analysis_point.name analysis_point.color_code %}
 
-    Analysis Type:
-    <a href="/analysis_type/{{analysis_point.analysis_type.id}}/">        {{analysis_point.analysis_type.name}}</a>
 
+</div>
+    </br>
+<div>
     {{analysis_point.description}}
+</div>
+    </div>
 </div>
 {% endif %}
     {% if stories %}
-<div class="view_title">
+<div class="row">
+    <div class="col">
     <h3>Stories</h3>
-</div>
     {% story_list_thumb stories 150%}
+    </div>
+</div>
     {% endif %}
 
 {% endblock%}

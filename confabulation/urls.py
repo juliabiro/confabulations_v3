@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from .views.story_views import stories, story_view
 from .views.participant_views import participants, participant_view
-from .views.static_views import index, about, author, menumap
+from .views.static_views import index, menumap
 from .views.analysis_views import analysis_view, analysis_type_view
 from .views.connection_view import connection_view
 from .views.era_views import era_view
@@ -28,8 +28,6 @@ urlpatterns = [
     url(r'^image/(?P<image_name>[a-zA-Z0-9]+)/?$', image_view),
     url(r'^graph/(?P<participant_id>[0-9]+)/?$', graph_participant_view),
     url(r'^graph/?$', graph_view),
-    url(r'^about/?$', about),
-    url(r'^author/?$', author),
     url(r'^menumap/$', menumap),
     url(r'^search/', search_list_view),
     url(r'^', index),
