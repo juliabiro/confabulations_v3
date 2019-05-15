@@ -28,8 +28,14 @@ def sanitize_name(name):
 def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
-def chain_node( chain, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group'}").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), group="chain_inter" if is_inter==True else "chain")
+def chain_node(chain, participant=None, is_inter=False):
+    group = "chain"
+    if is_inter is True:
+        group = "chain_inter"
+    if participant is not None:
+        group = "chain_"+str(participant.id)
+
+    node = Template("{ id: $id, label: '$label', url: '$url', group: '$group'}").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), group=group )
     return node
 
 def theme_node(theme, is_inter=False):
@@ -64,10 +70,20 @@ def story_group(participant=None):
     color = COLORS[(str(participant.id))] if participant is not None else 'red'
     return Template("story_$name: { color: '$color', font: '25px arial black', shape: 'dot', size: 25}").substitute(name=sanitize_name(participant.name), color=color)
 
-def chain_group(is_inter=False):
+def chain_group(is_inter=False, participant=None):
+    border_color=COLORS['Chain']
+    group_name = "chain"
+    background_color=COLORS['Chain']
+    if is_inter is True:
+        background_color=COLORS['Inter']
+        group_name= "chain_inter"
+    if participant is not None:
+        background_color=COLORS[str(participant.id)]
+        group_name = "chain_"+str(participant.id)
+
     return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 5 }").substitute(
-        group="chain_inter" if is_inter is True else "chain",
-        color="color: { background: '"+COLORS['Inter']+"', highlight: { border: '"+COLORS['Chain']+"', background: '"+COLORS['Inter']+"'}, border: '"+COLORS['Chain']+"' }" if is_inter is True else "color: '"+COLORS['Chain']+"'")
+        group=group_name,
+        color="color: { background: '"+background_color+"', highlight: { border: '"+border_color+"', background: '"+background_color+"'}, border: '"+border_color+"' }" if is_inter is True else "color: '"+background_color+"'")
 
 def theme_group(is_inter=False):
     return Template("$group: {$color, font: '25px arial black', shape: 'dot', size: 50, borderWidth: 5 }").substitute(
@@ -156,7 +172,7 @@ def collect_participant_chains_themes_stories(participant):
 
     # add edges separately, because we want to color them differently by connection_rage
     for c in intrachains:
-        intra_chains.append(chain_node(c.chain))
+        intra_chains.append(chain_node(c.chain, participant))
         for t in c.themes:
             intra_themes.append(theme_node(t.theme))
             edges.append(theme_to_chain_edge(t.theme, c.chain))
@@ -204,7 +220,7 @@ def collect_participant_chains_themes_stories(participant):
     for p in pairs:
         edges.append(story_to_story_edge(p.story1, p.story2))
 
-    groups=[story_group(participant), theme_group(), theme_group(is_inter=True), chain_group(), chain_group(is_inter=True)]
+    groups=[story_group(participant), theme_group(), theme_group(is_inter=True), chain_group(), chain_group(is_inter=True), chain_group(participant=participant)]
 
     return nodes, edges, groups
 
