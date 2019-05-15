@@ -4,7 +4,7 @@ from .connection_helpers import ParticipantConnectionBuilder, ChainWithThemes, T
 
 # first, a big set of helper functions generating the code snippets belonging to nodes, edges and groups
 
-COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray', 'Theme': 'aqua', 'Chain': 'maroon'}
+COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06'}
 
 OBJECT_TYPE_PREFIXES={
     'Story': '10',
@@ -67,13 +67,12 @@ def story_group(participant=None):
 def chain_group(is_inter=False):
     return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 5 }").substitute(
         group="chain_inter" if is_inter is True else "chain",
-        color="color: { background: '#f5cd06', highlight: {border: 'maroon', background: '#f5cd06'}, border: 'maroon' }" if is_inter is True else "color: 'maroon'"
-    )
+        color="color: { background: '"+COLORS['Inter']+"', highlight: { border: '"+COLORS['Chain']+"', background: '"+COLORS['Inter']+"'}, border: '"+COLORS['Chain']+"' }" if is_inter is True else "color: '"+COLORS['Chain']+"'")
 
 def theme_group(is_inter=False):
     return Template("$group: {$color, font: '25px arial black', shape: 'dot', size: 50, borderWidth: 5 }").substitute(
         group="theme_inter" if is_inter is True else "theme",
-        color="color: { background: '#f5cd06', highlight: {background: '#f5cd06', border: 'aqua' }, border: 'aqua' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
+        color="color: { background: '"+COLORS['Inter']+"', highlight: {background: '"+COLORS['Inter']+"', border: '"+COLORS['Theme']+"' }, border: '"+COLORS['Theme']+"' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
 
 def participant_group(participant):
     return Template("participant_$name: { color: '$color', font: '25px arial black', shape: 'ellipse' }").substitute(name=sanitize_name(participant.name), color=COLORS[str(participant.id)])
