@@ -81,12 +81,12 @@ def chain_group(is_inter=False, participant=None):
         background_color=COLORS[str(participant.id)]
         group_name = "chain_"+str(participant.id)
 
-    return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 5 }").substitute(
+    return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 3 }").substitute(
         group=group_name,
         color="color: { background: '"+background_color+"', highlight: { border: '"+border_color+"', background: '"+background_color+"'}, border: '"+border_color+"' }" if is_inter is True else "color: '"+background_color+"'")
 
 def theme_group(is_inter=False):
-    return Template("$group: {$color, font: '25px arial black', shape: 'dot', size: 50, borderWidth: 5 }").substitute(
+    return Template("$group: {$color, font: '25px arial black', shape: 'triangle', size: 50, borderWidth: 3 }").substitute(
         group="theme_inter" if is_inter is True else "theme",
         color="color: { background: '"+COLORS['Inter']+"', highlight: {background: '"+COLORS['Inter']+"', border: '"+COLORS['Theme']+"' }, border: '"+COLORS['Theme']+"' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
 
