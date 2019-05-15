@@ -25,14 +25,6 @@ def index(request):
     setup_page_context(context, navbar=False)
     return render(request, 'frontpage.html', context)
 
-def about(request):
-    context = setup_page_context(None, navbar=False)
-    return render(request, 'confabulation/about.html', context)
-
-def author(request):
-    context = setup_page_context(None, navbar=False)
-    return render(request, 'confabulation/author.html', context)
-
 def menumap(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
