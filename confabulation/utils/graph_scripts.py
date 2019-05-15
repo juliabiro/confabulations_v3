@@ -29,11 +29,11 @@ def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
 def chain_node( chain, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color="{ background: 'maroon', highlight: 'f5cd06' }" if is_inter is True else COLORS['Chain'])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', $color,size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color="color: { background: 'maroon', highlight: 'f5cd06' }" if is_inter is True else "color: '{}' ".format(COLORS['Chain']))
     return node
 
 def theme_node(theme, is_inter=False):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color="{ background: 'aqua', highlight: 'f5cd06' }" if is_inter is True else COLORS['Theme'])
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', $color,size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color="color: { background: 'aqua', highlight: 'f5cd06' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
     return node
 
 def story_node(participant, story):
