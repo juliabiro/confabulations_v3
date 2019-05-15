@@ -28,12 +28,12 @@ def sanitize_name(name):
 def sanitize_string(name):
     return name.replace('/', '__').replace("'","-")
 
-def chain_node( chain):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color=COLORS['Chain'])
+def chain_node( chain, is_inter=False):
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'chain', color: '$color',size: 50, mass: 1 }").substitute(id=get_unique_node_id(chain), label=sanitize_string(chain.name), url=chain.get_absolute_url(), color="{ background: 'maroon', highlight: 'f5cd06' }" if is_inter is True else COLORS['Chain'])
     return node
 
-def theme_node(theme):
-    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color=COLORS['Theme'])
+def theme_node(theme, is_inter=False):
+    node = Template("{ id: $id, label: '$label', url: '$url', group: 'theme', color: '$color',size: 25, mass: 1 }").substitute(id=get_unique_node_id(theme), label=sanitize_string(theme.name), url=theme.get_absolute_url(), color="{ background: 'aqua', highlight: 'f5cd06' }" if is_inter is True else COLORS['Theme'])
     return node
 
 def story_node(participant, story):
@@ -121,8 +121,10 @@ def collect_participant_chains_themes_stories(participant):
     chainless_themes_inter = interBuilder.buildchainlessthemes()
 
     stories = []
-    chains = []
-    themes = []
+    intra_chains = []
+    inter_chains = []
+    intra_themes = []
+    inter_themes = []
 
     # edges can be built on the fly
     # stories, themes and chains are collected and processed into nodes later
@@ -130,51 +132,62 @@ def collect_participant_chains_themes_stories(participant):
     # the duplicates are skipped later by turning these collections into sets.
     edges=[]
 
-    cc = []
-    tt = []
-    for c in interchains, intrachains:
-        if c:
-            cc.extend(c)
+    # cc = []
+    # tt = []
+    # for c in interchains, intrachains:
+    #     if c:
+    #         cc.extend(c)
 
-    for t in chainless_themes_inter, chainless_themes_intra:
-        if t:
-            tt.extend(t)
+    # for t in chainless_themes_inter, chainless_themes_intra:
+    #     if t:
+    #         tt.extend(t)
 
-    for c in cc:
-        chains.append(c.chain)
-        for t in c.themes:
-            themes.append(t.theme)
-            for s in t.stories:
-                stories.append(s)
+    # for c in cc:
+    #     for t in c.themes:
+    #         for s in t.stories:
+    #             stories.append(s)
 
-    for t in tt:
-        themes.append(t.theme)
-        for s in t.stories:
-            stories.append(s)
+    # for t in tt:
+    #     for s in t.stories:
+    #         stories.append(s)
 
     # add edges separately, because we want to color them differently by connection_rage
     for c in intrachains:
+        intra_chains.append(chain_node(c.chain))
         for t in c.themes:
+            intra_themes.append(theme_node(t.theme))
             edges.append(theme_to_chain_edge(t.theme, c.chain))
             for s in t.stories:
+                stories.append(s)
                 edges.append(story_to_theme_edge(s, t.theme))
     for t in chainless_themes_intra:
+        intra_themes.append(theme_node(t.theme))
         for s in t.stories:
+            stories.append(s)
             edges.append(story_to_theme_edge(s, t.theme))
 
     for c in interchains:
+        inter_chains.append(chain_node(c.chain, is_inter=True))
         for t in c.themes:
+            inter_themes.append(theme_node(t.theme, is_inter=True))
             edges.append(theme_to_chain_edge(t.theme, c.chain, is_inter=True))
             for s in t.stories:
+                stories.append(s)
                 edges.append(story_to_theme_edge(s, t.theme, is_inter=True))
     for t in chainless_themes_inter:
+        inter_themes.append(theme_node(t.theme, is_inter=True))
         for s in t.stories:
+            stories.append(s)
             edges.append(story_to_theme_edge(s, t.theme, is_inter=True))
 
 
     nodes=[ story_node(participant, s) for s in list(set(stories))]
-    nodes.extend([theme_node(t) for t in list(set(themes))])
-    nodes.extend([chain_node(c) for c in list(set(chains))])
+    nodes.extend(intra_chains)
+    nodes.extend(inter_chains)
+    nodes.extend(intra_themes)
+    nodes.extend(inter_themes)
+    #nodes.extend([theme_node(t) for t in list(set(themes))])
+    #nodes.extend([chain_node(c) for c in list(set(chains))])
 
 
 
