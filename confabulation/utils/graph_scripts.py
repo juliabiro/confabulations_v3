@@ -4,7 +4,7 @@ from .connection_helpers import ParticipantConnectionBuilder, ChainWithThemes, T
 
 # first, a big set of helper functions generating the code snippets belonging to nodes, edges and groups
 
-COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'aqua', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06', 'Inter_opaq':'rgba(245, 205, 6, 0.4)', 'story2story': '#745AF9'}
+COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'aqua', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06', 'Inter_opaq':'rgba(245, 205, 6, 0.4)', 'story2story': '#745AF9', 'story2theme': '#4925FE', 'theme2chain': '#1A0584'}
 
 OBJECT_TYPE_PREFIXES={
     'Story': '10',
@@ -59,11 +59,17 @@ def story_to_participant_edge(participant, story):
     return edge
 
 def story_to_theme_edge(story, theme, is_inter=False):
-    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(theme), fromm=get_unique_node_id(story), set_color="color: { color: '"+COLORS['Inter']+"', highlight: '"+COLORS['Inter']+"'}" if is_inter is True else "color: {inherit: 'to'}")
+    color = str(COLORS['story2theme'])
+    if is_inter is True:
+        color = str(COLORS['Inter'])
+    edge= Template("{ to: $to, from: $fromm, color: { color: '$color' } }").substitute(to=get_unique_node_id(theme), fromm=get_unique_node_id(story), color=color)
     return edge
 
 def theme_to_chain_edge(theme, chain, is_inter=False):
-    edge= Template("{ to: $to, from: $fromm, $set_color }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme), set_color=("color: { color: '"+COLORS['Inter']+"', highlight: '"+COLORS['Inter']+"'}" if is_inter is True else "color: { inherit: 'to' }"))
+    color= str(COLORS['theme2chain'])
+    if is_inter is True:
+        color= str(COLORS['Inter'])
+    edge= Template("{ to: $to, from: $fromm, color: { color: '$color' } }").substitute(to=get_unique_node_id(chain), fromm=get_unique_node_id(theme), color=color)
     return edge
 
 def story_group(participant=None):
