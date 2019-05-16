@@ -4,7 +4,7 @@ from .connection_helpers import ParticipantConnectionBuilder, ChainWithThemes, T
 
 # first, a big set of helper functions generating the code snippets belonging to nodes, edges and groups
 
-COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'gray', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06', 'story2story': '#745AF9'}
+COLORS ={'4':'red','5':'green', '7':'blue', '8':'olive', '9':'purple', '10':'lime', '11':'teal', '3':'aqua', 'Theme': '#4925FE', 'Chain': '#1A0584', 'Inter': '#f5cd06', 'Inter_opaq':'rgba(245, 205, 6, 0.4)', 'story2story': '#745AF9'}
 
 OBJECT_TYPE_PREFIXES={
     'Story': '10',
@@ -75,18 +75,19 @@ def chain_group(is_inter=False, participant=None):
     group_name = "chain"
     background_color=COLORS['Chain']
     if is_inter is True:
-        background_color=COLORS['Inter']
+        background_color=COLORS['Inter_opaq']
         group_name= "chain_inter"
     if participant is not None:
-        background_color=COLORS[str(participant.id)]
+        border_color=COLORS[str(participant.id)]
+        background_color='rgba(0, 0, 0, 0.2)'
         group_name = "chain_"+str(participant.id)
 
     return Template("$group: { $color, font: '25px arial black', shape: 'dot', size: 100, borderWidth: 3 }").substitute(
         group=group_name,
-        color="color: { background: '"+background_color+"', highlight: { border: '"+border_color+"', background: '"+background_color+"'}, border: '"+border_color+"' }" if is_inter is True else "color: '"+background_color+"'")
+        color="color: { background: '"+background_color+"', highlight: { border: '"+border_color+"', background: '"+background_color+"'}, border: '"+border_color+"' }")
 
 def theme_group(is_inter=False):
-    return Template("$group: {$color, font: '25px arial black', shape: 'triangle', size: 50, borderWidth: 3 }").substitute(
+    return Template("$group: {$color, font: '25px arial black', shape: 'triangle', size: 50, borderWidth: 2 }").substitute(
         group="theme_inter" if is_inter is True else "theme",
         color="color: { background: '"+COLORS['Inter']+"', highlight: {background: '"+COLORS['Inter']+"', border: '"+COLORS['Theme']+"' }, border: '"+COLORS['Theme']+"' }" if is_inter is True else "color: '{}' ".format(COLORS['Theme']))
 
