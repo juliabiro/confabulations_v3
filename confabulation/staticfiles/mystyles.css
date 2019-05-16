@@ -338,13 +338,11 @@ video {
 }
 
 .graph {
-    width: 600px;
-    height: 600px;
+    width: 90%;
     border: 1px solid lightgray;
 }
 .small_graph {
     diplay: inline-block;
-    width: 600px;
-    height: 600px;
+    width: 90%;
     border: 1px solid lightgray;
 }
