@@ -10,10 +10,11 @@ def index(request):
     context['participants']=[]
 
     plist=list(Participant.objects.distinct())
-    for p in plist[0:-1]:
-        context['participants'].append({'name': p.name, 'url':p.get_absolute_url()})
-
-    context['last'] = {'name': plist[-1].name, 'url': plist[-1].get_absolute_url()}
+    if len(plist)>0:
+        for p in plist[0:-1]:
+            context['participants'].append({'name': p.name, 'url':p.get_absolute_url()})
+        if len(plist)>1:
+            context['last'] = {'name': plist[-1].name, 'url': plist[-1].get_absolute_url()}
 
     setup_page_context(context, sidebar_left=True)
     return render(request, 'frontpage.html', context)

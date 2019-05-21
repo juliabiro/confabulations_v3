@@ -15,7 +15,7 @@
         <div class="col">
             Dear visitor,
         </br>
-        Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} and <a href="{{last.url}}">{{last.name}}</a>.
+        Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% if last %} and <a href="{{last.url}}">{{last.name}}</a>{% endif %}.
             </br>
             From here you can access all the collected <a href="/story/">stories</a>.
         </br>
