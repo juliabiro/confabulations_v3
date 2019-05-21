@@ -343,6 +343,7 @@ video {
 }
 .small_graph {
     diplay: inline-block;
-    width: 90%;
+    width: 600px;
+    height: 600px;
     border: 1px solid lightgray;
 }
