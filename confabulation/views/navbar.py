@@ -6,11 +6,13 @@ def navigation_context():
     context = {'participants':{},
                'taxonomy':{},
                'confabulation':[],
-               'connects': []
+               'connects': [],
+               'graphs':[],
               }
 
     participants = Participant.objects.distinct().order_by('name')
     context['participants'] = [{'name':p.name, 'url':p.get_absolute_url()} for p in participants]
+
 
     taxonomy_types = AnalysisType.objects.all().exclude(name='Connects')
 
@@ -43,5 +45,8 @@ def navigation_context():
 
             context[context_name] = special_points_links
 
+    context['graphs'] = [{'name':p.name, 'url': '/graph/'+str(p.id)+'/'} for p in participants]
+
+    context['graphs'].append({'name': 'all connections', 'url': '/graph/'})
     return context
 
