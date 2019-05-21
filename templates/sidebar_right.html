@@ -38,6 +38,14 @@
         </div>
     {% endif %}
     </li>
+
+    {% if sidebar_right.graph_url %}
+    <h3>Graph</h3>
+    <a href="{{sidebar_right.graph_link}}">
+        <img src="{{sidebar_right.graph_url}}">
+    </a>
+    {% endif %}
+
     {% if sidebar_right.single_stories %}
     <h3>Unconnected</h3>
         <h5><a href="#singleSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stories</a></h5>

@@ -4,6 +4,7 @@ CLOUDINARY_API_KEY=settings.CLOUDINARY_API_KEY
 CLOUDINARY_API_SECRET=settings.CLOUDINARY_API_SECRET
 
 THUMBNAILS_PATH='confabulations/thumbnails/'
+GRAPHS_PATH='confabulations/graphs/'
 
 S3_BUCKET='confabulations'
 

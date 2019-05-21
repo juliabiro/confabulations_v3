@@ -1,5 +1,6 @@
 from ..models import Participant, AnalysisType, AnalysisPoint
 from ..utils.connection_helpers import ParticipantConnectionBuilder, UnconnectedStoryFinder
+from ..utils.media_helpers import get_graph_url
 
 # todo move this out from here
 def sidebar_left_context():
@@ -43,6 +44,10 @@ def sidebar_right_context(participant_id):
     ret['intraconnections'] = intrachains
     ret['chainless_themes_inter'] = chainless_themes_inter
     ret['chainless_themes_intra'] = chainless_themes_intra
+
+
+    ret['graph_url'] = get_graph_url(participant_id)
+    ret['graph_link'] = '/graph/{}/'.format(participant_id)
 
     if single_stories:
         ret['single_stories'] = single_stories
