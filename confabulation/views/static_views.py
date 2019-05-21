@@ -2,27 +2,20 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
 from .context_helpers import setup_page_context
-from ..models import AnalysisPoint
-from ..utils.s3_helpers import get_signed_video_url
-from ..utils.data import TAXONOMY_VIDEO_KEY
+from ..models import Participant
 
 # Create your views here.
 def index(request):
-    video_url = TAXONOMY_VIDEO_KEY
-    url = get_signed_video_url(video_url)
     context = {}
-    context['video_url'] = url
+    context['participants']=[]
 
-    try:
-        confabulation = AnalysisPoint.objects.filter(name="Confabulation")[0]
-        context['confabulation_url'] = confabulation.get_absolute_url()
-        going_beyond=AnalysisPoint.objects.filter(name="Going Beyond")[0]
-        context['going_beyond_url'] = going_beyond.get_absolute_url()
+    plist=list(Participant.objects.distinct())
+    for p in plist[0:-1]:
+        context['participants'].append({'name': p.name, 'url':p.get_absolute_url()})
 
-    except Exception as e:
-        print(e)
+    context['last'] = {'name': plist[-1].name, 'url': plist[-1].get_absolute_url()}
 
-    setup_page_context(context, navbar=False)
+    setup_page_context(context, sidebar_left=True)
     return render(request, 'frontpage.html', context)
 
 def menumap(request):

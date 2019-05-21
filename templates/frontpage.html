@@ -13,21 +13,23 @@
     </div>
     <div class="row">
         <div class="col">
-            <div class="row"></div>
-            <div class="row align-items-end">
-                <div class="col">
-            Or you can just start browsing.
-            (You will be asked to log in.)
-<h3><a href="/participant/">Participants</a></h3>
-<h3><a href="/story/">Stories</a></h3>
-<h3><a href="{{confabulation_url}}">Confabulation</a></h3>
-<h3><a href="{{going_beyond_url}}">Going Beyond</a></h3>
+            Dear visitor,
+        </br>
+        Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} and <a href="{{last.url}}">{{last.name}}</a>.
+            </br>
+            From here you can access all the collected <a href="/story/">stories</a>.
+        </br>
+        </br>
+        Above you can find a menu through which you can access stories that are confabulations and those which 'go beyond' the visual content of the photographs. There is a menu for the participants' pages, which give further information on the stories. On the left side-bar, you can see a another menu which colour-codes aspects of the stories. On the partcipants pages, there is a side-bar on the right that gives information on stories that connect with each other and in what ways. Here you can also find graphs that visualise these connections. There are separate menus for connections and graphs which synthesise information.
 
-Please be aware that all photos and videos displayed on this site are properties of the participants. They are shared specifically for the purpose of this research, and it is not allowed to copy, publish or otherwise reuse them without their owners consent.
+        </div>
+    </div>
+            <div class="row">
+                <div class="col">
+Please be aware that all photos and videos displayed on this site are properties of the participants. They are shared specifically for the purpose of this research, and it is not allowed to copy, publish or otherwise reuse them without their owners consent. For the protection of the participants and the content, you will be asked to log in.
                 </div>
             </div>
         </div>
     </div>
-        If you are Eszter, then this link to the <a href="/admin/"> admin page </a> migth be useful. 
 </div>
 {% endblock %}
