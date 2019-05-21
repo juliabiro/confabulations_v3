@@ -339,6 +339,7 @@ video {
 
 .graph {
     width: 90%;
+    height: 1000px;
     border: 1px solid lightgray;
 }
 .small_graph {
