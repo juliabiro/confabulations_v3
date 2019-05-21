@@ -5,9 +5,30 @@
 
 {% block content %}
 
-<h1>connected stories</h1>
+<h1>All Themes, Chains and Stories</h1>
+<h5> What is this?</h5>
+Below you can see the graph generated from all chains, themes and stories. The image is zoomable, and the individual nodes can be dragged around with your mouse.
+</br>
+Legend:
+<ul>
+    <li> Chains are represented by big circles </li>
+<li> Themes are represented by triangles
+</li>
+<li> Stories are represented by dots </li>
+<li> Every participant has their own color, their chains, themes and stories have this color </li>
+<li> inter-connections are indicated by yellow edges</li>
+<li> Themes, chanis and connections that are Inter-connections are indicated by yellow</li>
+
+</ul>
+This graph was programmatically generated with the help of a graph visualisation tool. The arrangement of the nodes is calculated by a physical model that includes springs, gravitational forces and repulsion. It is a dynamic representation, if the position of a node changes, the other nodes rearrange themselves around it.
+</br>
+</br>
+
+Please be aware that this representation is computation-heavy and it is calulated on the client side, in your browser. Therefore it can make your computer slow or start the ventillation; if this happens, just navigate away.
+
 {% block graph %}
 {% include "confabulation/graph.html" %}
+
 {% endblock %}
 
 {% endblock %}
