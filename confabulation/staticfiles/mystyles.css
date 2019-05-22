@@ -349,3 +349,9 @@ video {
     border: 1px solid lightgray;
 }
 
+#front-body{
+    text-align:justify;
+    min-width: 300px;
+    max-width: 1500px;
+}
+

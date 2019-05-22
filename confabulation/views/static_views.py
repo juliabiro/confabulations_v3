@@ -9,7 +9,7 @@ from ..utils.media_helpers import get_graph_url
 def index(request):
     context = {}
     context['participants']=[]
-    context['big_graph_url']= get_graph_url(size=800, opacity=30)
+    context['big_graph_url']= get_graph_url(size=400)
 
     plist=list(Participant.objects.distinct())
     if len(plist)>0:
