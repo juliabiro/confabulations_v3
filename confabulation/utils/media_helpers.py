@@ -17,13 +17,21 @@ def get_cloudinary_image_thumb(key, size):
 def get_story_thumb(story, size):
     return get_cloudinary_image_thumb(story.name, size)
 
-def get_graph_url(participant_id, size=250):
+def get_graph_url(participant_id=None, size=250, opacity=None):
     cloudinary.config(
     cloud_name = "dpn5pmgin",
     api_key = CLOUDINARY_API_KEY,
     api_secret = CLOUDINARY_API_SECRET
     )
 
-    url=cloudinary.CloudinaryImage(GRAPHS_PATH+'small_graph_'+str(participant_id)+'.png').build_url( width=size, sign_url=True)
+    url =""
+    if participant_id:
+        url=cloudinary.CloudinaryImage(GRAPHS_PATH+'small_graph_'+str(participant_id)+'.png').build_url( width=size, sign_url=True)
+
+    else:
+        if opacity is None:
+            url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url( width=size, sign_url=True)
+        else:
+            url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url( width=size, opacity=opacity, sign_url=True)
 
     return url

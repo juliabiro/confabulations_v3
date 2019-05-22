@@ -3,11 +3,13 @@ from django.conf import settings
 from django.shortcuts import redirect
 from .context_helpers import setup_page_context
 from ..models import Participant
+from ..utils.media_helpers import get_graph_url
 
 # Create your views here.
 def index(request):
     context = {}
     context['participants']=[]
+    context['big_graph_url']= get_graph_url(size=800, opacity=30)
 
     plist=list(Participant.objects.distinct())
     if len(plist)>0:
