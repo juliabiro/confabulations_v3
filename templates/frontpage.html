@@ -13,15 +13,14 @@
     </div>
     <div class="row" >
         <div class="col" >
-        Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% if last %} and <a href="{{last.url}}">{{last.name}}</a>{% endif %}.
+            Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% if last %} and <a href="{{last.url}}">{{last.name}}</a>{% endif %}.
             </br>
             </br>
             From here you can access all the collected <a href="/story/">stories</a>.
-        Above you can find a menu through which you can access stories that are confabulations and those which 'go beyond' the visual content of the photographs. There is a menu for the participants' pages, which give further information on the stories. On the left side-bar, you can see a another menu which colour-codes aspects of the stories. On the partcipants pages, there is a side-bar on the right that gives information on stories that connect with each other and in what ways. Here you can also find graphs that visualise these connections. There are separate menus for connections and graphs which synthesise information.
-
-        </br>
-        </br>
-Please be aware that all photos and videos displayed on this site are properties of the participants. They are shared specifically for the purpose of this research, and it is not allowed to copy, publish or otherwise reuse them without their owners consent. For the protection of the participants and the content, you will be asked to log in.
+            Above you can find a menu through which you can access stories that are confabulations and those which 'go beyond' the visual content of the photographs. There is a menu for the participants' pages, which give further information on the stories. On the left side-bar, you can see another menu which colour-codes aspects of the stories. On the participants' pages, there is a side-bar on the right that gives information on stories that connect and in what ways. Here you can also find graphs that visualise these connections. There are separate menus for connections and graphs which synthesise information. 
+            </br>
+            </br>
+            Please be aware that all photos and videos displayed on this site are the properties of the participants. They are specifically shared for the purpose of this research, and it is not allowed to copy, publish or otherwise reuse them without their owners' consent. For the protection of the participants and the content, you will be asked to log in.
         </div>
         <div class="col">
             <img src="{{ big_graph_url }}" width="500px">
