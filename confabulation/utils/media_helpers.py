@@ -35,3 +35,13 @@ def get_graph_url(participant_id=None, size=250, opacity=None):
             url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url( width=size, opacity=opacity, sign_url=True)
 
     return url
+
+def get_image_url(full_image_path, size):
+    cloudinary.config(
+    cloud_name = "dpn5pmgin",
+    api_key = CLOUDINARY_API_KEY,
+    api_secret = CLOUDINARY_API_SECRET
+    )
+
+    url=cloudinary.CloudinaryImage(full_image_path).build_url( width=size, sign_url=True)
+    return url

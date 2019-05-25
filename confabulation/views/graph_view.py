@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect, get_object_or_404
 from ..models import  Story, Era, AnalysisPoint, Participant, Keyword, StoryToStoryConnection, Theme
-from ..utils.s3_helpers import *
+# from ..utils.s3_helpers import *
+from ..utils.media_helpers import get_image_url
 from ..utils.connection_helpers import ParticipantConnectionBuilder
 from .context_helpers import setup_page_context
 from ..utils.story_sorter import sort_story_list
@@ -29,6 +30,11 @@ def graph_participant_view(request, participant_id):
         'groups': data_to_script(groups),
     }
 
+    context['legend']={
+        'chain': get_image_url('confabulations/graphs/chain.png', 100),
+        'theme': get_image_url('confabulations/graphs/theme.png', 100),
+        'story': get_image_url('confabulations/graphs/story.png', 100),
+        'inter': get_image_url('confabulations/graphs/inter.png', 100)}
     setup_page_context(context)
     return render(request, 'confabulation/participantGraph.html', context)
 
@@ -57,6 +63,11 @@ def graph_view(request):
     context['edges'] = data_to_script(edges)
     context['groups'] = data_to_script(groups)
 
+    context['legend']={
+        'chain': get_image_url('confabulations/graphs/chain.png', 100),
+        'theme': get_image_url('confabulations/graphs/theme.png', 100),
+        'story': get_image_url('confabulations/graphs/story.png', 100),
+        'inter': get_image_url('confabulations/graphs/inter.png', 100)}
 
     setup_page_context(context)
     return render(request, 'confabulation/graphView.html', context)
