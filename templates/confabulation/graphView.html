@@ -8,16 +8,23 @@
 
 <div class="row">
     <div class="col">
-{% block graph %}
+        {% if static %}
+        <img src="{{big_graph_url}}" style="width: 90%" class="downloadable">
+        {% else %}
+        {% block graph %}
 {% include "confabulation/graph.html" %}
-
 {% endblock %}
+{% endif %}
     </div>
     <div class="col graph_legend">
 <h5> What is this?</h5>
 
-This page shows the graph generated from all chains, themes and stories. The image is zoomable, and the individual nodes can be dragged around with your mouse. This graph is big, so it can take a few minutes to load.
+This page shows the graph generated from all chains, themes and stories. {% if not static %}The image is zoomable, and the individual nodes can be dragged around with your mouse.{% endif %}
+<br>
+{% if not static %}
+This graph is big, so it can take a few minutes to load. If it takes too long, <a href="/graph?static=true">here a static version of this graph</a>.
 </br>
+{% endif %}
 </br>
 Legend:
 <ul>
@@ -27,6 +34,7 @@ Legend:
     <li>Yellow edges and backgrounds indicate inter-connections <img src="{{legend.inter}}"></li>
     <li>Every participant's network has an assigned colour</li>
 </ul>
+{% if not static %}
 </br>
 </br>
 The page generates the graph programmatically, using a physical model that includes springs, gravitational forces and repulsion. This is a dynamic representation, if the position of a node changes, the other nodes rearrange themselves around it.
@@ -34,6 +42,7 @@ The page generates the graph programmatically, using a physical model that inclu
 </br>
 </br>
 Please be aware that it is your computer that performs the calculations to display this graph. Since this representation is computation-heavy, loading this page can make your computer slow or start the ventilation. If this happens, just navigate away.
+{% endif %}
     </div>
 </div>
 {% endblock %}
