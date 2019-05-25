@@ -31,10 +31,10 @@ def graph_participant_view(request, participant_id):
     }
 
     context['legend']={
-        'chain': get_image_url('confabulations/graphs/chain.png', 100),
-        'theme': get_image_url('confabulations/graphs/theme.png', 100),
-        'story': get_image_url('confabulations/graphs/story.png', 100),
-        'inter': get_image_url('confabulations/graphs/inter.png', 100)}
+        'chain': get_image_url('confabulations/graphs/chain.png', 50),
+        'theme': get_image_url('confabulations/graphs/theme.png', 50),
+        'story': get_image_url('confabulations/graphs/story.png', 50),
+        'inter': get_image_url('confabulations/graphs/inter.png', 50)}
     setup_page_context(context)
     return render(request, 'confabulation/participantGraph.html', context)
 
@@ -64,10 +64,10 @@ def graph_view(request):
     context['groups'] = data_to_script(groups)
 
     context['legend']={
-        'chain': get_image_url('confabulations/graphs/chain.png', 100),
-        'theme': get_image_url('confabulations/graphs/theme.png', 100),
-        'story': get_image_url('confabulations/graphs/story.png', 100),
-        'inter': get_image_url('confabulations/graphs/inter.png', 100)}
+        'chain': get_image_url('confabulations/graphs/chain.png', 50),
+        'theme': get_image_url('confabulations/graphs/theme.png', 50),
+        'story': get_image_url('confabulations/graphs/story.png', 50),
+        'inter': get_image_url('confabulations/graphs/inter.png', 50)}
 
     setup_page_context(context)
     return render(request, 'confabulation/graphView.html', context)

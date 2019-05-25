@@ -4,9 +4,9 @@
 {% block title %}Stories{% endblock %}
 
 {% block content %}
+<h1>All Themes, Chains and Stories</h1>
 
 <div class="row">
-<h1>All Themes, Chains and Stories</h1>
     <div class="col">
 {% block graph %}
 {% include "confabulation/graph.html" %}
@@ -27,10 +27,12 @@ Legend:
 </ul>
 Every participant's network has an assigned colour, and the inter-network is yellow.
 </br>
+</br>
 The page programmatically generates the graph. The arrangement of the nodes is calculated by a physical model that includes springs, gravitational forces and repulsion. It is a dynamic representation, if the position of a node changes, the other nodes rearrange themselves around it.
 
 </br>
-Please be aware that this representation is computation-heavy; consequently, it calculates on the client side, in your browser. Therefore it can make your computer slow or start the ventilation. If this happens, just navigate back to the previous page.
+</br>
+Please be aware that this representation is computation-heavy; consequently, it calculates on the client side, in your browser. Therefore it can make your computer slow or start the ventilation. If this happens, just navigate away.
     </div>
 </div>
 {% endblock %}
