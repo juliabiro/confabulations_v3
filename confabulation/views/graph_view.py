@@ -21,7 +21,8 @@ def graph_participant_view(request, participant_id):
     #node_list, edge_list, group = participant_story_connections(participant)
     # instead get the whole package:
 
-    node_list, edge_list, groups = collect_participant_chains_themes_stories(participant)
+    # node_list, edge_list, groups = collect_participant_chains_themes_stories(participant)
+    node_list, edge_list, groups = legend(participant)
 
     context = {
         'name': sanitize_name(participant.name),
@@ -48,13 +49,10 @@ def graph_view(request):
     groups=[]
     participants= Participant.objects.distinct()
     for participant in participants:
-        #n, e, g = collect_participant_story_connections(participant)
         n, e, g = collect_participant_chains_themes_stories(participant)
         nodes.extend(n)
         edges.extend(e)
         groups.extend(g)
-        #nodes.append(participant_node(participant))
-        #edges.extend(collect_story_to_participant_edges(participant))
         groups.append(story_group(participant))
 
     context={}
