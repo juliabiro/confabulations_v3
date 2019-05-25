@@ -17,7 +17,7 @@ def get_cloudinary_image_thumb(key, size):
 def get_story_thumb(story, size):
     return get_cloudinary_image_thumb(story.name, size)
 
-def get_graph_url(participant_id=None, size=250, opacity=None):
+def get_graph_url(participant_id=None, size=250):
     cloudinary.config(
     cloud_name = "dpn5pmgin",
     api_key = CLOUDINARY_API_KEY,
@@ -29,10 +29,7 @@ def get_graph_url(participant_id=None, size=250, opacity=None):
         url=cloudinary.CloudinaryImage(GRAPHS_PATH+'small_graph_'+str(participant_id)+'.png').build_url( width=size, sign_url=True)
 
     else:
-        if opacity is None:
-            url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url( width=size, sign_url=True)
-        else:
-            url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url( width=size, opacity=opacity, sign_url=True)
+        url = cloudinary.CloudinaryImage(GRAPHS_PATH+'big_graph.png').build_url(sign_url=True)
 
     return url
 

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="body_text"
-     id="front-body">
+     >
     <div class="row" >
         <div class="col" >
             <h1>            Dear visitor,
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row" >
-        <div class="col" >
+        <div class="col"  id="front-body">
             Welcome to the Virtual Album that encompasses the storytelling of {% for p in participants %}<a href="{{p.url}}">{{p.name}}</a>{% if not forloop.last %}, {% endif %} {% endfor %} {% if last %} and <a href="{{last.url}}">{{last.name}}</a>{% endif %}.
             </br>
             </br>
@@ -23,7 +23,7 @@
             Please be aware that all photos and videos displayed on this site are the properties of the participants. They are specifically shared for the purpose of this research, and it is not allowed to copy, publish or otherwise reuse them without their owners' consent. For the protection of the participants and the content, you will be asked to log in.
         </div>
         <div class="col">
-            <img src="{{ big_graph_url }}" width="500px">
+            <img src="{{ big_graph_url }}" id="front-image" >
         </div>
     </div>
             </div>
