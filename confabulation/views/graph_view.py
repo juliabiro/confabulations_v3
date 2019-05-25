@@ -46,7 +46,7 @@ def graph_view(request):
 
     context={}
     if static:
-        context={'static': True, 'big_graph_url': get_graph_url(size=3000)}
+        context={'static': True, 'big_graph_url': get_image_url('confabulations/graphs/big_graph3.jpg', size=4000)}
     else:
         nodes=[]
         edges=[]
