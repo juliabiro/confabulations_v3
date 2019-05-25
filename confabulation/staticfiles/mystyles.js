@@ -22,6 +22,6 @@ $(document).ready(function () {
 });
 
 $(document).on('contextmenu', function(e) {
-  if ($(e.target).is("img") || $(e.target).is("video"))
+  if (!$(e.target).hasClass('downloadable') && $(e.target).is("img") || $(e.target).is("video"))
     return false;
 });
