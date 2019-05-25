@@ -345,6 +345,7 @@ video {
 .small_graph {
     diplay: inline-block;
     width: 90%;
+    min-width:800px;
     border: 1px solid lightgray;
 }
 
