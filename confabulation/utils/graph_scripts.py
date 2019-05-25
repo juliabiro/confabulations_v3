@@ -18,6 +18,7 @@ OBJECT_TYPE_PREFIXES={
     'Chain': '40',
     'AnalysisPoint':'50',
     'AnalysisType': '60',
+    'node': '100'
 }
 
 # The problem this function solves is that the id of the objects in the database cannot be used as ids for the nodes, because the ids are not unique across all objects (there is a Story with id=3 and there is a Participant with id=3 etc.). Therefore if we want to create graphs from different objects, we need to create ids in a different way.
@@ -123,7 +124,10 @@ def participant_group(participant):
     return Template("participant_$name: { color: '$color', font: '25px arial black', shape: 'ellipse' }").substitute(name=sanitize_name(participant.name), color=COLORS[str(participant.id)])
 
 def data_to_script(data):
-    return ',\n'.join(sorted(list(set(data))))
+    if data:
+        return ',\n'.join(sorted(list(set(data))))
+    else:
+        return ""
 
 # collector functions
 def collect_story_to_participant_edges(participant):
@@ -240,3 +244,16 @@ def participant_chains_themes_stories(participant):
     return node_list, edge_list, groups
 
 
+def legend(participant):
+    class node():
+        def __init__(self, name, id):
+            self.name = name
+            self.id = id
+
+        def get_absolute_url(self):
+            return ""
+
+    n = [chain_node(node("chain", 1)), theme_node(node("theme", 2)), story_node(participant, node("story",3))]
+    g=[story_group(participant), theme_group(), theme_group(is_inter=True), theme_group(participant=participant), chain_group(), chain_group(is_inter=True), chain_group(participant=participant)]
+
+    return n, [], g

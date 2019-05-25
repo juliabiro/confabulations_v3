@@ -344,8 +344,7 @@ video {
 }
 .small_graph {
     diplay: inline-block;
-    width: 600px;
-    height: 600px;
+    width: 90%;
     border: 1px solid lightgray;
 }
 
@@ -355,3 +354,8 @@ video {
     max-width: 1500px;
 }
 
+.graph_legend{
+    text-align: justify;
+    max-width: 400px;
+    min-width: 300px;
+}

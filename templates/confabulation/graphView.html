@@ -4,32 +4,36 @@
 {% block title %}Stories{% endblock %}
 
 {% block content %}
-
 <h1>All Themes, Chains and Stories</h1>
-<h5> What is this?</h5>
-Below you can see the graph generated from all chains, themes and stories. The image is zoomable, and the individual nodes can be dragged around with your mouse. This graph is big, so it can take a few minutes to load.
 
-</br>
-Legend:
-<ul>
-    <li> Chains are represented by big circles </li>
-<li> Themes are represented by triangles
-</li>
-<li> Stories are represented by dots </li>
-<li> Every participant has their own color, their chains, themes and stories have this color </li>
-<li> inter-connections are indicated by yellow edges</li>
-<li> Themes, chanis and connections that are Inter-connections are indicated by yellow</li>
-
-</ul>
-This graph was programmatically generated with the help of a graph visualisation tool. The arrangement of the nodes is calculated by a physical model that includes springs, gravitational forces and repulsion. It is a dynamic representation, if the position of a node changes, the other nodes rearrange themselves around it.
-</br>
-</br>
-
-Please be aware that this representation is computation-heavy and it is calulated on the client side, in your browser. Therefore it can make your computer slow or start the ventillation; if this happens, just navigate away.
-
+<div class="row">
+    <div class="col">
 {% block graph %}
 {% include "confabulation/graph.html" %}
 
 {% endblock %}
+    </div>
+    <div class="col graph_legend">
+<h5> What is this?</h5>
 
+This page shows the graph generated from all chains, themes and stories. The image is zoomable, and the individual nodes can be dragged around with your mouse. This graph is big, so it can take a few minutes to load.
+</br>
+</br>
+Legend:
+<ul>
+    <li>Big circles represent chains <img src="{{legend.chain}}"></li>
+    <li>Triangles represent themes<img src="{{legend.theme}}"></li>
+    <li>Dots represent stories<img src="{{legend.story}}"></li>
+    <li>Yellow edges and backgrounds indicate inter-connections <img src="{{legend.inter}}"></li>
+    <li>Every participant's network has an assigned colour</li>
+</ul>
+</br>
+</br>
+The page generates the graph programmatically, using a physical model that includes springs, gravitational forces and repulsion. This is a dynamic representation, if the position of a node changes, the other nodes rearrange themselves around it.
+
+</br>
+</br>
+Please be aware that it is your computer that performs the calculations to display this graph. Since this representation is computation-heavy, loading this page can make your computer slow or start the ventilation. If this happens, just navigate away.
+    </div>
+</div>
 {% endblock %}
