@@ -11,3 +11,4 @@ pylint==2.6.0
 mock
 cloudinary
 cryptography
+honeycomb-beeline
