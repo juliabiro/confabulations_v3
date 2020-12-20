@@ -45,6 +45,9 @@ CLOUDFRONT_KEY_ID=""
 if "CLOUDFRONT_KEY_ID" in os.environ:
     CLOUDFRONT_KEY_ID=os.environ["CLOUDFRONT_KEY_ID"]
 
+HONEYCOMB_API_KEY=""
+if "HONEYCOMB_API_KEY" in os.environ:
+    HONEYCOMB_API_KEY=os.environ["HONEYCOMB_API_KEY"]
 
 ALLOWED_HOSTS = []
 
@@ -73,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'beeline.middleware.django.HoneyMiddleware',
 ]
 
 ROOT_URLCONF = 'dbbackend.urls'
