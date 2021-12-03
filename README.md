@@ -48,5 +48,3 @@ The secrets come form environmental variables. Required variables:
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
 Optionally a LOCAL variable can be set to enable Django DEBUG mode. 
-
-
