@@ -51,5 +51,3 @@ Optionally a LOCAL variable can be set to enable Django DEBUG mode.
 
 
 
-
-
