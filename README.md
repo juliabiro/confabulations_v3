@@ -50,4 +50,3 @@ The secrets come form environmental variables. Required variables:
 Optionally a LOCAL variable can be set to enable Django DEBUG mode. 
 
 
-
