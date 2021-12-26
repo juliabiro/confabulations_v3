@@ -48,3 +48,11 @@ The secrets come form environmental variables. Required variables:
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
 Optionally a LOCAL variable can be set to enable Django DEBUG mode. 
+
+## Archived version
+
+The app is being archived. To resurrect:
+
+1. obtain a copy of the database
+2. obtain API KEYS to the AWS and Cloudinary accounts
+3. upgrade Python version :(

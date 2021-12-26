@@ -3,4 +3,5 @@ dbbackend/staticfiles/*
 */*.pyc
 thumbnails/*
 web-variables.env
+heroku
 
