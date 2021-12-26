@@ -4,4 +4,6 @@ dbbackend/staticfiles/*
 thumbnails/*
 web-variables.env
 heroku
+data/
+db_backups/
 
