@@ -67,18 +67,13 @@ To resurrect, you need the following data:
 DATABASE_URL=                   postgres://db:5432 
 LOCAL_RESTORE= up1
 ```
-3. create a directory called 'db_backups' in this directory, and move the DB backup file there  up
-4. remove the `data` direcotry if exists
-
-5. Run `docker-compose --file docker-compose-restore-local.yml up` This will sort of fail or hang, but it will have a DB container that you can connect to
-In another terminal `docker exec` into the created postgres container, connect to the database qith `psql -h localhost -U postgres` and change the password to "postgres"  with the `\password` ommand
-
-6. Now you can stop the previous docker compose, and run the makemigrations and migrate and collectstaticsetup steps as described above, but with `--file docker-compose-restore-local.yml` everywhere. You don't need to run the createsuperuser one. 
+3. create a directory called 'db_backups' in this directory, and move the DB backup file there 
+4. run the setup steps described above with `--file docker-compose-restore-local.yml`. The `cratesupersuer` step might fail at first, but you can repeat it afterthe migrations and it will work.  
 
 If you load `localhost:8000` in your browser, you will see now the starting page, but with no content. 
 
-No is the time when we fill up the database:
-7. `docker exec` into the postgres container again and import the DB backup:
+Now is the time when we fill up the database:
+5. `docker exec` into the postgres container again and import the DB backup:
 ```
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d postgres db_backups/DB_backup
 ```
