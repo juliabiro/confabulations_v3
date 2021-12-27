@@ -41,6 +41,7 @@ class StoryView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'confabulation/storyView.html')
+        print(response)
         self.assertContains(response, INVALID_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, MALFORMED_PHOTO_NAME+" doesn&#39;t exist")
         self.assertContains(response, MISSING_PHOTO_NAME+" doesn&#39;t exist")

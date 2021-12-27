@@ -1,6 +1,6 @@
 FROM python:3.6.6
 ENV PYTHONUNBUFFERED 1
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib libql
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/

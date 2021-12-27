@@ -1,12 +1,19 @@
 version: '2'
 services:
   db:
-    image: postgres
+    image: postgres:latest
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      #- ./data/db:/var/lib/postgresql/data
       - ./db_backups:/db_backups
     env_file:
       - ${ENV_FILE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 30s
+      retries: 3
+    ports:
+      - "5432:5432"
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -16,6 +23,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - ${ENV_FILE} 
