@@ -111,12 +111,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'HOST': db_from_env['HOST'],
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PASSWORD': 'postgres',
         'PORT': 5432,
     }
 }
 
+if "DATABASE_URL" in os.environ:
+    DATABASES['default']['HOST'] = db_from_env['HOST'] # apparently the dj_database_url lib changed
 
 
 # Password validation

@@ -6,6 +6,7 @@ before_install:
   - export DJANGO_SETTINGS_MODULE=dbbackend.settings
   - export PYTHONPATH=$HOME/builds/juliabiro/confabulations_v3
   - export PIP_USE_MIRRORS=true
+  - export DATABASE_URL=postgres://db:5432
 
 install:
   - pip install --upgrade pip
