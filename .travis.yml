@@ -2,10 +2,14 @@ language: python
 python:
   - "3.6.6"
 
+services:
+  - postgresql
+
 before_install:
   - export DJANGO_SETTINGS_MODULE=dbbackend.settings
   - export PYTHONPATH=$HOME/builds/juliabiro/confabulations_v3
   - export PIP_USE_MIRRORS=true
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 install:
   - pip install --upgrade pip
@@ -20,3 +24,7 @@ script:
   - python manage.py migrate
   - python manage.py collectstatic 
   - python manage.py test confabulation/tests
+
+test:
+  adapter: postgresql
+  database: travis_ci_test

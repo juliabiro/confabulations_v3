@@ -177,8 +177,12 @@ LOGIN_REDIRECT_URL = '/confabulation/'
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.sqlite3',
-            'NAME':     'travisci'
+            'ENGINE':   'django.db.backends.postgresql',
+            'NAME':     'travis_ci_test',
+            'USER': 'postgres',
+            'HOST': 'localhost',
+            'PASSWORD': 'postgres',
+            'PORT': 5432,
         }
     }
 
