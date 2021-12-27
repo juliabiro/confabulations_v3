@@ -93,6 +93,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries' : {
+                'staticfiles': 'django.templatetags.static', 
+            }
         },
     },
 ]
@@ -109,10 +112,14 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'HOST': 'db',
+        'PASSWORD': 'postgres',
         'PORT': 5432,
     }
 }
-DATABASES['default'].update(db_from_env)
+
+if "DATABASE_URL" in os.environ:
+    DATABASES['default']['HOST'] = db_from_env['HOST'] # apparently the dj_database_url lib changed
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -170,7 +177,12 @@ LOGIN_REDIRECT_URL = '/confabulation/'
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.sqlite3',
-            'NAME':     'travisci'
+            'ENGINE':   'django.db.backends.postgresql',
+            'NAME':     'travis_ci_test',
+            'USER': 'postgres',
+            'HOST': 'localhost',
+            'PASSWORD': 'postgres',
+            'PORT': 5432,
         }
     }
+

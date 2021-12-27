@@ -26,6 +26,7 @@ $ docker-compose run web python manage.py createsuperuser
 # set up database schema
 $ docker-compose run web python manage.py makemigrations
 $ docker-compose run web python manage.py migrate
+$ docker-compose run web python manage.py collectstatic
  
 # run server
 $ docker-compose up
@@ -48,3 +49,42 @@ The secrets come form environmental variables. Required variables:
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
 Optionally a LOCAL variable can be set to enable Django DEBUG mode. 
+
+## Archived version
+
+The app is being archived. It is yet unclear how it will be reused; but it should be runnable both locally and as a new heroku app. 
+To resurrect, you need the following data:
+
+1. a copy of the database backup
+2. API KEYS to the AWS and Cloudinary accounts
+
+
+### Local resurrect up
+
+1. Create a web-variables file locally. Add the needed variables in a `key=value` format 
+2. In the web-variables-file, set  up
+```
+DATABASE_URL=                   postgres://db:5432 
+LOCAL_RESTORE= up1
+```
+3. create a directory called 'db_backups' in this directory, and move the DB backup file there 
+4. run the setup steps described above with `--file docker-compose-restore-local.yml`. The `cratesupersuer` step might fail at first, but you can repeat it afterthe migrations and it will work.  
+
+If you load `localhost:8000` in your browser, you will see now the starting page, but with no content. 
+
+Now is the time when we fill up the database:
+5. `docker exec` into the postgres container again and import the DB backup:
+```
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d postgres db_backups/DB_backup
+```
+As it is described here https://devcenter.heroku.com/articles/heroku-postgres-import-export#restore-to-local-database
+
+If you reload now, you will see new content on the website. If you click around, you will be prompted for a password, you can get it from it's usual source (a passwordmanager)
+
+If you would lose it, you can always create a new one with the createsuperuser command (but the DB backu already contains that)
+
+
+
+### Heroku resurrect
+
+Create new herokup app, load DB into a new DB as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export
