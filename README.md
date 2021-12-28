@@ -20,14 +20,14 @@ The site doesn't work as an API, with meaningful URI structure. This is intentio
 ```
 $ docker-compose build
 
-# set up superuser
-$ docker-compose run web python manage.py createsuperuser
-
 # set up database schema
 $ docker-compose run web python manage.py makemigrations
 $ docker-compose run web python manage.py migrate
 $ docker-compose run web python manage.py collectstatic
  
+# set up superuser
+$ docker-compose run web python manage.py createsuperuser
+
 # run server
 $ docker-compose up
 
@@ -45,6 +45,7 @@ The secrets come form environmental variables. Required variables:
  - DJANGO_SECRET_KEY
  - CLOUDFRONT_KEY_ID
  - CLOUDFRONT_KEY (in a one-line string that contains the CR and NL character as \r and \n)
+ - DATABASE_URL (in the format of `postgres://<url>:5432`)
  
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
@@ -68,7 +69,7 @@ DATABASE_URL=                   postgres://db:5432
 LOCAL_RESTORE= up1
 ```
 3. create a directory called 'db_backups' in this directory, and move the DB backup file there 
-4. run the setup steps described above with `--file docker-compose-restore-local.yml`. The `cratesupersuer` step might fail at first, but you can repeat it afterthe migrations and it will work.  
+4. run the setup steps described above with `--file docker-compose-restore-local.yml`.  (This is the same as the main `doker-compse.yml`, but it mounts the directory with the backup, so we can access it later.  
 
 If you load `localhost:8000` in your browser, you will see now the starting page, but with no content. 
 
