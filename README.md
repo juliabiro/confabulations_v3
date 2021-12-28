@@ -88,6 +88,7 @@ If you would lose it, you can always create a new one with the createsuperuser c
 
 ### Heroku resurrect
 
+
 For that you will need the (heroku cli tool)[https://devcenter.heroku.com/articles/heroku-cli]
 
 1. Create new ( herokup app )[https://dashboard.heroku.com/apps], push the confabulations code to it as described in the insturctions after the app is created
@@ -102,4 +103,4 @@ $ heroku run python manage.py  makemigrations migrate-a <app name>
 
 ```
 
-2. load DB into a new DB as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export
+4. load DB into a new DB as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export
