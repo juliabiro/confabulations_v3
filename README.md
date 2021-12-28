@@ -45,7 +45,7 @@ The secrets come form environmental variables. Required variables:
  - DJANGO_SECRET_KEY
  - CLOUDFRONT_KEY_ID
  - CLOUDFRONT_KEY (in a one-line string that contains the CR and NL character as \r and \n)
- - DATABASE_URL (in the format of `postgres://<url>:5432`)
+ - DATABASE_URL (in the format of `postgres://<dbname>:<db_suer>@<url>:5432/<db_password>`)
  
  Locally these values are read from a file that is set in https://github.com/juliabiro/confabulations_v3/blob/master/.env. 
 
@@ -65,8 +65,8 @@ To resurrect, you need the following data:
 1. Create a web-variables file locally. Add the needed variables in a `key=value` format 
 2. In the web-variables-file, set  up
 ```
-DATABASE_URL=                   postgres://db:5432 
-LOCAL_RESTORE= up1
+DATABASE_URL=                   postgres://postgres:postgres@db:5432/postgres 
+LOCAL_RESTORE=1
 ```
 3. create a directory called 'db_backups' in this directory, and move the DB backup file there 
 4. run the setup steps described above with `--file docker-compose-restore-local.yml`.  (This is the same as the main `doker-compse.yml`, but it mounts the directory with the backup, so we can access it later.  
@@ -88,10 +88,18 @@ If you would lose it, you can always create a new one with the createsuperuser c
 
 ### Heroku resurrect
 
-1. Create new herokup app, push the confabulations code to it as described in the insturctions after the app is created
+For that you will need the (heroku cli tool)[https://devcenter.heroku.com/articles/heroku-cli]
 
-2. set the evironmental variables in heroku 
+1. Create new ( herokup app )[https://dashboard.heroku.com/apps], push the confabulations code to it as described in the insturctions after the app is created
 
-2. run the migrations and the collectstatic
+
+2. set the environmental variables in heroku 
+
+3. run the migrations and the collectstatic
+```
+$ heroku run python manage.py  makemigrations -a <app name>
+$ heroku run python manage.py  makemigrations migrate-a <app name>
+
+```
 
 2. load DB into a new DB as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export

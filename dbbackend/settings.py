@@ -118,7 +118,7 @@ DATABASES = {
 }
 
 if "DATABASE_URL" in os.environ:
-    DATABASES['default']['HOST'] = db_from_env['HOST'] # apparently the dj_database_url lib changed
+    DATABASES['default'].update(db_from_env)
 
 
 # Password validation
