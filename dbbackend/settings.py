@@ -157,7 +157,7 @@ USE_TZ = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['confabulations-v3.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['confabulations-v3.herokuapp.com', 'localhost', 'archival-test.herokuapp.com']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
