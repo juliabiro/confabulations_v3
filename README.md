@@ -105,4 +105,9 @@ $ heroku run python manage.py  makemigrations migrate-a <app name>
 
 ```
 
-4. load DB into a new DB as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export
+Now you can restore the DB from the backup as described here [https://devcenter.heroku.com/articles/heroku-postgres-import-export
+1. upload the file to s3
+2. create presigned url (you can create one from the console)
+3. `heroku pg:backups:restore '<SIGNED URL>' DATABASE_URL -a archival-test`
+
+When this finishes, you can reload the heroku app and you should see all the database contents. You can use the existing credentials to log in, or create new ones with th `createsuperuser`
