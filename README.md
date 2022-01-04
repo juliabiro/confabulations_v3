@@ -190,3 +190,4 @@ Now you can restore the DB from the backup as described here [https://devcenter.
 3. `heroku pg:backups:restore '<SIGNED URL>' DATABASE_URL -a archival-test`
 
 When this finishes, you can reload the heroku app and you should see all the database contents. You can use the existing credentials to log in, or create new ones with th `createsuperuser`
+
