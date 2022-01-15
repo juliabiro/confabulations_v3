@@ -147,12 +147,14 @@ To resurrect, you need the following data:
 DATABASE_URL=                   postgres://postgres:postgres@db:5432/postgres 
 LOCAL_RESTORE=1
 ```
+
 3. create a directory called 'db_backups' in this directory, and move the DB backup file there 
-4. run the setup steps described above with `--file docker-compose-restore-local.yml`.  (This is the same as the main `doker-compse.yml`, but it mounts the directory with the backup, so we can access it later.  
+4. run the setup steps described above with `--file docker-compose-restore-local.yml`.  (This is the same as the main `docker-compse.yml`, but it mounts the directory with the backup, so we can access it later.  
 
 If you load `localhost:8000` in your browser, you will see now the starting page, but with no content. 
 
 Now is the time when we fill up the database:
+
 5. `docker exec` into the postgres container again and import the DB backup:
 ```
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d postgres db_backups/DB_backup
