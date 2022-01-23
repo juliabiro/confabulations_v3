@@ -49,7 +49,7 @@ HONEYCOMB_API_KEY=""
 if "HONEYCOMB_API_KEY" in os.environ:
     HONEYCOMB_API_KEY=os.environ["HONEYCOMB_API_KEY"]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['confabulations-v3.herokuapp.com', 'localhost', 'archival-test.herokuapp.com']
 
 SITE_NAME = "Beyond The Photograph"
 DEBUG_SITE_NAME = "LOCAL DB"
