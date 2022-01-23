@@ -176,8 +176,9 @@ For that you will need the [heroku cli tool](https://devcenter.heroku.com/articl
 
 2. Modify the settngs.py toa [allow the new apps domain as an allowed host](https://github.com/juliabiro/confabulations_v3/pull/118).
 push the confabulations code to it as described in the insturctions after the app is created
+Create a DB too.
 
-2. set the environmental variables in heroku (be careful not to add unnecessary whitespaces)
+2. set the environmental variables in heroku (be careful not to add unnecessary whitespaces). Set the DATABASE_URL to the url of the new DB (users and credentials and all)
 
 3. run the migrations and the collectstatic
 ```
