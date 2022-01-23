@@ -51,7 +51,16 @@ def get_signed_photo_url(file_url, raise_error=True):
 
 def check_asset_availability(key):
     s3_client = _gets3()
-    s3_client.head_object(Bucket=S3_BUCKET, Key=key)
+    try:
+        s3_client.head_object(Bucket=S3_BUCKET, Key=key)
+    except ClienError as e:
+        if raise_error:
+            raise e
+        else:
+            print(e)
+            print(key)
+            return None
+
 
 def get_signed_asset_s3_link(key, raise_error=True):
     try:
