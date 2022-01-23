@@ -40,18 +40,27 @@ def parse_key_from_url(url):
 
 def get_signed_video_url(file_name, raise_error=True):
     key = VIDEOS_DIR+file_name
-    check_asset_availability(key)
+    check_asset_availability(key, raise_error)
     return get_signed_asset_link(key, raise_error)
 
 def get_signed_photo_url(file_url, raise_error=True):
     key = file_url.split(S3_BUCKET)[-1].strip("/")
-    check_asset_availability(key)
+    check_asset_availability(key, raise_error)
     return get_signed_asset_link(key, raise_error)
 
 
-def check_asset_availability(key):
+def check_asset_availability(key, raise_error=True):
     s3_client = _gets3()
-    s3_client.head_object(Bucket=S3_BUCKET, Key=key)
+    try:
+        s3_client.head_object(Bucket=S3_BUCKET, Key=key)
+    except ClientError as e:
+        if raise_error:
+            raise e
+        else:
+            print(e)
+            print(key)
+            return None
+
 
 def get_signed_asset_s3_link(key, raise_error=True):
     try:
